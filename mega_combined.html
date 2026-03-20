@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإطار القانوني والتنظيمي لمنظومة التربية والتكوين بالمغرب</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@300;400;600;700;900&display=swap');
+
+:root {
+  --bg-primary: #f0f4f8;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-header: #0d2b4e;
+  --bg-sidebar: #081d35;
+  --text-primary: #1a2e4a;
+  --text-secondary: #4a6080;
+  --text-muted: #8a9ab0;
+  --text-inverse: #ffffff;
+  --accent-gold: #c8933a;
+  --accent-gold-light: #e8a84a;
+  --accent-blue: #1a6b9a;
+  --accent-blue-light: #4da3d8;
+  --accent-green: #2d8a5e;
+  --accent-green-light: #4abf88;
+  --border: #d8e4f0;
+  --border-light: #eaf0f8;
+  --shadow-sm: 0 1px 4px rgba(13,43,78,0.07);
+  --shadow-md: 0 4px 16px rgba(13,43,78,0.10);
+  --shadow-lg: 0 8px 32px rgba(13,43,78,0.13);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --font-display: 'Cairo', 'Tajawal', sans-serif;
+  --font-body: 'Tajawal', 'Cairo', sans-serif;
+  --sidebar-w: 260px;
+}
+[data-theme="dark"] {
+  --bg-primary: #0d1b2a;
+  --bg-secondary: #112236;
+  --bg-card: #162d45;
+  --bg-header: #07111c;
+  --bg-sidebar: #050e17;
+  --text-primary: #e8f0fa;
+  --text-secondary: #9ab5d0;
+  --text-muted: #5a7a95;
+  --accent-gold: #e8a84a;
+  --accent-gold-light: #f5c470;
+  --accent-blue: #4da3d8;
+  --accent-blue-light: #7fc4ed;
+  --accent-green: #4abf88;
+  --accent-green-light: #6edba8;
+  --border: #1e3a55;
+  --border-light: #162d45;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--bg-header);
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  gap: 14px;
+}
+.topbar-menu-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.topbar-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar-title span { color: var(--accent-gold); }
+.topbar-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.topbar-btn {
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff;
+  border-radius: 50px;
+  padding: 5px 14px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.topbar-btn:hover { background: rgba(255,255,255,0.2); }
+.topbar-btn.active-btn { background: var(--accent-gold); border-color: var(--accent-gold); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  top: 58px; right: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  z-index: 150;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,147,58,0.3) transparent;
+  transition: transform 0.3s ease;
+  border-left: 1px solid rgba(255,255,255,0.06);
+}
+.sidebar.collapsed { transform: translateX(var(--sidebar-w)); }
+.sidebar-inner { padding: 14px 0 30px; }
+.sidebar-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em;
+  padding: 16px 18px 6px;
+  text-transform: uppercase;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 0.82rem;
+  border-right: 3px solid transparent;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: right;
+  font-family: var(--font-body);
+}
+.sidebar-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.sidebar-link.active {
+  color: var(--accent-gold);
+  background: rgba(200,147,58,0.1);
+  border-right: 3px solid var(--accent-gold);
+  font-weight: 600;
+}
+[data-theme="dark"] .sidebar-link.active { border-right-color: var(--accent-gold); }
+.sidebar-icon { font-size: 0.9rem; flex-shrink: 0; }
+.sidebar-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 8px 0; }
+
+/* ── MAIN ── */
+.main-wrap {
+  margin-top: 58px;
+  margin-right: var(--sidebar-w);
+  transition: margin-right 0.3s ease;
+  min-height: calc(100vh - 58px);
+  flex: 1;
+}
+.main-wrap.sidebar-hidden { margin-right: 0; }
+
+/* ── SECTIONS ── */
+.page-section { display: none; }
+.page-section.active {
+  display: block;
+  animation: fadeUp 0.35s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, var(--bg-header) 0%, #1a4a7a 100%);
+  padding: 40px 44px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-50px; left:-50px;
+  width:220px; height:220px; background:rgba(200,147,58,0.12); border-radius:50%;
+}
+.hero::after {
+  content:''; position:absolute; bottom:-70px; right:-40px;
+  width:280px; height:280px; background:rgba(255,255,255,0.03); border-radius:50%;
+}
+.hero-badge {
+  display:inline-block; background:var(--accent-gold);
+  color:#fff; border-radius:50px; padding:3px 14px;
+  font-size:0.72rem; font-weight:700; margin-bottom:12px;
+  position:relative; z-index:1;
+}
+.hero h1 {
+  font-family:var(--font-display); font-size:1.8rem; font-weight:800;
+  margin-bottom:10px; position:relative; z-index:1;
+}
+.hero p { color:rgba(255,255,255,0.78); font-size:0.93rem; max-width:650px; position:relative; z-index:1; }
+
+/* ── CONTENT AREA ── */
+.content { padding: 28px 32px 64px; max-width: 960px; }
+
+/* ── SECTION TITLE ── */
+.sec-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 28px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-title::after {
+  content:''; flex:1; height:1px; background:var(--border);
+}
+
+/* ── GRIDS ── */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:14px 0; }
+@media(max-width:720px){ .g2,.g3{grid-template-columns:1fr;} }
+
+/* ── CARD ── */
+.card {
+  background:var(--bg-card); border:0.5px solid var(--border);
+  border-radius:var(--radius-md); padding:18px;
+  box-shadow:var(--shadow-sm);
+  transition:box-shadow 0.2s, transform 0.2s;
+}
+.card:hover { box-shadow:var(--shadow-md); transform:translateY(-2px); }
+.card.clickable { cursor:pointer; }
+.card.clickable:hover { background:rgba(26,107,154,0.04); }
+.card-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.c-icon {
+  width:42px; height:42px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;
+}
+.c-icon.gold { background:rgba(200,147,58,0.14); color:var(--accent-gold); }
+.c-icon.blue { background:rgba(26,107,154,0.14); color:var(--accent-blue); }
+.c-icon.green { background:rgba(45,138,94,0.14); color:var(--accent-green); }
+.c-icon.red { background:rgba(192,57,43,0.12); color:#c0392b; }
+.c-icon.purple { background:rgba(120,60,180,0.12); color:#783cb4; }
+.card-title { font-family:var(--font-display); font-size:0.95rem; font-weight:700; }
+.card-sub { font-size:0.76rem; color:var(--text-muted); margin-top:2px; }
+.card-body { font-size:0.86rem; color:var(--text-secondary); line-height:1.75; }
+
+/* ── REVEAL CARD ── */
+.rc .rc-content { max-height:0; overflow:hidden; opacity:0; transition:max-height 0.4s, opacity 0.3s; }
+.rc.open .rc-content { max-height:600px; opacity:1; }
+.rc-trigger { display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+.rc-arrow { font-size:0.85rem; color:var(--text-muted); transition:transform 0.3s; flex-shrink:0; }
+.rc.open .rc-arrow { transform:rotate(180deg); }
+
+/* ── ACCORDION ── */
+.acc-item { border:0.5px solid var(--border); border-radius:var(--radius-md); margin-bottom:8px; overflow:hidden; }
+.acc-btn {
+  width:100%; background:var(--bg-card); border:none;
+  padding:13px 18px; text-align:right; cursor:pointer;
+  font-family:var(--font-body); font-size:0.88rem; font-weight:600;
+  color:var(--text-primary);
+  display:flex; justify-content:space-between; align-items:center;
+  transition:background 0.2s;
+}
+.acc-btn:hover { background:rgba(26,107,154,0.04); }
+.acc-icon { font-size:0.85rem; color:var(--text-muted); transition:transform 0.3s; flex-shrink:0; }
+.acc-item.open .acc-icon { transform:rotate(180deg); }
+.acc-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease; background:var(--bg-secondary); }
+.acc-item.open .acc-body { max-height:500px; }
+.acc-content { padding:13px 18px; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+
+/* ── PILL SELECTOR ── */
+.pills { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+.pill {
+  background:rgba(26,107,154,0.08); border:0.5px solid var(--border);
+  border-radius:50px; padding:6px 16px; font-family:var(--font-body);
+  font-size:0.8rem; cursor:pointer; transition:all 0.2s; color:var(--text-secondary);
+}
+.pill:hover { background:rgba(26,107,154,0.14); }
+.pill.active { background:var(--accent-blue); color:#fff; border-color:var(--accent-blue); font-weight:600; }
+.pill-pane { display:none; }
+.pill-pane.show { display:block; animation:fadeUp 0.3s ease; }
+
+/* ── INFO / WARNING BOXES ── */
+.info-box {
+  background:rgba(26,107,154,0.07); border-left:4px solid var(--accent-blue);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px;
+  margin:14px 0; font-size:0.86rem; color:var(--text-secondary);
+}
+[dir="rtl"] .info-box { border-left:none; border-right:4px solid var(--accent-blue); border-radius:var(--radius-sm) 0 0 var(--radius-sm); }
+.warn-box {
+  background:rgba(200,147,58,0.07); border-right:4px solid var(--accent-gold);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px;
+  margin:14px 0; font-size:0.86rem;
+}
+[dir="rtl"] .warn-box { border-right:none; border-left:4px solid var(--accent-gold); border-radius:var(--radius-sm) 0 0 var(--radius-sm); }
+
+/* ── STYLED LIST ── */
+.slist { list-style:none; padding:0; }
+.slist li {
+  display:flex; gap:10px; padding:7px 0;
+  border-bottom:0.5px solid var(--border-light);
+  font-size:0.86rem; color:var(--text-secondary);
+}
+.slist li:last-child { border-bottom:none; }
+.slist li::before {
+  content:'◆'; color:var(--accent-gold); flex-shrink:0;
+  font-size:0.55rem; margin-top:6px;
+}
+
+/* ── STEPPER ── */
+.stepper { margin:16px 0; }
+.step {
+  display:flex; gap:14px; margin-bottom:18px; position:relative;
+}
+.step::before {
+  content:''; position:absolute; left:19px; top:42px;
+  width:2px; height:calc(100% - 10px); background:var(--border);
+}
+[dir="rtl"] .step::before { left:auto; right:19px; }
+.step:last-child::before { display:none; }
+.step-num {
+  width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:0.88rem; color:#fff; flex-shrink:0;
+}
+.step-body { flex:1; padding-top:5px; }
+.step-ttl { font-family:var(--font-display); font-weight:700; font-size:0.92rem; margin-bottom:3px; }
+.step-dsc { font-size:0.83rem; color:var(--text-secondary); }
+
+/* ── TIMELINE ── */
+.tl { margin:14px 0; }
+.tl-item { display:flex; gap:14px; margin-bottom:14px; }
+.tl-marker { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
+.tl-year {
+  font-family:var(--font-display); font-weight:800; font-size:0.82rem;
+  color:var(--accent-gold); background:rgba(200,147,58,0.12);
+  border-radius:6px; padding:2px 8px; white-space:nowrap;
+}
+.tl-line { width:2px; flex:1; background:var(--border); margin:4px auto; min-height:20px; }
+.tl-content { padding-top:2px; flex:1; }
+.tl-ttl { font-weight:700; font-size:0.88rem; margin-bottom:3px; }
+.tl-dsc { font-size:0.8rem; color:var(--text-secondary); }
+
+/* ── STATS ── */
+.stats-row { display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; }
+.stat-box {
+  background:var(--bg-card); border:0.5px solid var(--border);
+  border-radius:var(--radius-md); padding:14px 18px; text-align:center; flex:1; min-width:90px;
+}
+.stat-n { font-family:var(--font-display); font-size:2rem; font-weight:800; color:var(--accent-gold); line-height:1; }
+.stat-l { font-size:0.76rem; color:var(--text-muted); margin-top:3px; }
+
+/* ── COMPARISON ── */
+.cmp { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0; }
+.cmp-col { background:var(--bg-card); border:0.5px solid var(--border); border-radius:var(--radius-md); padding:14px; }
+.cmp-col h4 { font-family:var(--font-display); font-size:0.88rem; font-weight:700; margin-bottom:10px; padding-bottom:7px; border-bottom:2px solid; }
+.cmp-col.c-blue h4 { border-color:var(--accent-blue); color:var(--accent-blue); }
+.cmp-col.c-green h4 { border-color:var(--accent-green); color:var(--accent-green); }
+@media(max-width:600px){ .cmp{grid-template-columns:1fr;} }
+
+/* ── QUIZ ── */
+.quiz-wrap { background:var(--bg-card); border:0.5px solid var(--border); border-radius:var(--radius-lg); padding:26px; margin:18px 0; }
+.q-progress { width:100%; height:6px; background:var(--border); border-radius:50px; margin-bottom:18px; overflow:hidden; }
+.q-progress-fill { height:100%; background:var(--accent-gold); border-radius:50px; transition:width 0.4s; }
+.q-dots { display:flex; gap:7px; justify-content:center; margin-bottom:18px; flex-wrap:wrap; }
+.q-dot {
+  width:10px; height:10px; border-radius:50%; background:var(--border); cursor:pointer; transition:all 0.2s;
+}
+.q-dot.current { background:var(--accent-gold); transform:scale(1.45); }
+.q-dot.ok { background:var(--accent-green); }
+.q-dot.bad { background:#c0392b; }
+.q-num { font-size:0.78rem; color:var(--text-muted); margin-bottom:7px; }
+.q-text { font-family:var(--font-display); font-size:1.08rem; font-weight:700; margin-bottom:18px; line-height:1.5; }
+.q-opts { display:flex; flex-direction:column; gap:9px; }
+.q-opt {
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-radius:var(--radius-md); padding:11px 16px; cursor:pointer;
+  font-family:var(--font-body); font-size:0.88rem; color:var(--text-primary);
+  text-align:right; transition:all 0.2s; display:flex; align-items:center; gap:10px;
+}
+.q-opt:hover:not(:disabled) { background:rgba(26,107,154,0.06); border-color:var(--accent-blue); transform:translateX(-2px); }
+.q-opt:disabled { cursor:default; transform:none; }
+.q-opt.correct { background:rgba(45,138,94,0.12); border-color:var(--accent-green); }
+.q-opt.wrong { background:rgba(192,57,43,0.10); border-color:#c0392b; }
+[data-theme="dark"] .q-opt.correct { background:rgba(45,138,94,0.2); }
+[data-theme="dark"] .q-opt.wrong { background:rgba(192,57,43,0.2); }
+.opt-ltr {
+  width:26px; height:26px; border-radius:50%;
+  background:var(--border); display:flex; align-items:center; justify-content:center;
+  font-size:0.76rem; font-weight:700; flex-shrink:0; transition:background 0.2s;
+}
+.q-opt.correct .opt-ltr { background:var(--accent-green); color:#fff; }
+.q-opt.wrong .opt-ltr { background:#c0392b; color:#fff; }
+.q-fb {
+  margin-top:12px; padding:11px 14px; border-radius:var(--radius-sm);
+  font-size:0.85rem; display:none; animation:fadeUp 0.3s;
+}
+.q-fb.show { display:block; }
+.q-fb.fb-ok { background:rgba(45,138,94,0.1); border:0.5px solid var(--accent-green); color:var(--accent-green); }
+.q-fb.fb-bad { background:rgba(192,57,43,0.08); border:0.5px solid #c0392b; color:#c0392b; }
+.q-nav { display:flex; justify-content:space-between; align-items:center; margin-top:18px; gap:10px; }
+.btn {
+  background:var(--accent-blue); color:#fff; border:none; border-radius:50px;
+  padding:9px 22px; font-family:var(--font-body); font-size:0.86rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+}
+.btn:hover { opacity:0.88; transform:translateY(-1px); }
+.btn:disabled { opacity:0.4; cursor:default; transform:none; }
+.btn-gold { background:var(--accent-gold); }
+.btn-ghost {
+  background:transparent; color:var(--text-secondary);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover { background:rgba(26,107,154,0.05); }
+.q-result { text-align:center; padding:20px; display:none; animation:fadeUp 0.5s; }
+.q-result.show { display:block; }
+.q-result-score { font-family:var(--font-display); font-size:3.5rem; font-weight:800; color:var(--accent-gold); line-height:1; margin:14px 0 6px; }
+.q-result-label { font-size:0.95rem; color:var(--text-secondary); margin-bottom:18px; }
+.q-result-stars { font-size:1.9rem; margin-bottom:10px; }
+
+/* ── PYRAMID ── */
+.pyramid-level {
+  cursor:pointer; border-radius:var(--radius-sm); padding:11px 18px; margin:4px 0;
+  display:flex; align-items:center; gap:12px; transition:all 0.2s; border:0.5px solid var(--border);
+}
+.pyramid-level:hover { transform:translateX(-3px); box-shadow:var(--shadow-sm); }
+.pyramid-level.active { box-shadow:var(--shadow-md); }
+.pyr-detail {
+  background:var(--bg-secondary); border:0.5px solid var(--border); border-radius:var(--radius-md);
+  padding:14px 18px; margin-top:8px; font-size:0.85rem; color:var(--text-secondary);
+  display:none; animation:fadeUp 0.3s;
+}
+.pyr-detail.show { display:block; }
+.pyr-num { font-weight:800; font-size:1.05rem; width:28px; flex-shrink:0; }
+
+/* ── MOBILE OVERLAY ── */
+.overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:140;
+}
+.overlay.show { display:block; }
+
+@media(max-width:900px){
+  .sidebar { transform:translateX(var(--sidebar-w)); }
+  .sidebar.open { transform:translateX(0); }
+  .main-wrap { margin-right:0 !important; }
+  .overlay.show { display:block; }
+  .content { padding:20px 16px 48px; }
+  .hero { padding:26px 20px; }
+  .hero h1 { font-size:1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <button class="topbar-menu-btn" id="menuBtn" title="القائمة">☰</button>
+  <div class="topbar-title">الإطار <span>القانوني والتنظيمي</span> — منظومة التربية والتكوين بالمغرب</div>
+  <div class="topbar-actions">
+    <button class="topbar-btn" id="themeBtn">🌙 داكن</button>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-section-label">محاور الدرس</div>
+    <button class="sidebar-link active" data-sec="intro">
+      <span class="sidebar-icon">🏠</span> مقدمة
+    </button>
+    <button class="sidebar-link" data-sec="constitution">
+      <span class="sidebar-icon">📜</span> المرجعية الدستورية
+    </button>
+    <button class="sidebar-link" data-sec="strategic">
+      <span class="sidebar-icon">🎯</span> المرجعية الاستراتيجية
+    </button>
+    <button class="sidebar-link" data-sec="systems">
+      <span class="sidebar-icon">📋</span> الأنظمة الأساسية
+    </button>
+    <button class="sidebar-link" data-sec="impacts">
+      <span class="sidebar-icon">🏫</span> الانعكاسات على المؤسسات
+    </button>
+    <button class="sidebar-link" data-sec="international">
+      <span class="sidebar-icon">🌍</span> المرجعيات الدولية
+    </button>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">التقييم</div>
+    <button class="sidebar-link" data-sec="quiz">
+      <span class="sidebar-icon">🎯</span> اختبار شامل (10 أسئلة)
+    </button>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">نظرة عامة</div>
+    <button class="sidebar-link" data-sec="intro" style="font-size:0.75rem;opacity:0.6;">
+      <span class="sidebar-icon">📌</span> الإطار القانوني — 2025–2026
+    </button>
+  </div>
+</nav>
+<div class="overlay" id="overlay"></div>
+
+<!-- MAIN -->
+<div class="main-wrap" id="mainWrap">
+
+  <!-- ═══════════ INTRO ═══════════ -->
+  <section class="page-section active" id="sec-intro">
+    <div class="hero">
+      <div class="hero-badge">مقدمة</div>
+      <h1>الإطار القانوني والتنظيمي لمنظومة التربية والتكوين</h1>
+      <p>قراءة في المرجعيات التشريعية والتنظيمية المؤطِّرة للمنظومة التربوية بالمغرب — من الدستور إلى القرارات التنظيمية</p>
+    </div>
+    <div class="content">
+      <div class="g2">
+        <div class="card">
+          <div class="card-head"><div class="c-icon gold">⚖️</div><div><div class="card-title">أهمية التشريع التربوي</div></div></div>
+          <ul class="slist">
+            <li>الإطار المرجعي لحقوق وواجبات المتدخلين</li>
+            <li>الضامن للاستمرارية رغم تغيّر الحكومات</li>
+            <li>آلية التوحيد لتحقيق الإنصاف وتكافؤ الفرص</li>
+            <li>أداة الضبط والتنظيم داخل المنظومة</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="c-icon blue">🏗️</div><div><div class="card-title">الهرم التشريعي — اضغط لاستكشاف</div></div></div>
+          <div id="pyramid">
+            <div class="pyramid-level" data-pyr="1" style="background:rgba(13,43,78,0.07)"><span class="pyr-num" style="color:#1a6b9a">١</span>الدستور — القانون الأسمى</div>
+            <div class="pyramid-level" data-pyr="2" style="background:rgba(200,147,58,0.07)"><span class="pyr-num" style="color:#c8933a">٢</span>القوانين التنظيمية</div>
+            <div class="pyramid-level" data-pyr="3" style="background:rgba(45,138,94,0.07)"><span class="pyr-num" style="color:#2d8a5e">٣</span>القوانين العادية (51.17 — 59.21)</div>
+            <div class="pyramid-level" data-pyr="4" style="background:rgba(120,60,180,0.06)"><span class="pyr-num" style="color:#783cb4">٤</span>المراسيم التنظيمية الحكومية</div>
+            <div class="pyramid-level" data-pyr="5" style="background:rgba(100,100,100,0.05)"><span class="pyr-num" style="color:#666">٥</span>القرارات الوزارية والأكاديمية</div>
+            <div class="pyr-detail" id="pyrDetail"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sec-title">محاور الدرس</div>
+      <div class="g3">
+        <div class="card clickable" data-goto="constitution"><div class="c-icon gold" style="margin-bottom:8px;width:50px;height:50px;font-size:1.4rem">📜</div><div class="card-title">المرجعية الدستورية</div><div class="card-body" style="margin-top:5px">فصول دستور 2011 المتعلقة بالتعليم</div></div>
+        <div class="card clickable" data-goto="strategic"><div class="c-icon blue" style="margin-bottom:8px;width:50px;height:50px;font-size:1.4rem">🎯</div><div class="card-title">المرجعية الاستراتيجية</div><div class="card-body" style="margin-top:5px">القانون الإطار 51.17 والقانون 59.21</div></div>
+        <div class="card clickable" data-goto="systems"><div class="c-icon green" style="margin-bottom:8px;width:50px;height:50px;font-size:1.4rem">📋</div><div class="card-title">الأنظمة الأساسية</div><div class="card-body" style="margin-top:5px">نظام الموظفين ونظام المؤسسات</div></div>
+        <div class="card clickable" data-goto="impacts"><div class="c-icon red" style="margin-bottom:8px;width:50px;height:50px;font-size:1.4rem">🏫</div><div class="card-title">الانعكاسات التشريعية</div><div class="card-body" style="margin-top:5px">أثر القوانين على المؤسسات التعليمية</div></div>
+        <div class="card clickable" data-goto="international"><div class="c-icon purple" style="margin-bottom:8px;width:50px;height:50px;font-size:1.4rem">🌍</div><div class="card-title">المرجعيات الدولية</div><div class="card-body" style="margin-top:5px">اليونسكو والأمم المتحدة والبنك الدولي</div></div>
+        <div class="card clickable" data-goto="quiz"><div class="c-icon gold" style="margin-bottom:8px;width:50px;height:50px;font-size:1.4rem">🎯</div><div class="card-title">اختبار شامل</div><div class="card-body" style="margin-top:5px">10 أسئلة تغطي جميع المحاور</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONSTITUTION ═══════════ -->
+  <section class="page-section" id="sec-constitution">
+    <div class="hero">
+      <div class="hero-badge">المحور الأول</div>
+      <h1>المرجعية الدستورية لمنظومة التربية والتكوين</h1>
+      <p>دستور 2011 باعتباره القمة في الهرم القانوني — المبادئ والفصول المؤطِّرة للقطاع التربوي</p>
+    </div>
+    <div class="content">
+      <div class="info-box"><strong>🏛️</strong> الدستور هو القانون الأسمى في الدولة. يحتل مكانة الصدارة في الهرم القانوني وتسمو أحكامه على جميع القوانين والأنظمة. دستور 2011 أولى عناية خاصة للحقوق الاجتماعية ومنها الحق في التعليم.</div>
+      <div class="sec-title">الفصول الدستورية المؤطِّرة</div>
+      <div class="pills" id="constPills">
+        <button class="pill active" data-pill="f5">الفصل 5</button>
+        <button class="pill" data-pill="f31">الفصل 31</button>
+        <button class="pill" data-pill="f32">الفصل 32</button>
+        <button class="pill" data-pill="f33">الفصل 33</button>
+        <button class="pill" data-pill="f34">الفصل 34</button>
+        <button class="pill" data-pill="f154">الفصل 154</button>
+        <button class="pill" data-pill="f168">الفصل 168</button>
+      </div>
+      <div id="cpane-f5" class="pill-pane show"><div class="card"><div class="card-head"><div class="c-icon gold">🗣️</div><div><div class="card-title">الفصل 5 — اللغات الرسمية والتعليم</div></div></div><div class="card-body">يحدد الطابع الرسمي للغتين العربية والأمازيغية، ويلزم الدولة بحمايتهما وتطويرهما وإدماج الأمازيغية في مجال التعليم. وهو ما يفرض على المشرع التربوي تكييف المناهج والكتب المدرسية وفق هذا الالتزام الدستوري.</div><div class="warn-box" style="margin-top:12px"><strong>الأثر التربوي:</strong> إدماج اللغة الأمازيغية في المناهج الدراسية التزام دستوري لا يقبل التنازل.</div></div></div>
+      <div id="cpane-f31" class="pill-pane"><div class="card"><div class="card-head"><div class="c-icon blue">🎓</div><div><div class="card-title">الفصل 31 — الحق في التعليم الجيد</div></div></div><div class="card-body">تعمل الدولة والمؤسسات العمومية والجماعات الترابية على تيسير استفادة المواطنين والمواطنات على قدم المساواة من:</div><ul class="slist" style="margin-top:10px"><li>الحصول على تعليم عصري ميسر الولوج وذي جودة</li><li>التغطية الصحية والعناية الاجتماعية</li><li>التكوين المهني والاستفادة من التربية البدنية والفنية</li></ul></div></div>
+      <div id="cpane-f32" class="pill-pane"><div class="card"><div class="card-head"><div class="c-icon green">👶</div><div><div class="card-title">الفصل 32 — إلزامية التعليم الأساسي</div></div></div><div class="card-body">يؤكد أن التعليم الأساسي حق للطفل وواجب على الأسرة والدولة معاً. الدولة تسعى إلى توفير هذا الحق وجعله متاحاً للجميع دون استثناء.</div></div></div>
+      <div id="cpane-f33" class="pill-pane"><div class="card"><div class="card-head"><div class="c-icon gold">🏛️</div><div><div class="card-title">الفصل 33 — التكوين المهني والقيم</div></div></div><div class="card-body">يحث على إحداث مؤسسات للتكوين المهني والنهوض بالثقافة الوطنية وإدماج قيم التسامح والحوار في المناهج التعليمية.</div></div></div>
+      <div id="cpane-f34" class="pill-pane"><div class="card"><div class="card-head"><div class="c-icon purple">♿</div><div><div class="card-title">الفصل 34 — ذوو الاحتياجات الخاصة</div></div></div><div class="card-body">يسلط الضوء على دور السلطات العمومية في وضع وتفعيل سياسات موجهة إلى الأشخاص والفئات من ذوي الاحتياجات الخاصة، بما فيها الحق في التعليم الدامج والشامل.</div></div></div>
+      <div id="cpane-f154" class="pill-pane"><div class="card"><div class="card-head"><div class="c-icon blue">⚙️</div><div><div class="card-title">الفصل 154 — تنظيم المرافق العمومية</div></div></div><div class="card-body">ينص على أن تنظيم المرافق العمومية (بما فيها التعليم) يتم على أساس:</div><ul class="slist" style="margin-top:10px"><li>المساواة بين المواطنين في الولوج إليها</li><li>الإنصاف في تغطية التراب الوطني</li><li>الاستمرارية في أداء الخدمات</li><li>معايير الجودة والشفافية والمحاسبة والمسؤولية</li></ul></div></div>
+      <div id="cpane-f168" class="pill-pane"><div class="card"><div class="card-head"><div class="c-icon green">🏅</div><div><div class="card-title">الفصل 168 — المجلس الأعلى للتربية</div></div></div><div class="card-body">ينص على إحداث المجلس الأعلى للتربية والتكوين والبحث العلمي بوصفه هيئة دستورية مستقلة. مهمتها الأساسية: إبداء الرأي في السياسات التربوية والتكوينية، وتقييمها، وإصدار تقارير حولها. وهذا يكرّس مبدأ الحكامة الجيدة والتقييم المستقل للمنظومة التعليمية.</div></div></div>
+      <div class="sec-title">خلاصة المبادئ الدستورية</div>
+      <div class="g2">
+        <div class="card"><div class="card-head"><div class="c-icon gold">🎯</div><div><div class="card-title">حقوق أصيلة مكفولة</div></div></div><ul class="slist"><li>الحق في تعليم مجاني وإلزامي وعصري</li><li>تكافؤ الفرص بين جميع المتعلمين</li><li>حماية حقوق الطفل وصون كرامته</li></ul></div>
+        <div class="card"><div class="card-head"><div class="c-icon blue">🏗️</div><div><div class="card-title">التزامات مؤسسية ملزمة</div></div></div><ul class="slist"><li>جودة الخدمات التعليمية العمومية</li><li>إدماج الأمازيغية في التعليم</li><li>رقابة دستورية مستقلة للسياسات التربوية</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ STRATEGIC ═══════════ -->
+  <section class="page-section" id="sec-strategic">
+    <div class="hero">
+      <div class="hero-badge">المحور الثاني</div>
+      <h1>المرجعية الاستراتيجية لإصلاح المنظومة</h1>
+      <p>القانون الإطار 51.17 والقانون 59.21 — الركيزتان الأساسيتان للإصلاح التربوي المغربي</p>
+    </div>
+    <div class="content">
+      <div class="sec-title">محطات الإصلاح التاريخية</div>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-marker"><div class="tl-year">1999</div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-ttl">الميثاق الوطني للتربية والتكوين</div><div class="tl-dsc">أول وثيقة مرجعية شاملة لإصلاح منظومة التربية والتكوين بالمغرب</div></div></div>
+        <div class="tl-item"><div class="tl-marker"><div class="tl-year">2009</div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-ttl">البرنامج الاستعجالي 2009–2012</div><div class="tl-dsc">خطة تنفيذية لتسريع وتيرة الإصلاحات التربوية وتحقيق أهداف التنمية</div></div></div>
+        <div class="tl-item"><div class="tl-marker"><div class="tl-year">2015</div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-ttl">الرؤية الاستراتيجية 2015–2030</div><div class="tl-dsc">تحديد التوجهات الكبرى للإصلاح الشامل للمدرسة المغربية</div></div></div>
+        <div class="tl-item"><div class="tl-marker"><div class="tl-year">2019</div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-ttl">القانون الإطار 51.17</div><div class="tl-dsc">صدوره في الجريدة الرسمية عدد 6805 — المرجعية التشريعية العليا للإصلاح</div></div></div>
+      </div>
+      <div class="sec-title">القانون الإطار 51.17 — الأرقام الأساسية</div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-n">59</div><div class="stat-l">مادة</div></div>
+        <div class="stat-box"><div class="stat-n">10</div><div class="stat-l">أبواب</div></div>
+        <div class="stat-box"><div class="stat-n">2019</div><div class="stat-l">سنة الإصدار</div></div>
+      </div>
+      <div class="sec-title">مبادئ القانون الإطار</div>
+      <div class="g3">
+        <div class="card"><div class="c-icon gold" style="margin-bottom:8px">⚖️</div><div class="card-title" style="margin-bottom:8px">العدالة والإنصاف</div><ul class="slist"><li>المساواة وتكافؤ الفرص</li><li>الاستثمار في التربية</li><li>الدعم الاجتماعي</li></ul></div>
+        <div class="card"><div class="c-icon blue" style="margin-bottom:8px">🏅</div><div class="card-title" style="margin-bottom:8px">الجودة والحكامة</div><ul class="slist"><li>التحسين المستمر للجودة</li><li>التقييم الدوري والمنتظم</li><li>ملاءمة التكوين مع سوق الشغل</li></ul></div>
+        <div class="card"><div class="c-icon green" style="margin-bottom:8px">🇲🇦</div><div class="card-title" style="margin-bottom:8px">المرجعيات والثوابت</div><ul class="slist"><li>الثوابت الدستورية</li><li>الهوية الوطنية</li><li>قيم حقوق الإنسان</li></ul></div>
+      </div>
+      <div class="sec-title">الأبواب العشرة للقانون الإطار</div>
+      <div id="lawAcc">
+        <div class="acc-item"><button class="acc-btn">الباب الأول: أحكام عامة <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يضع الإطار القانوني الموحد لجميع مكونات المنظومة، ويشرح المصطلحات الأساسية (المتعلم، الجودة، التربية الدامجة)، ويبين نطاق تطبيق القانون على جميع مراحل التربية والتكوين.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب الثاني: مبادئ المنظومة وأهدافها <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يحدد المبادئ الأساسية: الإنصاف والجودة، ويضع الأهداف الكبرى كتنمية رأس المال البشري وتعزيز قيم المواطنة.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب الثالث: مكونات المنظومة وهيكلتها <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يقسم المنظومة إلى مكونات (التعليم المدرسي، التكوين المهني) ويشرح تكاملها لضمان مسار متكامل للمتعلمين.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب الرابع: الولوج والاستفادة <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يشرح آليات ضمان الولوج للجميع عبر الإلزامية، ويعرض آليات الدعم الاجتماعي والتغطية الصحية لمحاربة الهدر المدرسي.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب الخامس: المناهج والبرامج <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يركز على تطوير المناهج بشكل دوري، اعتماد التعدد اللغوي، إدماج التكنولوجيا، وملاءمة البرامج مع حاجات سوق العمل.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب السادس: الموارد البشرية <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يتناول تأهيل الأطر التعليمية والإدارية، تحديد المهام والكفاءات لكل فئة، وتطوير القدرات عبر برامج التكوين المستمر.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب السابع: الحكامة والتدبير <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يعرض آليات الحكامة الناجعة من خلال اللامركزية، استخدام نظم معلوماتية لتتبع الأداء وتقييم مردودية المؤسسات.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب الثامن: التمويل والمجانية <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يُخص مصادر تمويل التعليم مع التأكيد على مجانية التعليم في مختلف مراحله، ويضع صندوقاً خاصاً وتضامناً وطنياً لتمويل التعليم.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب التاسع: التقييم وضمان الجودة <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يركز على وضع نظام تقييم شامل (مراقبة داخلية وخارجية) لضمان جودة المخرجات وتعديل السياسات وفق النتائج.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">الباب العاشر: أحكام انتقالية وختامية <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">يتناول الأحكام الانتقالية لضمان سيرورة تنفيذ الإصلاح، وإحداث لجنة وطنية للتتبع والمواكبة، وتحديد المدد الزمنية لتطبيق البنود.</div></div></div>
+      </div>
+      <div class="sec-title" style="margin-top:28px">القانون 59.21 — التعليم المدرسي</div>
+      <div class="info-box">قانون عادي يتضمن <strong>10 أبواب و113 مادة</strong>، جاء تنزيلاً للقانون الإطار 51.17 والرؤية الاستراتيجية 2015–2030.</div>
+      <div class="cmp">
+        <div class="cmp-col c-green"><h4>إلزامية التعليم</h4><ul class="slist"><li>المادة 6: إلزامية من سن 4 إلى 16 سنة</li><li>التعليم الأولي جزء من الإلزام</li><li>المواد 7–9: مسؤولية التسجيل والتصريح</li><li>المادة 15: رصد مبكر لمحاربة الهدر</li></ul></div>
+        <div class="cmp-col c-blue"><h4>هيكلة التعليم المدرسي</h4><ul class="slist"><li>المادة 16: 6 أسلاك تعليمية واضحة</li><li>المواد 17–23: أهداف محددة لكل سلك</li><li>المادة 24: مسارات التميز والرياضة</li><li>المادة 32–34: الحكامة ومشروع المؤسسة</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SYSTEMS ═══════════ -->
+  <section class="page-section" id="sec-systems">
+    <div class="hero">
+      <div class="hero-badge">المحور الثالث</div>
+      <h1>الأنظمة الأساسية للموارد البشرية والمؤسسات</h1>
+      <p>الأنظمة المؤطِّرة للعاملين في القطاع وللمؤسسات التعليمية العمومية</p>
+    </div>
+    <div class="content">
+      <div class="sec-title">نظام موظفي التربية الوطنية</div>
+      <div class="info-box"><strong>المرسوم 2.24.140</strong> — صدر بتاريخ 23 فبراير 2024. جاء في سياق إصلاح شامل استجابةً لمخرجات الحوار الاجتماعي (اتفاق 10 و26 دجنبر 2023). يهدف إلى توحيد الأنظمة السابقة وتعزيز الاستقرار المهني وتقليص التفاوتات بين الفئات.</div>
+      <div class="g2">
+        <div class="card">
+          <div class="card-head"><div class="c-icon blue">👥</div><div><div class="card-title">الفئات المشمولة بالنظام</div></div></div>
+          <div class="stepper">
+            <div class="step"><div class="step-num" style="background:#c8933a">١</div><div class="step-body"><div class="step-ttl">هيئة التربية والتعليم</div><div class="step-dsc">الأساتذة بمختلف تخصصاتهم ومراحلهم</div></div></div>
+            <div class="step"><div class="step-num" style="background:#1a6b9a">٢</div><div class="step-body"><div class="step-ttl">هيئة الإدارة التربوية والتدبير</div><div class="step-dsc">المديرون والمسيرون الإداريون</div></div></div>
+            <div class="step"><div class="step-num" style="background:#2d8a5e">٣</div><div class="step-body"><div class="step-ttl">هيئة التفتيش والتأطير</div><div class="step-dsc">المفتشون التربويون والأطر المراقِبة</div></div></div>
+            <div class="step"><div class="step-num" style="background:#783cb4">٤</div><div class="step-body"><div class="step-ttl">متصرفو وباحثو التربية</div><div class="step-dsc">الأساتذة الباحثون والمتصرفون</div></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="c-icon gold">📈</div><div><div class="card-title">المسار المهني والترقية</div></div></div>
+          <ul class="slist">
+            <li>الترقية في الرتبة والدرجة وفق معايير واضحة</li>
+            <li>امتحانات الكفاءة المهنية كآلية للترقي</li>
+            <li>التقييم الدوري للأداء المهني</li>
+            <li>المادة 68: تحديد مدة التدريس الأسبوعية</li>
+            <li>حركة انتقالية سنوية — المادة 63</li>
+            <li>نظام تأديبي متدرج: إنذار — توبيخ — توقيف</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sec-title">النظام الأساسي لمؤسسات التربية والتعليم العمومي</div>
+      <div class="info-box"><strong>المرسوم 2.02.376</strong> — صدر في 17 يوليو 2002، تم تعديله 2004. يضع جميع مؤسسات التعليم العمومي تحت إشراف الأكاديميات الجهوية ويحدد طبيعة المؤسسة التعليمية ككيان إداري وتربوي مستقل نسبياً.</div>
+      <div class="g3">
+        <div class="card rc">
+          <div class="rc-trigger"><div><div class="c-icon green" style="margin-bottom:8px">🏫</div><div class="card-title">المدرسة الابتدائية</div></div><span class="rc-arrow">▼</span></div>
+          <div class="rc-content"><div class="card-body" style="margin-top:10px">تختص بالتعليم الابتدائي وتضم التعليم الأولي. اكتساب التعلمات الأساس: قراءة، كتابة، حساب. لكل مؤسسة إدارة خاصة وتنظيم إداري متدرج.</div></div>
+        </div>
+        <div class="card rc">
+          <div class="rc-trigger"><div><div class="c-icon blue" style="margin-bottom:8px">🏢</div><div class="card-title">الثانوية الإعدادية</div></div><span class="rc-arrow">▼</span></div>
+          <div class="rc-content"><div class="card-body" style="margin-top:10px">تختص بالمرحلة الإعدادية مع تنمية الفكر النقدي وروح المبادرة. المدير يشرف على التدبير التربوي والإداري والمالي.</div></div>
+        </div>
+        <div class="card rc">
+          <div class="rc-trigger"><div><div class="c-icon gold" style="margin-bottom:8px">🎓</div><div class="card-title">الثانوية التأهيلية</div></div><span class="rc-arrow">▼</span></div>
+          <div class="rc-content"><div class="card-body" style="margin-top:10px">تختص بالمرحلة التأهيلية وقد تضم أقساماً تحضيرية. توجيه نحو التعليم العالي أو التكوين المهني. فريق إداري موسع: ناظر — حراس عامون.</div></div>
+        </div>
+      </div>
+      <div class="sec-title">مجالس الحكامة داخل المؤسسة</div>
+      <div class="card">
+        <div class="g2">
+          <ul class="slist"><li><strong>مجلس التدبير:</strong> يعنى بالميزانية والتدبير المالي</li><li><strong>المجلس التربوي:</strong> ينسق العمل البيداغوجي</li><li><strong>المجالس التعليمية:</strong> تتبع البرامج الدراسية</li></ul>
+          <ul class="slist"><li><strong>مجالس الأقسام:</strong> تدرس نتائج التلاميذ وسلوكهم</li><li><strong>مشروع المؤسسة:</strong> تخطيط استراتيجي داخل المدرسة</li><li><strong>إشراك الآباء:</strong> ممثلون في اتخاذ القرار</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ IMPACTS ═══════════ -->
+  <section class="page-section" id="sec-impacts">
+    <div class="hero">
+      <div class="hero-badge">المحور الرابع</div>
+      <h1>انعكاسات الإطار التشريعي على المؤسسات التعليمية</h1>
+      <p>كيف تُترجَم النصوص القانونية إلى واقع تربوي يومي داخل المدارس والثانويات</p>
+    </div>
+    <div class="content">
+      <div class="g2">
+        <div class="card"><div class="card-head"><div class="c-icon green">✅</div><div><div class="card-title">ضمان الحق في التعليم</div></div></div><div class="card-body">تُلزم النصوص القانونية الدولة بتوفير مقعد لكل طفل في سن التمدرس ومحاربة الهدر المدرسي عبر نظم الرصد والمتابعة المبكرة.</div></div>
+        <div class="card"><div class="card-head"><div class="c-icon gold">⚖️</div><div><div class="card-title">تحقيق الإنصاف وتكافؤ الفرص</div></div></div><div class="card-body">يفرض الإطار القانوني تكافؤ الفرص بين جميع المتعلمين بصرف النظر عن وسطهم الاجتماعي أو موقعهم الجغرافي أو جنسهم.</div></div>
+        <div class="card"><div class="card-head"><div class="c-icon blue">👔</div><div><div class="card-title">تحديد الأدوار والمسؤوليات</div></div></div><div class="card-body">تحدد النصوص التنظيمية بدقة مهام كل فاعل تربوي: المدير، الأستاذ، المفتش، الناظر، الحارس العام...</div></div>
+        <div class="card"><div class="card-head"><div class="c-icon green">📊</div><div><div class="card-title">الحكامة وربط المسؤولية</div></div></div><div class="card-body">يُرسي مبدأ ربط المسؤولية بالمحاسبة من خلال التقييم الدوري للأداء المؤسسي والفردي والشفافية المالية.</div></div>
+      </div>
+      <div class="sec-title">المسار من النص إلى الممارسة</div>
+      <div class="stepper">
+        <div class="step"><div class="step-num" style="background:#0d2b4e">١</div><div class="step-body"><div class="step-ttl">الدستور 2011</div><div class="step-dsc">يرسي المبادئ العليا: الحق في التعليم، تكافؤ الفرص، جودة الخدمات</div></div></div>
+        <div class="step"><div class="step-num" style="background:#c8933a">٢</div><div class="step-body"><div class="step-ttl">القانون الإطار 51.17</div><div class="step-dsc">يُترجم المبادئ إلى التزامات إصلاحية استراتيجية ملزمة للحكومات</div></div></div>
+        <div class="step"><div class="step-num" style="background:#1a6b9a">٣</div><div class="step-body"><div class="step-ttl">القانون 59.21 والمراسيم</div><div class="step-dsc">يُفصّل الأحكام التطبيقية: الإلزامية، الهيكلة، التسجيل، الرسوم</div></div></div>
+        <div class="step"><div class="step-num" style="background:#2d8a5e">٤</div><div class="step-body"><div class="step-ttl">الأنظمة الأساسية</div><div class="step-dsc">تُنظم العمل اليومي للموظفين والمؤسسات: الترقية، التدريس، المجالس</div></div></div>
+        <div class="step"><div class="step-num" style="background:#783cb4">٥</div><div class="step-body"><div class="step-ttl">القرارات الوزارية والأكاديمية</div><div class="step-dsc">تُجسّد النصوص على أرض الواقع: جداول التوقيت، البرامج، التعيينات</div></div></div>
+      </div>
+      <div class="warn-box"><strong>⚠️ التحدي الحقيقي:</strong> لا يكمن في سن القوانين فقط، بل في حسن تنزيلها وتفعيلها بما ينسجم مع الواقع التربوي. هل يكفي إصلاح النصوص القانونية لتحقيق إصلاح فعلي ومستدام للمدرسة المغربية؟</div>
+    </div>
+  </section>
+
+  <!-- ═══════════ INTERNATIONAL ═══════════ -->
+  <section class="page-section" id="sec-international">
+    <div class="hero">
+      <div class="hero-badge">المحور الخامس</div>
+      <h1>المرجعيات الدولية وعلاقتها بالتشريع التربوي</h1>
+      <p>المواثيق والاتفاقيات الدولية التي تؤثر على السياسات التعليمية المغربية</p>
+    </div>
+    <div class="content">
+      <div class="info-box">تشير المرجعية الدولية إلى مجموع الاتفاقيات والمواثيق والتوصيات التي تُصدرها منظمات دولية بهدف توجيه سياسات الدول، ومنها السياسات التعليمية.</div>
+      <div class="sec-title">الجهات الدولية المؤثِّرة</div>
+      <div class="g2">
+        <div class="card rc"><div class="rc-trigger"><div class="card-head" style="margin-bottom:0"><div class="c-icon blue">🎓</div><div><div class="card-title">اليونسكو</div></div></div><span class="rc-arrow">▼</span></div><div class="rc-content"><div class="card-body" style="margin-top:12px">تُصدر تقارير وتوصيات حول الحق في التعليم وجودته. اتفاقية 1960 لمكافحة التمييز في التعليم. تقرير جاك ديلور 1996 "التعليم: ذلك الكنز المكنون".</div></div></div>
+        <div class="card rc"><div class="rc-trigger"><div class="card-head" style="margin-bottom:0"><div class="c-icon green">👶</div><div><div class="card-title">اليونيسف</div></div></div><span class="rc-arrow">▼</span></div><div class="rc-content"><div class="card-body" style="margin-top:12px">اتفاقية حقوق الطفل 1989 (المادة 28): التعليم حق أساسي لكل طفل. محاربة التمييز المرتبط بالجنس والوضع الاجتماعي والمجال الجغرافي.</div></div></div>
+        <div class="card rc"><div class="rc-trigger"><div class="card-head" style="margin-bottom:0"><div class="c-icon gold">🌍</div><div><div class="card-title">الأمم المتحدة</div></div></div><span class="rc-arrow">▼</span></div><div class="rc-content"><div class="card-body" style="margin-top:12px">الإعلان العالمي لحقوق الإنسان (المادة 26): التعليم حق لكل شخص. أهداف التنمية المستدامة 2015: الهدف الرابع يضمن تعليماً جيداً ومنصفاً وشاملاً للجميع.</div></div></div>
+        <div class="card rc"><div class="rc-trigger"><div class="card-head" style="margin-bottom:0"><div class="c-icon purple">🏦</div><div><div class="card-title">البنك الدولي</div></div></div><span class="rc-arrow">▼</span></div><div class="rc-content"><div class="card-body" style="margin-top:12px">يدعم إصلاحات التعليم ويربطها بالتنمية الاقتصادية. تقارير تركز على معايير الجودة والحكامة الرشيدة في التدبير التربوي.</div></div></div>
+      </div>
+      <div class="sec-title">تأثير المرجعية الدولية على التشريع المغربي</div>
+      <div id="intlAcc">
+        <div class="acc-item"><button class="acc-btn">ترسيخ الحق في التعليم <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">أصبحت القوانين التربوية تنص صراحةً على إلزامية التعليم ومجانيته ومبدأ تكافؤ الفرص — تطبيقاً للاتفاقيات الدولية التي صادق عليها المغرب.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">تعزيز الجودة والحكامة <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">انسجاماً مع المرجعيات الدولية الرامية إلى إدماج مفاهيم الجودة والحكامة والتقويم المستمر — أُدرجت هذه المفاهيم في القانون الإطار 51.17.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">إدماج مقاربة الإنصاف <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">دفع المجتمع الدولي نحو إيلاء أهمية كبرى لتعليم الفتيات، إدماج ذوي الاحتياجات الخاصة، وتقليص الفوارق المجالية.</div></div></div>
+        <div class="acc-item"><button class="acc-btn">تحديث المناهج الدراسية <span class="acc-icon">▼</span></button><div class="acc-body"><div class="acc-content">أسهمت المرجعيات الدولية في إدراج التربية على حقوق الإنسان، التربية على المواطنة، ومهارات القرن الحادي والعشرين في المناهج المغربية.</div></div></div>
+      </div>
+      <div class="info-box" style="margin-top:20px"><strong>🔗 خلاصة:</strong> لا يمكن النظر إلى التشريع التربوي المغربي بمعزل عن المرجعيات الدولية. هناك تكامل وانسجام واضح بين التوجهات الوطنية والتوصيات الدولية.</div>
+    </div>
+  </section>
+
+  <!-- ═══════════ QUIZ (10 questions) ═══════════ -->
+  <section class="page-section" id="sec-quiz">
+    <div class="hero">
+      <div class="hero-badge">اختبار شامل</div>
+      <h1>اختبار تقييمي شامل</h1>
+      <p>10 أسئلة تغطي جميع محاور الدرس — حدد إجابتك واحصل على تغذية راجعة فورية</p>
+    </div>
+    <div class="content">
+      <div class="quiz-wrap">
+        <div class="q-progress"><div class="q-progress-fill" id="qFill" style="width:0%"></div></div>
+        <div class="q-dots" id="qDots"></div>
+        <div id="qBody">
+          <div class="q-num" id="qNum"></div>
+          <div class="q-text" id="qText"></div>
+          <div class="q-opts" id="qOpts"></div>
+          <div class="q-fb" id="qFb"></div>
+        </div>
+        <div id="qResult" class="q-result">
+          <div class="q-result-stars" id="rStars"></div>
+          <div class="q-result-score" id="rScore"></div>
+          <div class="q-result-label" id="rLabel"></div>
+          <button class="btn btn-gold" id="retryBtn">إعادة الاختبار 🔄</button>
+        </div>
+        <div class="q-nav">
+          <button class="btn btn-ghost" id="prevBtn" disabled>→ السابق</button>
+          <span style="font-size:0.83rem;color:var(--text-muted)" id="qCounter"></span>
+          <button class="btn" id="nextBtn">التالي ←</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /main-wrap -->
+
+<script>
+// ──────────────────────────────────────────
+// THEME
+// ──────────────────────────────────────────
+(function(){
+  var btn = document.getElementById('themeBtn');
+  var html = document.documentElement;
+  var saved = localStorage.getItem('mbTheme') || 'light';
+  if(saved==='dark'){html.setAttribute('data-theme','dark');btn.textContent='☀️ فاتح';}
+  btn.addEventListener('click', function(){
+    var cur = html.getAttribute('data-theme');
+    if(cur==='dark'){html.removeAttribute('data-theme');btn.textContent='🌙 داكن';localStorage.setItem('mbTheme','light');}
+    else{html.setAttribute('data-theme','dark');btn.textContent='☀️ فاتح';localStorage.setItem('mbTheme','dark');}
+  });
+})();
+
+// ──────────────────────────────────────────
+// SIDEBAR TOGGLE
+// ──────────────────────────────────────────
+(function(){
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('overlay');
+  var wrap = document.getElementById('mainWrap');
+  var menuBtn = document.getElementById('menuBtn');
+  var isWide = window.innerWidth > 900;
+  var open = isWide;
+
+  function apply(){
+    if(window.innerWidth > 900){
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      if(open){ sidebar.classList.remove('collapsed'); wrap.classList.remove('sidebar-hidden'); }
+      else { sidebar.classList.add('collapsed'); wrap.classList.add('sidebar-hidden'); }
+    } else {
+      sidebar.classList.remove('collapsed');
+      wrap.classList.add('sidebar-hidden');
+      if(open){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+      else { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+    }
+  }
+  menuBtn.addEventListener('click', function(){ open=!open; apply(); });
+  overlay.addEventListener('click', function(){ open=false; apply(); });
+  window.addEventListener('resize', function(){ isWide=window.innerWidth>900; if(!isWide&&open){open=false;apply();} });
+  apply();
+})();
+
+// ──────────────────────────────────────────
+// NAVIGATION
+// ──────────────────────────────────────────
+(function(){
+  function goTo(id){
+    document.querySelectorAll('.page-section').forEach(function(s){s.classList.remove('active');});
+    document.querySelectorAll('.sidebar-link').forEach(function(l){l.classList.remove('active');});
+    var sec = document.getElementById('sec-'+id);
+    var link = document.querySelector('[data-sec="'+id+'"]');
+    if(sec) sec.classList.add('active');
+    if(link) link.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('.sidebar-link').forEach(function(l){
+    l.addEventListener('click', function(){ goTo(l.getAttribute('data-sec')); });
+  });
+  document.querySelectorAll('[data-goto]').forEach(function(c){
+    c.addEventListener('click', function(){ goTo(c.getAttribute('data-goto')); });
+  });
+  window.goTo = goTo;
+})();
+
+// ──────────────────────────────────────────
+// PYRAMID
+// ──────────────────────────────────────────
+(function(){
+  var data = {
+    '1': 'الدستور: القانون الأسمى في الدولة. تستمد منه جميع القوانين والأنظمة الأخرى مشروعيتها. دستور 2011 أولى عناية خاصة للحقوق الاجتماعية ومنها الحق في التعليم.',
+    '2': 'القوانين التنظيمية: تنظم الهيئات الدستورية والمؤسسات الكبرى للدولة. تصدر عن البرلمان بأغلبية خاصة وتتعلق بتنظيم ممارسة الحريات والحقوق الأساسية.',
+    '3': 'القوانين العادية: تصدر عن البرلمان وتطبق المبادئ الدستورية. القانون الإطار 51.17 والقانون 59.21 مثالان بارزان على هذا المستوى في قطاع التربية.',
+    '4': 'المراسيم التنظيمية: تصدر عن الحكومة (رئيس الحكومة) وتفصّل القوانين العادية. المرسوم 2.24.140 ومرسوم 2.02.376 مثالان من قطاع التربية.',
+    '5': 'القرارات الوزارية والأكاديمية: أدنى مستوى في الهرم. تصدر عن الوزير أو الأكاديميات وتجسّد التطبيق الفعلي اليومي للقوانين والمراسيم.'
+  };
+  var detail = document.getElementById('pyrDetail');
+  document.querySelectorAll('.pyramid-level').forEach(function(l){
+    l.addEventListener('click', function(){
+      document.querySelectorAll('.pyramid-level').forEach(function(x){x.classList.remove('active');});
+      l.classList.add('active');
+      detail.textContent = data[l.getAttribute('data-pyr')];
+      detail.classList.add('show');
+    });
+  });
+})();
+
+// ──────────────────────────────────────────
+// PILL SELECTORS
+// ──────────────────────────────────────────
+(function(){
+  document.querySelectorAll('.pills').forEach(function(container){
+    container.querySelectorAll('.pill').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        container.querySelectorAll('.pill').forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        var paneId = btn.getAttribute('data-pill');
+        document.querySelectorAll('.pill-pane').forEach(function(p){p.classList.remove('show');});
+        var target = document.getElementById('cpane-'+paneId);
+        if(target) target.classList.add('show');
+      });
+    });
+  });
+})();
+
+// ──────────────────────────────────────────
+// ACCORDION
+// ──────────────────────────────────────────
+(function(){
+  document.querySelectorAll('.acc-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.closest('.acc-item');
+      item.classList.toggle('open');
+    });
+  });
+})();
+
+// ──────────────────────────────────────────
+// REVEAL CARDS
+// ──────────────────────────────────────────
+(function(){
+  document.querySelectorAll('.rc').forEach(function(card){
+    var trigger = card.querySelector('.rc-trigger');
+    if(trigger) trigger.addEventListener('click', function(){ card.classList.toggle('open'); });
+  });
+})();
+
+// ──────────────────────────────────────────
+// QUIZ (10 questions)
+// ──────────────────────────────────────────
+(function(){
+  var questions = [
+    {
+      q: 'ما هو الفصل الدستوري الذي يُلزم الدولة بضمان الحق في تعليم عصري ميسر الولوج وذي جودة؟',
+      opts: ['الفصل 5', 'الفصل 31', 'الفصل 32', 'الفصل 154'],
+      correct: 1,
+      fb: 'الفصل 31 من دستور 2011 يُلزم الدولة والمؤسسات العمومية بتيسير الحصول على تعليم عصري ميسر الولوج وذي جودة لجميع المواطنين على قدم المساواة.'
+    },
+    {
+      q: 'في أي سنة صدر القانون الإطار 51.17 المتعلق بمنظومة التربية والتكوين والبحث العلمي؟',
+      opts: ['2015', '2017', '2019', '2021'],
+      correct: 2,
+      fb: 'صدر القانون الإطار 51.17 سنة 2019 في الجريدة الرسمية عدد 6805، وهو يُعدّ المرجعية التشريعية العليا لإصلاح التعليم.'
+    },
+    {
+      q: 'كم عدد المواد التي يتضمنها القانون الإطار 51.17؟',
+      opts: ['45 مادة', '59 مادة', '80 مادة', '113 مادة'],
+      correct: 1,
+      fb: 'يتكون القانون الإطار 51.17 من 59 مادة موزعة على 10 أبواب أساسية تغطي جميع جوانب إصلاح منظومة التربية والتكوين.'
+    },
+    {
+      q: 'ما الفصل الدستوري الذي أسّس لإحداث المجلس الأعلى للتربية والتكوين والبحث العلمي؟',
+      opts: ['الفصل 33', 'الفصل 154', 'الفصل 168', 'الفصل 34'],
+      correct: 2,
+      fb: 'الفصل 168 من دستور 2011 ينص على إحداث المجلس الأعلى للتربية والتكوين والبحث العلمي بوصفه هيئة دستورية مستقلة لتقييم السياسات التربوية.'
+    },
+    {
+      q: 'وفق القانون 59.21، ما هي السن الدنيا التي يصبح فيها التعليم المدرسي إلزامياً؟',
+      opts: ['5 سنوات', '6 سنوات', '4 سنوات', '3 سنوات'],
+      correct: 2,
+      fb: 'وفق المادة 6 من القانون 59.21، أصبح التعليم المدرسي إلزامياً ابتداءً من سن 4 سنوات — وهذا يشمل التعليم الأولي الذي أصبح جزءاً من الإلزام.'
+    },
+    {
+      q: 'بموجب أي مرسوم صدر النظام الأساسي الخاص بموظفي وزارة التربية الوطنية سنة 2024؟',
+      opts: ['مرسوم 2.02.376', 'مرسوم 2.24.140', 'مرسوم 2.15.200', 'مرسوم 2.19.060'],
+      correct: 1,
+      fb: 'صدر النظام الأساسي الجديد لموظفي وزارة التربية الوطنية بموجب المرسوم رقم 2.24.140 بتاريخ 23 فبراير 2024، استجابةً لمخرجات الحوار الاجتماعي.'
+    },
+    {
+      q: 'ما الوثيقة المرجعية لإصلاح التعليم التي سبقت القانون الإطار 51.17 وتغطي الفترة 2015–2030؟',
+      opts: ['الميثاق الوطني', 'البرنامج الاستعجالي', 'الرؤية الاستراتيجية', 'المخطط الجهوي'],
+      correct: 2,
+      fb: 'الرؤية الاستراتيجية لإصلاح التعليم 2015–2030 أصدرها المجلس الأعلى للتربية والتكوين والبحث العلمي وشكّلت الأرضية لصياغة القانون الإطار 51.17.'
+    },
+    {
+      q: 'أيّ من المواثيق الدولية تنص في مادتها 28 على أن التعليم حق أساسي لكل طفل؟',
+      opts: ['اتفاقية مكافحة التمييز في التعليم', 'الإعلان العالمي لحقوق الإنسان', 'اتفاقية حقوق الطفل', 'أهداف التنمية المستدامة'],
+      correct: 2,
+      fb: 'اتفاقية حقوق الطفل (1989) في مادتها 28 تؤكد أن التعليم حق أساسي لكل طفل دون تمييز. أما الإعلان العالمي لحقوق الإنسان فتناول الحق في التعليم في مادته 26.'
+    },
+    {
+      q: 'ما المرسوم الذي يُعدّ النظام الأساسي لمؤسسات التربية والتعليم العمومي الصادر سنة 2002؟',
+      opts: ['مرسوم 2.24.140', 'مرسوم 2.15.376', 'مرسوم 2.02.376', 'مرسوم 2.09.376'],
+      correct: 2,
+      fb: 'صدر النظام الأساسي لمؤسسات التربية والتعليم العمومي بموجب المرسوم رقم 2.02.376 بتاريخ 17 يوليو 2002، وتم تعديله سنة 2004.'
+    },
+    {
+      q: 'أي باب من أبواب القانون الإطار 51.17 يتناول موضوع التمويل ومجانية التعليم؟',
+      opts: ['الباب السادس', 'الباب السابع', 'الباب الثامن', 'الباب التاسع'],
+      correct: 2,
+      fb: 'الباب الثامن من القانون الإطار 51.17 يُخص مصادر تمويل التعليم مع التأكيد على مجانية التعليم في مختلف مراحله، ويضع صندوقاً خاصاً وتضامناً وطنياً.'
+    }
+  ];
+
+  var cur = 0;
+  var answers = new Array(questions.length).fill(null);
+  var answered = new Array(questions.length).fill(false);
+
+  var qFill = document.getElementById('qFill');
+  var qDots = document.getElementById('qDots');
+  var qNum = document.getElementById('qNum');
+  var qText = document.getElementById('qText');
+  var qOpts = document.getElementById('qOpts');
+  var qFb = document.getElementById('qFb');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var qCounter = document.getElementById('qCounter');
+  var qBody = document.getElementById('qBody');
+  var qResult = document.getElementById('qResult');
+  var retryBtn = document.getElementById('retryBtn');
+
+  function renderDots(){
+    qDots.innerHTML='';
+    questions.forEach(function(_,i){
+      var d = document.createElement('div');
+      d.className = 'q-dot';
+      if(i===cur) d.classList.add('current');
+      else if(answered[i]) d.classList.add(answers[i]===questions[i].correct?'ok':'bad');
+      d.addEventListener('click', function(){ cur=i; render(); });
+      qDots.appendChild(d);
+    });
+  }
+
+  function render(){
+    var q = questions[cur];
+    qNum.textContent = 'السؤال '+(cur+1)+' من '+questions.length;
+    qText.textContent = q.q;
+    qCounter.textContent = (cur+1)+' / '+questions.length;
+    qFill.style.width = (cur/questions.length*100)+'%';
+
+    qOpts.innerHTML='';
+    var letters=['أ','ب','ج','د'];
+    q.opts.forEach(function(opt,i){
+      var btn = document.createElement('button');
+      btn.className = 'q-opt';
+      btn.innerHTML = '<span class="opt-ltr">'+letters[i]+'</span>'+opt;
+      if(answered[cur]){
+        btn.disabled=true;
+        if(i===q.correct) btn.classList.add('correct');
+        else if(i===answers[cur]) btn.classList.add('wrong');
+      }
+      btn.addEventListener('click', function(){ selectOpt(i); });
+      qOpts.appendChild(btn);
+    });
+
+    qFb.className = 'q-fb';
+    if(answered[cur]){
+      var ok = answers[cur]===q.correct;
+      qFb.className = 'q-fb show '+(ok?'fb-ok':'fb-bad');
+      qFb.innerHTML = (ok?'✅ ':'❌ ') + q.fb;
+    }
+
+    prevBtn.disabled = (cur===0);
+    var allDone = answered.every(Boolean);
+    nextBtn.textContent = (cur===questions.length-1 && allDone) ? 'عرض النتيجة 🏆' : 'التالي ←';
+    renderDots();
+  }
+
+  function selectOpt(i){
+    if(answered[cur]) return;
+    answers[cur]=i; answered[cur]=true; render();
+  }
+
+  prevBtn.addEventListener('click', function(){ if(cur>0){cur--;render();} });
+  nextBtn.addEventListener('click', function(){
+    if(cur===questions.length-1 && answered.every(Boolean)){ showResult(); return; }
+    if(cur<questions.length-1){ cur++; render(); }
+  });
+
+  function showResult(){
+    qBody.style.display='none';
+    qResult.classList.add('show');
+    var score = answers.reduce(function(a,v,i){ return a+(v===questions[i].correct?1:0); },0);
+    var pct = Math.round(score/questions.length*100);
+    document.getElementById('rScore').textContent = score+' / '+questions.length;
+    document.getElementById('rLabel').textContent = 'نسبة النجاح: '+pct+'%  — '+(pct>=80?'ممتاز 🎉':pct>=60?'جيد 👍':'راجع الدرس مجدداً 📚');
+    document.getElementById('rStars').textContent = pct>=80?'🌟🌟🌟':pct>=60?'⭐⭐':'📖';
+    qFill.style.width='100%';
+    prevBtn.disabled=true; nextBtn.disabled=true;
+    renderDots();
+  }
+
+  retryBtn.addEventListener('click', function(){
+    cur=0; answers=new Array(questions.length).fill(null); answered=new Array(questions.length).fill(false);
+    qBody.style.display='block'; qResult.classList.remove('show');
+    prevBtn.disabled=false; nextBtn.disabled=false; render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
