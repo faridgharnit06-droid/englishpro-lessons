@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Adventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #4FC3F7;
+    --sun: #FFD54F;
+    --grass: #66BB6A;
+    --coral: #FF7043;
+    --purple: #7C4DFF;
+    --pink: #F06292;
+    --cream: #FFF8E1;
+    --dark: #2D3748;
+    --card-bg: #FFFFFF;
+    --shadow: 0 8px 32px rgba(0,0,0,0.12);
+    --radius: 20px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 40%, #C8E6C9 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; }
+
+  /* ── HOME SCREEN ── */
+  #home {
+    background: linear-gradient(180deg, #4FC3F7 0%, #81D4FA 35%, #A5D6A7 70%, #66BB6A 100%);
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.85;
+    animation: float 6s ease-in-out infinite;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+  }
+  .c1 { width: 120px; height: 45px; top: 8%; left: 5%; animation-delay: 0s; }
+  .c1::before { width: 55px; height: 55px; top: -25px; left: 15px; }
+  .c1::after { width: 40px; height: 40px; top: -18px; left: 50px; }
+  .c2 { width: 90px; height: 35px; top: 15%; right: 8%; animation-delay: 2s; }
+  .c2::before { width: 45px; height: 45px; top: -20px; left: 10px; }
+  .c2::after { width: 35px; height: 35px; top: -15px; left: 38px; }
+  .c3 { width: 100px; height: 38px; top: 25%; left: 60%; animation-delay: 4s; }
+  .c3::before { width: 48px; height: 48px; top: -22px; left: 12px; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .sun-icon {
+    font-size: 72px;
+    animation: spin-slow 20s linear infinite;
+    display: inline-block;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 12px rgba(255,200,0,0.5));
+  }
+  @keyframes spin-slow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  .home-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(42px, 10vw, 72px);
+    color: white;
+    text-shadow: 3px 5px 0 rgba(0,0,0,0.15);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .home-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 700;
+    margin-bottom: 36px;
+  }
+
+  .character {
+    font-size: 90px;
+    animation: bounce 2s ease-in-out infinite;
+    display: block;
+    margin: 0 auto 20px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-18px) rotate(3deg); }
+  }
+
+  .speech-bubble {
+    background: white;
+    border-radius: 20px;
+    padding: 14px 24px;
+    display: inline-block;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    position: relative;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dark);
+    animation: pulse-bubble 3s ease-in-out infinite;
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 14px solid transparent;
+    border-top-color: white;
+    border-bottom: 0;
+  }
+  @keyframes pulse-bubble {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  .btn-start {
+    background: linear-gradient(135deg, #FFD54F, #FF7043);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 52px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.2), var(--shadow);
+    transition: all 0.15s;
+    letter-spacing: 1px;
+  }
+  .btn-start:hover { transform: translateY(-3px); box-shadow: 0 9px 0 rgba(0,0,0,0.2), var(--shadow); }
+  .btn-start:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,0.2); }
+
+  .stars-row {
+    display: flex; gap: 8px; justify-content: center;
+    margin-top: 24px;
+  }
+  .star { font-size: 28px; animation: twinkle 1.5s ease-in-out infinite; }
+  .star:nth-child(2) { animation-delay: 0.5s; }
+  .star:nth-child(3) { animation-delay: 1s; }
+  @keyframes twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+  /* ── MAP SCREEN ── */
+  #map {
+    background: linear-gradient(180deg, #E8F5E9 0%, #F3E5F5 100%);
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .map-header {
+    background: linear-gradient(135deg, #7C4DFF, #F06292);
+    padding: 16px 20px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .map-header-info { flex: 1; }
+  .map-header-title { font-family: 'Fredoka One', cursive; font-size: 24px; }
+  .map-header-sub { font-size: 13px; opacity: 0.9; font-weight: 600; }
+
+  .xp-bar-wrap {
+    background: rgba(255,255,255,0.3);
+    border-radius: 20px;
+    height: 14px;
+    margin-top: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .xp-bar-fill {
+    background: linear-gradient(90deg, #FFD54F, #FF9800);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.6s ease;
+  }
+
+  .avatar-small { font-size: 42px; }
+
+  .map-scroll { padding: 20px; overflow-y: auto; flex: 1; }
+
+  .unit-section { margin-bottom: 28px; }
+  .unit-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px;
+    color: #7C4DFF;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .unit-label::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #7C4DFF, transparent);
+    border-radius: 2px;
+  }
+
+  .lesson-path {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+  .lesson-path::before {
+    content: '';
+    position: absolute;
+    top: 36px; bottom: 36px;
+    left: 50%;
+    width: 4px;
+    background: linear-gradient(180deg, #CE93D8, #B39DDB);
+    transform: translateX(-50%);
+    border-radius: 4px;
+    z-index: 0;
+  }
+
+  .lesson-node {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .lesson-node:nth-child(odd) { flex-direction: row; }
+  .lesson-node:nth-child(even) { flex-direction: row-reverse; }
+
+  .node-bubble {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.15), var(--shadow);
+    transition: all 0.15s;
+    border: 4px solid white;
+    position: relative;
+  }
+  .node-bubble.done { background: linear-gradient(135deg, #66BB6A, #43A047); }
+  .node-bubble.active { background: linear-gradient(135deg, #FFD54F, #FF7043); animation: node-pulse 2s ease-in-out infinite; }
+  .node-bubble.locked { background: linear-gradient(135deg, #B0BEC5, #90A4AE); filter: grayscale(0.5); }
+  @keyframes node-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 6px 0 rgba(0,0,0,0.15), 0 0 0 0 rgba(255,213,79,0.5); }
+    50% { transform: scale(1.06); box-shadow: 0 6px 0 rgba(0,0,0,0.15), 0 0 0 12px rgba(255,213,79,0); }
+  }
+
+  .node-label { font-size: 9px; font-weight: 800; color: white; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .node-info { flex: 1; }
+  .node-title { font-weight: 800; font-size: 16px; color: var(--dark); }
+  .node-desc { font-size: 12px; color: #666; margin-top: 2px; }
+  .node-xp { font-size: 11px; color: #FF7043; font-weight: 700; margin-top: 4px; }
+
+  .lesson-node:hover .node-bubble { transform: scale(1.1) translateY(-3px); }
+
+  /* ── LESSON SCREEN ── */
+  #lesson {
+    background: var(--cream);
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .lesson-header {
+    background: white;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .btn-back {
+    background: none; border: none; font-size: 24px; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .btn-back:hover { background: #f0f0f0; }
+
+  .lesson-progress-bar {
+    flex: 1;
+    background: #E8EAF6;
+    border-radius: 20px;
+    height: 14px;
+    overflow: hidden;
+  }
+  .lesson-progress-fill {
+    background: linear-gradient(90deg, #7C4DFF, #F06292);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.5s ease;
+  }
+  .lesson-hearts { font-size: 18px; letter-spacing: 2px; }
+
+  .lesson-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ── EXERCISE TYPES ── */
+  .exercise-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    width: 100%;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .exercise-icon { font-size: 56px; margin-bottom: 12px; animation: bounce 2s ease-in-out infinite; }
+  .exercise-prompt {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .exercise-hint {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  /* Listen button */
+  .btn-listen {
+    background: linear-gradient(135deg, #4FC3F7, #0288D1);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 0 #0277BD, var(--shadow);
+    transition: all 0.15s;
+    margin: 8px;
+  }
+  .btn-listen:hover { transform: translateY(-2px); }
+  .btn-listen:active { transform: translateY(4px); box-shadow: 0 2px 0 #0277BD; }
+  .btn-listen.playing { background: linear-gradient(135deg, #FF7043, #D32F2F); box-shadow: 0 6px 0 #C62828, var(--shadow); }
+
+  /* Speak button */
+  .btn-speak {
+    background: linear-gradient(135deg, #EC407A, #880E4F);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 36px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 0 #6A1B4D, var(--shadow);
+    transition: all 0.15s;
+    margin: 8px;
+  }
+  .btn-speak:hover { transform: translateY(-2px); }
+  .btn-speak.recording {
+    background: linear-gradient(135deg, #F44336, #B71C1C);
+    animation: recording-pulse 1s ease-in-out infinite;
+  }
+  @keyframes recording-pulse {
+    0%, 100% { box-shadow: 0 6px 0 #7F0000, 0 0 0 0 rgba(244,67,54,0.5); }
+    50% { box-shadow: 0 6px 0 #7F0000, 0 0 0 16px rgba(244,67,54,0); }
+  }
+
+  /* Choices grid */
+  .choices-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .choice-btn {
+    background: white;
+    border: 3px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 16px 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: 90px;
+    justify-content: center;
+    box-shadow: 0 4px 0 #E0E0E0;
+  }
+  .choice-btn:hover { border-color: #7C4DFF; background: #F3E5F5; transform: translateY(-2px); box-shadow: 0 6px 0 #7C4DFF; }
+  .choice-btn .choice-emoji { font-size: 32px; }
+  .choice-btn.correct { border-color: #66BB6A; background: #E8F5E9; box-shadow: 0 4px 0 #388E3C; color: #2E7D32; }
+  .choice-btn.wrong { border-color: #EF5350; background: #FFEBEE; box-shadow: 0 4px 0 #C62828; color: #C62828; animation: shake 0.4s ease-in-out; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+  /* Big image word card */
+  .word-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    width: 100%;
+  }
+  .word-image { font-size: 100px; margin-bottom: 12px; animation: bounce 3s ease-in-out infinite; }
+  .word-english { font-family: 'Fredoka One', cursive; font-size: 42px; color: var(--dark); }
+  .word-phonetic { font-size: 18px; color: #888; margin-top: 4px; font-style: italic; }
+  .word-context { font-size: 15px; color: #555; margin-top: 10px; font-weight: 600; background: #F3E5F5; padding: 10px 16px; border-radius: 12px; }
+
+  /* Story / context scene */
+  .scene-box {
+    background: linear-gradient(135deg, #E3F2FD, #E8EAF6);
+    border-radius: var(--radius);
+    padding: 20px;
+    width: 100%;
+    border: 3px solid #C5CAE9;
+    text-align: center;
+  }
+  .scene-characters { font-size: 48px; margin-bottom: 8px; }
+  .scene-text { font-size: 17px; font-weight: 700; color: var(--dark); line-height: 1.5; }
+  .scene-english {
+    font-family: 'Fredoka One', cursive;
+    font-size: 26px;
+    color: #7C4DFF;
+    margin: 10px 0 4px;
+  }
+
+  /* Tap word game */
+  .tap-words {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  }
+  .tap-word {
+    background: white;
+    border: 3px solid #CE93D8;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 4px 0 #AB47BC;
+    color: var(--dark);
+  }
+  .tap-word:hover { transform: translateY(-2px); }
+  .tap-word.selected { background: #7C4DFF; color: white; border-color: #7C4DFF; box-shadow: 0 4px 0 #512DA8; }
+  .tap-word.correct { background: #66BB6A; color: white; border-color: #66BB6A; }
+  .tap-word.wrong { background: #EF5350; color: white; border-color: #EF5350; animation: shake 0.4s; }
+
+  .sentence-slots {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    min-height: 52px; padding: 12px; background: #F3E5F5; border-radius: 14px; margin-bottom: 16px;
+    border: 2px dashed #CE93D8;
+    width: 100%;
+  }
+  .slot-word {
+    background: #7C4DFF; color: white;
+    border-radius: 10px; padding: 8px 16px;
+    font-size: 17px; font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #512DA8;
+  }
+
+  /* Feedback overlay */
+  .feedback-overlay {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    padding: 24px 20px 32px;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.15);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100;
+    text-align: center;
+  }
+  .feedback-overlay.show { transform: translateY(0); }
+  .feedback-overlay.correct-fb { border-top: 6px solid #66BB6A; }
+  .feedback-overlay.wrong-fb { border-top: 6px solid #EF5350; }
+
+  .feedback-big { font-size: 52px; margin-bottom: 6px; }
+  .feedback-title { font-family: 'Fredoka One', cursive; font-size: 26px; margin-bottom: 6px; }
+  .feedback-title.correct-fb { color: #388E3C; }
+  .feedback-title.wrong-fb { color: #C62828; }
+  .feedback-message { font-size: 15px; color: #666; margin-bottom: 20px; font-weight: 600; }
+
+  .btn-continue {
+    background: linear-gradient(135deg, #7C4DFF, #F06292);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 48px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+    transition: all 0.15s;
+    width: 100%;
+    max-width: 320px;
+  }
+  .btn-continue:hover { transform: translateY(-2px); }
+  .btn-continue.correct-fb { background: linear-gradient(135deg, #66BB6A, #43A047); box-shadow: 0 6px 0 #2E7D32; }
+  .btn-continue.wrong-fb { background: linear-gradient(135deg, #EF5350, #C62828); box-shadow: 0 6px 0 #7F0000; }
+
+  /* CELEBRATE! */
+  #celebrate { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; }
+  #celebrate.show { display: flex; }
+
+  .celebrate-card {
+    background: white;
+    border-radius: 28px;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 320px;
+    width: 90%;
+    animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop-in { 0% { transform: scale(0.5) rotate(-5deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+
+  .celebrate-emoji { font-size: 80px; display: block; margin-bottom: 16px; animation: bounce 1s ease-in-out infinite; }
+  .celebrate-title { font-family: 'Fredoka One', cursive; font-size: 34px; color: var(--dark); margin-bottom: 10px; }
+  .celebrate-stars { font-size: 36px; letter-spacing: 6px; margin: 10px 0; }
+  .celebrate-xp { font-size: 20px; font-weight: 800; color: #FF7043; margin: 10px 0 24px; }
+
+  .btn-celebrate {
+    background: linear-gradient(135deg, #FFD54F, #FF7043);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 48px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+    width: 100%;
+    transition: all 0.15s;
+  }
+  .btn-celebrate:hover { transform: translateY(-2px); }
+
+  /* confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    opacity: 0;
+    animation: confetti-fall 3s ease-in forwards;
+    z-index: 300;
+  }
+  @keyframes confetti-fall {
+    0% { transform: translateY(-40px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Waveform animation for speech */
+  .waveform {
+    display: flex; align-items: center; gap: 4px;
+    height: 40px; justify-content: center; margin: 12px 0;
+  }
+  .wave-bar {
+    width: 6px; background: #7C4DFF; border-radius: 4px;
+    animation: wave-anim 0.8s ease-in-out infinite;
+    height: 8px;
+  }
+  .wave-bar:nth-child(1) { animation-delay: 0s; }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+  @keyframes wave-anim {
+    0%, 100% { height: 8px; }
+    50% { height: 32px; }
+  }
+  .waveform.active .wave-bar { background: #EC407A; }
+
+  /* Phonics blocks */
+  .phonics-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .phonics-block {
+    width: 72px; height: 72px;
+    border-radius: 14px;
+    background: white;
+    border: 3px solid #CE93D8;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.15s;
+    box-shadow: 0 4px 0 #AB47BC;
+  }
+  .phonics-block:hover { transform: translateY(-3px); background: #F3E5F5; }
+  .phonics-letter { font-family: 'Fredoka One', cursive; font-size: 26px; color: #7C4DFF; }
+  .phonics-sound { font-size: 11px; color: #888; font-weight: 700; }
+
+  /* Match pairs */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+  .match-item {
+    background: white; border: 3px solid #B39DDB;
+    border-radius: 14px; padding: 14px 8px;
+    text-align: center; cursor: pointer;
+    transition: all 0.15s; font-size: 14px; font-weight: 800;
+    box-shadow: 0 4px 0 #9575CD; color: var(--dark);
+  }
+  .match-item:hover { transform: translateY(-2px); border-color: #7C4DFF; }
+  .match-item.selected { background: #EDE7F6; border-color: #7C4DFF; }
+  .match-item.matched { background: #E8F5E9; border-color: #66BB6A; box-shadow: 0 4px 0 #388E3C; color: #2E7D32; }
+  .match-item.wrong { background: #FFEBEE; border-color: #EF5350; animation: shake 0.4s; }
+  .match-item .match-emoji { font-size: 28px; display: block; margin-bottom: 4px; }
+
+  /* Responsive */
+  @media (max-width: 360px) {
+    .choices-grid { grid-template-columns: 1fr; }
+    .word-english { font-size: 32px; }
+    .word-image { font-size: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HOME SCREEN -->
+<div id="home" class="screen active">
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+
+  <span class="sun-icon">☀️</span>
+  <div class="home-title">English<br>Adventure!</div>
+  <p class="home-subtitle">Learn like a child — through play & stories!</p>
+
+  <span class="character">🦊</span>
+
+  <div class="speech-bubble">
+    Hello! Let's learn English together! 🎉
+  </div>
+
+  <button class="btn-start" onclick="showMap()">Let's Start! 🚀</button>
+
+  <div class="stars-row">
+    <span class="star">⭐</span>
+    <span class="star">🌟</span>
+    <span class="star">⭐</span>
+  </div>
+</div>
+
+<!-- MAP SCREEN -->
+<div id="map" class="screen">
+  <div class="map-header">
+    <span class="avatar-small">🦊</span>
+    <div class="map-header-info">
+      <div class="map-header-title">English Adventure</div>
+      <div class="map-header-sub" id="xp-display">⭐ 0 XP — Level 1 Beginner</div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar-fill" id="xp-bar" style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-scroll" id="map-scroll">
+    <!-- Dynamically built from JS -->
+  </div>
+</div>
+
+<!-- LESSON SCREEN -->
+<div id="lesson" class="screen">
+  <div class="lesson-header">
+    <button class="btn-back" onclick="showMap()">←</button>
+    <div class="lesson-progress-bar">
+      <div class="lesson-progress-fill" id="lesson-progress" style="width: 0%"></div>
+    </div>
+    <div class="lesson-hearts" id="hearts-display">❤️❤️❤️</div>
+  </div>
+  <div class="lesson-body" id="lesson-body"></div>
+</div>
+
+<!-- CELEBRATE OVERLAY -->
+<div id="celebrate">
+  <div class="celebrate-card">
+    <span class="celebrate-emoji" id="celebrate-emoji">🎉</span>
+    <div class="celebrate-title" id="celebrate-title">Amazing!</div>
+    <div class="celebrate-stars" id="celebrate-stars">⭐⭐⭐</div>
+    <div class="celebrate-xp" id="celebrate-xp">+20 XP</div>
+    <button class="btn-celebrate" onclick="closeCelebrate()">Continue ➜</button>
+  </div>
+</div>
+
+<!-- FEEDBACK OVERLAY -->
+<div class="feedback-overlay" id="feedback-overlay">
+  <div class="feedback-big" id="feedback-big">🎉</div>
+  <div class="feedback-title" id="feedback-title">Correct!</div>
+  <div class="feedback-message" id="feedback-message">Great job!</div>
+  <button class="btn-continue" id="btn-continue" onclick="nextExercise()">Continue →</button>
+</div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────
+let totalXP = 0;
+let currentLesson = null;
+let currentExercises = [];
+let exerciseIndex = 0;
+let hearts = 3;
+let synth = window.speechSynthesis;
+let recognition = null;
+let lessonComplete = false;
+
+// ─── CURRICULUM ──────────────────────────────────────────────
+const UNITS = [
+  {
+    label: '🌅 Unit 1 — Hello World',
+    color: '#FF7043',
+    lessons: [
+      {
+        id: 'greetings',
+        title: 'Hello & Goodbye',
+        desc: 'Your first words in English!',
+        icon: '👋',
+        xp: 20,
+        story: 'Fox meets a new friend at school.',
+        exercises: [
+          { type: 'listen_and_point', title: 'Listen & Choose!', icon: '👂', prompt: "Tap the picture you hear!", word: 'Hello', emoji: '👋', choices: [{ emoji:'👋', word:'Hello' }, { emoji:'🌙', word:'Goodnight' }, { emoji:'🤝', word:'Nice to meet you' }, { emoji:'😴', word:'Goodbye' }], audio: 'Hello' },
+          { type: 'word_intro', title: 'New Word!', word: 'Hello', emoji: '👋', phonetic: '/hɛˈloʊ/', context: 'We say "Hello" when we meet someone!' },
+          { type: 'listen_repeat', title: 'Listen & Repeat!', icon: '🗣️', prompt: 'Listen to Fox, then repeat!', word: 'Hello', emoji: '👋', context: 'Fox says: "Hello! My name is Fox!"' },
+          { type: 'word_intro', title: 'New Word!', word: 'Goodbye', emoji: '👋🏃', phonetic: '/ɡʊdˈbaɪ/', context: 'We say "Goodbye" when we leave!' },
+          { type: 'listen_repeat', title: 'Say It!', icon: '🗣️', prompt: 'Say Goodbye to Fox!', word: 'Goodbye', emoji: '👋', context: 'Fox says: "Goodbye! See you tomorrow!"' },
+          { type: 'match_pairs', title: 'Match the Words!', prompt: 'Match each word to its picture!', pairs: [{ word: 'Hello', emoji: '👋' }, { word: 'Goodbye', emoji: '🚶' }, { word: 'Good morning', emoji: '🌄' }, { word: 'Goodnight', emoji: '🌙' }] },
+        ]
+      },
+      {
+        id: 'my_name',
+        title: 'My Name Is...',
+        desc: 'Introduce yourself!',
+        icon: '🙋',
+        xp: 25,
+        story: 'Fox introduces himself to the class.',
+        exercises: [
+          { type: 'word_intro', title: 'A Useful Phrase!', word: 'My name is Fox', emoji: '🦊', phonetic: '/maɪ neɪm ɪz/', context: 'Use this to introduce yourself to new friends!' },
+          { type: 'listen_repeat', title: 'Introduce Yourself!', icon: '🎤', prompt: 'Say "My name is..."', word: 'My name is Fox', emoji: '🙋', context: 'Now say your own name! "My name is ___"' },
+          { type: 'listen_and_point', title: 'Who is saying what?', icon: '👂', prompt: 'Which phrase means introducing yourself?', word: 'My name is...', emoji: '🦊', choices: [{ emoji:'🙋', word:'My name is Fox' }, { emoji:'📍', word:'I live here' }, { emoji:'🍎', word:'I like apples' }, { emoji:'😴', word:'I am tired' }], audio: 'My name is Fox' },
+          { type: 'build_sentence', title: 'Build the Sentence!', prompt: 'Arrange the words: "My name is Fox"', answer: ['My', 'name', 'is', 'Fox'], bank: ['My', 'name', 'is', 'Fox', 'Hello', 'like'] },
+          { type: 'listen_repeat', title: 'Complete Intro!', icon: '⭐', prompt: 'Say the full greeting!', word: 'Hello! My name is Fox. Nice to meet you!', emoji: '🦊', context: 'Fox greets everyone at school!' },
+        ]
+      },
+      {
+        id: 'numbers_1_5',
+        title: 'Numbers 1–5',
+        desc: 'Count with Fox!',
+        icon: '🔢',
+        xp: 25,
+        story: 'Fox counts apples in the garden.',
+        exercises: [
+          { type: 'word_intro', title: 'One!', word: 'One', emoji: '1️⃣', phonetic: '/wʌn/', context: 'Fox has ONE apple. 🍎' },
+          { type: 'phonics', title: 'Hear the Numbers!', prompt: 'Tap each number to hear it!', items: [{ letter: '1', sound: 'one', audio: 'one' }, { letter: '2', sound: 'two', audio: 'two' }, { letter: '3', sound: 'three', audio: 'three' }, { letter: '4', sound: 'four', audio: 'four' }, { letter: '5', sound: 'five', audio: 'five' }] },
+          { type: 'listen_and_point', title: 'Which number?', icon: '👂', prompt: 'Tap the number you hear!', word: 'Three', emoji: '3️⃣', choices: [{ emoji:'1️⃣', word:'One' }, { emoji:'2️⃣', word:'Two' }, { emoji:'3️⃣', word:'Three' }, { emoji:'4️⃣', word:'Four' }], audio: 'Three' },
+          { type: 'listen_repeat', title: 'Count with Fox!', icon: '🔢', prompt: 'Count to five!', word: 'One, two, three, four, five!', emoji: '🍎🍎🍎🍎🍎', context: 'Fox counts all his apples!' },
+          { type: 'match_pairs', title: 'Numbers Match!', prompt: 'Match numbers to their words!', pairs: [{ word: 'One', emoji: '1️⃣' }, { word: 'Two', emoji: '2️⃣' }, { word: 'Three', emoji: '3️⃣' }, { word: 'Four', emoji: '4️⃣' }] },
+        ]
+      }
+    ]
+  },
+  {
+    label: '🏠 Unit 2 — My World',
+    color: '#7C4DFF',
+    lessons: [
+      {
+        id: 'family',
+        title: 'My Family',
+        desc: 'Learn family words!',
+        icon: '👨‍👩‍👧',
+        xp: 30,
+        story: 'Fox visits his family.',
+        exercises: [
+          { type: 'word_intro', title: 'Family Words!', word: 'Family', emoji: '👨‍👩‍👧', phonetic: '/ˈfæm.ɪ.li/', context: 'Fox loves his family very much!' },
+          { type: 'phonics', title: 'Family Members!', prompt: 'Tap to hear each word!', items: [{ letter: '👩', sound: 'Mum', audio: 'Mother' }, { letter: '👨', sound: 'Dad', audio: 'Father' }, { letter: '👧', sound: 'Sister', audio: 'Sister' }, { letter: '👦', sound: 'Brother', audio: 'Brother' }, { letter: '👴', sound: 'Grandpa', audio: 'Grandfather' }] },
+          { type: 'listen_and_point', title: 'Who is this?', icon: '👂', prompt: 'Tap the picture you hear!', word: 'Mother', emoji: '👩', choices: [{ emoji:'👩', word:'Mother' }, { emoji:'👨', word:'Father' }, { emoji:'👧', word:'Sister' }, { emoji:'👦', word:'Brother' }], audio: 'Mother' },
+          { type: 'listen_repeat', title: 'My Family!', icon: '🏡', prompt: 'Tell us about Fox\'s family!', word: 'This is my mother. This is my father.', emoji: '👨‍👩‍👧', context: 'Fox shows a photo of his family!' },
+          { type: 'build_sentence', title: 'Build the Sentence!', prompt: 'Make: "This is my mother"', answer: ['This', 'is', 'my', 'mother'], bank: ['This', 'is', 'my', 'mother', 'father', 'Hello'] },
+        ]
+      },
+      {
+        id: 'colors',
+        title: 'Colors!',
+        desc: 'Paint the world!',
+        icon: '🌈',
+        xp: 30,
+        story: 'Fox paints a rainbow!',
+        exercises: [
+          { type: 'word_intro', title: 'A Color!', word: 'Red', emoji: '🔴', phonetic: '/rɛd/', context: 'Apples are red! Fox loves red apples! 🍎' },
+          { type: 'phonics', title: 'Rainbow Colors!', prompt: 'Tap to hear each color!', items: [{ letter: '🔴', sound: 'Red', audio: 'Red' }, { letter: '🔵', sound: 'Blue', audio: 'Blue' }, { letter: '🟡', sound: 'Yellow', audio: 'Yellow' }, { letter: '🟢', sound: 'Green', audio: 'Green' }, { letter: '🟠', sound: 'Orange', audio: 'Orange' }] },
+          { type: 'listen_and_point', title: 'What color?', icon: '👂', prompt: 'Tap the color you hear!', word: 'Blue', emoji: '🔵', choices: [{ emoji:'🔴', word:'Red' }, { emoji:'🔵', word:'Blue' }, { emoji:'🟡', word:'Yellow' }, { emoji:'🟢', word:'Green' }], audio: 'Blue' },
+          { type: 'listen_repeat', title: 'Paint with Fox!', icon: '🎨', prompt: 'Name the colors of the rainbow!', word: 'Red, orange, yellow, green, blue!', emoji: '🌈', context: 'Fox paints a beautiful rainbow!' },
+          { type: 'match_pairs', title: 'Color Match!', prompt: 'Match colors to their names!', pairs: [{ word: 'Red', emoji: '🔴' }, { word: 'Blue', emoji: '🔵' }, { word: 'Yellow', emoji: '🟡' }, { word: 'Green', emoji: '🟢' }] },
+        ]
+      },
+      {
+        id: 'food',
+        title: 'Yummy Food!',
+        desc: 'Name your favorite foods!',
+        icon: '🍎',
+        xp: 35,
+        story: 'Fox is hungry and goes shopping!',
+        exercises: [
+          { type: 'scene', emoji: '🦊🛒', text: 'Fox goes to the market!', english: '"I want an apple, please!"', context: 'Fox learns to ask for food politely.' },
+          { type: 'phonics', title: 'Yummy Words!', prompt: 'Tap to hear each food!', items: [{ letter: '🍎', sound: 'Apple', audio: 'Apple' }, { letter: '🍌', sound: 'Banana', audio: 'Banana' }, { letter: '🍞', sound: 'Bread', audio: 'Bread' }, { letter: '🥛', sound: 'Milk', audio: 'Milk' }, { letter: '🍕', sound: 'Pizza', audio: 'Pizza' }] },
+          { type: 'listen_and_point', title: 'What food?', icon: '👂', prompt: 'Tap the food you hear!', word: 'Banana', emoji: '🍌', choices: [{ emoji:'🍎', word:'Apple' }, { emoji:'🍌', word:'Banana' }, { emoji:'🍞', word:'Bread' }, { emoji:'🥛', word:'Milk' }], audio: 'Banana' },
+          { type: 'listen_repeat', title: 'Ask politely!', icon: '🙏', prompt: 'Ask Fox for food!', word: 'I want an apple, please!', emoji: '🍎', context: 'Being polite helps you get what you want!' },
+          { type: 'build_sentence', title: 'Build the Sentence!', prompt: 'Make: "I want a banana please"', answer: ['I', 'want', 'a', 'banana', 'please'], bank: ['I', 'want', 'a', 'banana', 'please', 'apple', 'Hello'] },
+        ]
+      }
+    ]
+  },
+  {
+    label: '🏫 Unit 3 — At School',
+    color: '#00ACC1',
+    lessons: [
+      {
+        id: 'classroom',
+        title: 'In My Classroom',
+        desc: 'School words!',
+        icon: '📚',
+        xp: 40,
+        story: 'Fox goes to school for the first time.',
+        exercises: [
+          { type: 'scene', emoji: '🦊📚', text: 'Fox enters the classroom!', english: '"Look! A book, a pen, a desk!"', context: 'Fox sees lots of new things at school.' },
+          { type: 'phonics', title: 'School Things!', prompt: 'Tap to hear each object!', items: [{ letter: '📚', sound: 'Book', audio: 'Book' }, { letter: '✏️', sound: 'Pencil', audio: 'Pencil' }, { letter: '🖊️', sound: 'Pen', audio: 'Pen' }, { letter: '📏', sound: 'Ruler', audio: 'Ruler' }, { letter: '🎒', sound: 'Bag', audio: 'Bag' }] },
+          { type: 'listen_and_point', title: 'What is it?', icon: '👂', prompt: 'Tap what you hear!', word: 'Pencil', emoji: '✏️', choices: [{ emoji:'📚', word:'Book' }, { emoji:'✏️', word:'Pencil' }, { emoji:'📏', word:'Ruler' }, { emoji:'🎒', word:'Bag' }], audio: 'Pencil' },
+          { type: 'listen_repeat', title: 'Show your bag!', icon: '🎒', prompt: 'What is in Fox\'s bag?', word: 'I have a book and a pencil!', emoji: '🎒', context: 'Fox shows everything in his school bag!' },
+          { type: 'match_pairs', title: 'School Match!', prompt: 'Match each word to the right object!', pairs: [{ word: 'Book', emoji: '📚' }, { word: 'Pencil', emoji: '✏️' }, { word: 'Ruler', emoji: '📏' }, { word: 'Bag', emoji: '🎒' }] },
+        ]
+      },
+      {
+        id: 'actions',
+        title: 'What Can You Do?',
+        desc: 'Action verbs!',
+        icon: '🏃',
+        xp: 40,
+        story: 'Fox learns verbs in PE class.',
+        exercises: [
+          { type: 'word_intro', title: 'Action Words!', word: 'Run!', emoji: '🏃', phonetic: '/rʌn/', context: 'Fox can run very fast! Can you run too?' },
+          { type: 'phonics', title: 'Action Words!', prompt: 'Tap to hear what you can do!', items: [{ letter: '🏃', sound: 'Run', audio: 'Run' }, { letter: '🦘', sound: 'Jump', audio: 'Jump' }, { letter: '🙏', sound: 'Sit', audio: 'Sit' }, { letter: '🧍', sound: 'Stand', audio: 'Stand' }, { letter: '🤸', sound: 'Dance', audio: 'Dance' }] },
+          { type: 'listen_and_point', title: 'What action?', icon: '👂', prompt: 'Tap the action you hear!', word: 'Jump', emoji: '🦘', choices: [{ emoji:'🏃', word:'Run' }, { emoji:'🦘', word:'Jump' }, { emoji:'🙏', word:'Sit' }, { emoji:'🤸', word:'Dance' }], audio: 'Jump' },
+          { type: 'listen_repeat', title: 'Play Simon Says!', icon: '🎮', prompt: 'Do the action as you say it!', word: 'Jump! Run! Sit! Stand! Dance!', emoji: '🕹️', context: 'Fox plays Simon Says with his class!' },
+          { type: 'build_sentence', title: 'Build: "I can jump!"', prompt: 'Arrange the words!', answer: ['I', 'can', 'jump'], bank: ['I', 'can', 'jump', 'run', 'sit', 'Hello'] },
+        ]
+      }
+    ]
+  }
+];
+
+// ─── LESSON PROGRESS ─────────────────────────────────────────
+let lessonProgress = {};
+UNITS.forEach(u => u.lessons.forEach(l => lessonProgress[l.id] = false));
+
+function isUnlocked(unitIdx, lessonIdx) {
+  if (unitIdx === 0 && lessonIdx === 0) return true;
+  if (lessonIdx > 0) return lessonProgress[UNITS[unitIdx].lessons[lessonIdx - 1].id];
+  return lessonProgress[UNITS[unitIdx - 1].lessons[UNITS[unitIdx - 1].lessons.length - 1].id];
+}
+
+// ─── SCREENS ─────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showMap() {
+  buildMap();
+  showScreen('map');
+  updateXpDisplay();
+}
+
+function showHome() { showScreen('home'); }
+
+// ─── MAP BUILDER ─────────────────────────────────────────────
+function buildMap() {
+  const container = document.getElementById('map-scroll');
+  container.innerHTML = '';
+
+  UNITS.forEach((unit, ui) => {
+    const section = document.createElement('div');
+    section.className = 'unit-section';
+    section.innerHTML = `<div class="unit-label">${unit.label}</div>`;
+
+    const path = document.createElement('div');
+    path.className = 'lesson-path';
+
+    unit.lessons.forEach((lesson, li) => {
+      const done = lessonProgress[lesson.id];
+      const unlocked = isUnlocked(ui, li);
+      const state = done ? 'done' : unlocked ? 'active' : 'locked';
+
+      const node = document.createElement('div');
+      node.className = 'lesson-node';
+      node.innerHTML = `
+        <div class="node-bubble ${state}">
+          <span>${lesson.icon}</span>
+          <span class="node-label">${done ? '✓ Done' : unlocked ? 'Go!' : '🔒'}</span>
+        </div>
+        <div class="node-info">
+          <div class="node-title">${lesson.title}</div>
+          <div class="node-desc">${lesson.desc}</div>
+          <div class="node-xp">+${lesson.xp} XP</div>
+        </div>`;
+
+      if (unlocked) {
+        node.style.cursor = 'pointer';
+        node.onclick = () => startLesson(lesson);
+      } else {
+        node.style.opacity = '0.6';
+      }
+      path.appendChild(node);
+    });
+
+    section.appendChild(path);
+    container.appendChild(section);
+  });
+}
+
+function updateXpDisplay() {
+  const lvl = Math.floor(totalXP / 100) + 1;
+  const pct = (totalXP % 100);
+  document.getElementById('xp-display').textContent = `⭐ ${totalXP} XP — Level ${lvl}`;
+  document.getElementById('xp-bar').style.width = pct + '%';
+}
+
+// ─── LESSON ENGINE ───────────────────────────────────────────
+function startLesson(lesson) {
+  currentLesson = lesson;
+  currentExercises = lesson.exercises;
+  exerciseIndex = 0;
+  hearts = 3;
+  lessonComplete = false;
+  updateHearts();
+  showScreen('lesson');
+  renderExercise();
+}
+
+function updateHearts() {
+  const h = document.getElementById('hearts-display');
+  let s = '';
+  for (let i = 0; i < 3; i++) s += i < hearts ? '❤️' : '🖤';
+  h.textContent = s;
+}
+
+function updateProgress() {
+  const pct = (exerciseIndex / currentExercises.length) * 100;
+  document.getElementById('lesson-progress').style.width = pct + '%';
+}
+
+function renderExercise() {
+  updateProgress();
+  if (exerciseIndex >= currentExercises.length) {
+    completeLessonScreen();
+    return;
+  }
+  const ex = currentExercises[exerciseIndex];
+  const body = document.getElementById('lesson-body');
+  body.innerHTML = '';
+
+  switch (ex.type) {
+    case 'word_intro': renderWordIntro(ex, body); break;
+    case 'listen_and_point': renderListenAndPoint(ex, body); break;
+    case 'listen_repeat': renderListenRepeat(ex, body); break;
+    case 'build_sentence': renderBuildSentence(ex, body); break;
+    case 'match_pairs': renderMatchPairs(ex, body); break;
+    case 'phonics': renderPhonics(ex, body); break;
+    case 'scene': renderScene(ex, body); break;
+    default: nextExercise();
+  }
+}
+
+// ─── EXERCISE RENDERERS ──────────────────────────────────────
+
+function renderWordIntro(ex, body) {
+  body.innerHTML = `
+    <div class="word-card">
+      <div class="word-image">${ex.emoji}</div>
+      <div class="word-english">${ex.word}</div>
+      <div class="word-phonetic">${ex.phonetic || ''}</div>
+      <div class="word-context">${ex.context}</div>
+    </div>
+    <button class="btn-listen" id="listen-btn" onclick="speakWord('${ex.word}', this)">
+      🔊 Listen!
+    </button>
+    <div class="waveform" id="waveform">
+      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+    </div>`;
+
+  setTimeout(() => speakWord(ex.word, document.getElementById('listen-btn')), 500);
+
+  const cont = document.createElement('button');
+  cont.className = 'btn-continue';
+  cont.textContent = 'Got it! →';
+  cont.style.cssText = 'margin-top:12px; background: linear-gradient(135deg,#7C4DFF,#F06292); color:white; border:none; border-radius:50px; padding:16px 48px; font-family:Fredoka One,cursive; font-size:22px; cursor:pointer; box-shadow:0 6px 0 rgba(0,0,0,0.2); width:100%; max-width:320px;';
+  cont.onclick = nextExercise;
+  body.appendChild(cont);
+}
+
+function renderListenAndPoint(ex, body) {
+  const shuffled = shuffle([...ex.choices]);
+  body.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-icon">${ex.icon || '👂'}</div>
+      <div class="exercise-prompt">${ex.prompt}</div>
+      <div class="exercise-hint">Tap the correct picture!</div>
+      <button class="btn-listen" id="listen-btn" onclick="speakWord('${ex.audio || ex.word}', this)">
+        🔊 Play Sound
+      </button>
+      <div class="waveform" id="waveform">
+        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+        <div class="wave-bar"></div><div class="wave-bar"></div>
+      </div>
+    </div>
+    <div class="choices-grid" id="choices-grid"></div>`;
+
+  setTimeout(() => speakWord(ex.audio || ex.word, document.getElementById('listen-btn')), 600);
+
+  const grid = document.getElementById('choices-grid');
+  shuffled.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.innerHTML = `<span class="choice-emoji">${choice.emoji}</span><span>${choice.word}</span>`;
+    btn.onclick = () => checkListenChoice(btn, choice, ex, grid);
+    grid.appendChild(btn);
+  });
+}
+
+function checkListenChoice(btn, choice, ex, grid) {
+  if (grid.dataset.answered) return;
+  grid.dataset.answered = '1';
+
+  const correct = choice.word === (ex.word || ex.choices[0].word);
+  btn.classList.add(correct ? 'correct' : 'wrong');
+
+  if (!correct) {
+    hearts = Math.max(0, hearts - 1);
+    updateHearts();
+    grid.querySelectorAll('.choice-btn').forEach(b => {
+      if (b.children[1].textContent === ex.word) b.classList.add('correct');
+    });
+  }
+  showFeedback(correct);
+}
+
+function renderListenRepeat(ex, body) {
+  body.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-icon">${ex.icon || '🗣️'}</div>
+      <div class="exercise-prompt">${ex.prompt}</div>
+    </div>
+    <div class="scene-box">
+      <div class="scene-characters">${ex.emoji}</div>
+      <div class="scene-english">"${ex.word}"</div>
+      <div class="scene-text" style="font-size:13px;color:#666;margin-top:6px;">${ex.context || ''}</div>
+    </div>
+    <button class="btn-listen" id="listen-btn" onclick="speakWord('${ex.word}', this)">
+      🔊 Listen First!
+    </button>
+    <div class="waveform" id="waveform">
+      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div>
+    </div>
+    <button class="btn-speak" id="speak-btn" onclick="startSpeaking('${ex.word}')">
+      🎤 Now You Say It!
+    </button>
+    <div id="speak-result" style="min-height:32px; font-size:16px; font-weight:700; color:#7C4DFF; text-align:center; padding:4px;"></div>`;
+
+  setTimeout(() => speakWord(ex.word, document.getElementById('listen-btn')), 500);
+}
+
+function renderBuildSentence(ex, body) {
+  let slots = [];
+  const bank = shuffle([...ex.bank]);
+
+  body.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-icon">🧩</div>
+      <div class="exercise-prompt">${ex.prompt}</div>
+    </div>
+    <div class="sentence-slots" id="slots"></div>
+    <div class="tap-words" id="bank"></div>
+    <button class="btn-continue" id="check-btn" onclick="checkBuildSentence()" style="display:none;background:linear-gradient(135deg,#7C4DFF,#F06292);color:white;border:none;border-radius:50px;padding:14px 40px;font-family:Fredoka One,cursive;font-size:20px;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,0.2);margin-top:8px;">Check! ✓</button>`;
+
+  const slotsEl = document.getElementById('slots');
+  const bankEl = document.getElementById('bank');
+
+  bank.forEach(word => {
+    const btn = document.createElement('button');
+    btn.className = 'tap-word';
+    btn.textContent = word;
+    btn.onclick = () => {
+      if (btn.classList.contains('selected')) return;
+      slots.push(word);
+      btn.classList.add('selected');
+      renderSlots();
+      if (slots.length > 0) document.getElementById('check-btn').style.display = 'inline-block';
+    };
+    bankEl.appendChild(btn);
+  });
+
+  function renderSlots() {
+    slotsEl.innerHTML = '';
+    slots.forEach((w, i) => {
+      const sw = document.createElement('div');
+      sw.className = 'slot-word';
+      sw.textContent = w;
+      sw.onclick = () => {
+        slots.splice(i, 1);
+        const btns = bankEl.querySelectorAll('.tap-word');
+        btns.forEach(b => { if (b.textContent === w && b.classList.contains('selected')) { b.classList.remove('selected'); return; } });
+        renderSlots();
+      };
+      slotsEl.appendChild(sw);
+    });
+  }
+
+  window.checkBuildSentence = () => {
+    const correct = JSON.stringify(slots) === JSON.stringify(ex.answer);
+    if (!correct) { hearts = Math.max(0, hearts - 1); updateHearts(); }
+    showFeedback(correct, correct ? '' : `Correct order: "${ex.answer.join(' ')}"`);
+  };
+}
+
+function renderMatchPairs(ex, body) {
+  const pairs = ex.pairs;
+  const words = shuffle(pairs.map(p => p.word));
+  const emojis = shuffle(pairs.map(p => p.emoji));
+  let selectedWord = null;
+  let matchedCount = 0;
+
+  body.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-icon">🔗</div>
+      <div class="exercise-prompt">${ex.prompt}</div>
+    </div>
+    <div class="match-grid" id="match-grid"></div>`;
+
+  const grid = document.getElementById('match-grid');
+
+  function render() {
+    grid.innerHTML = '';
+    for (let i = 0; i < pairs.length; i++) {
+      const wBtn = document.createElement('div');
+      wBtn.className = 'match-item';
+      wBtn.textContent = words[i];
+      wBtn.dataset.word = words[i];
+      wBtn.dataset.type = 'word';
+      if (wBtn.dataset.matched) wBtn.classList.add('matched');
+      wBtn.onclick = () => selectItem(wBtn, 'word', words[i]);
+      grid.appendChild(wBtn);
+
+      const eBtn = document.createElement('div');
+      eBtn.className = 'match-item';
+      eBtn.innerHTML = `<span class="match-emoji">${emojis[i]}</span>`;
+      eBtn.dataset.emoji = emojis[i];
+      eBtn.dataset.type = 'emoji';
+      eBtn.onclick = () => selectItem(eBtn, 'emoji', emojis[i]);
+      grid.appendChild(eBtn);
+    }
+  }
+
+  let selectedEl = null;
+
+  function selectItem(el, type, val) {
+    if (el.classList.contains('matched')) return;
+    if (selectedEl && selectedEl.dataset.type === type) {
+      selectedEl.classList.remove('selected');
+      selectedEl = el;
+      el.classList.add('selected');
+      return;
+    }
+    if (!selectedEl) {
+      selectedEl = el;
+      el.classList.add('selected');
+      return;
+    }
+    // Check match
+    let wordVal, emojiVal;
+    if (type === 'emoji') { emojiVal = val; wordVal = selectedEl.dataset.word; }
+    else { wordVal = val; emojiVal = selectedEl.dataset.emoji; }
+    const pair = pairs.find(p => p.word === wordVal && p.emoji === emojiVal);
+    if (pair) {
+      el.classList.add('matched');
+      selectedEl.classList.add('matched');
+      selectedEl.classList.remove('selected');
+      selectedEl = null;
+      matchedCount++;
+      speakWord(wordVal);
+      if (matchedCount >= pairs.length) setTimeout(() => showFeedback(true), 500);
+    } else {
+      el.classList.add('wrong');
+      selectedEl.classList.add('wrong');
+      setTimeout(() => { el.classList.remove('wrong', 'selected'); selectedEl.classList.remove('wrong', 'selected'); selectedEl = null; }, 700);
+      hearts = Math.max(0, hearts - 1);
+      updateHearts();
+    }
+  }
+  render();
+}
+
+function renderPhonics(ex, body) {
+  body.innerHTML = `
+    <div class="exercise-card">
+      <div class="exercise-icon">🎵</div>
+      <div class="exercise-prompt">${ex.prompt}</div>
+      <div class="exercise-hint">Tap each one to hear it!</div>
+    </div>
+    <div class="phonics-grid" id="phonics-grid"></div>`;
+
+  const heard = new Set();
+  const grid = document.getElementById('phonics-grid');
+
+  ex.items.forEach(item => {
+    const block = document.createElement('div');
+    block.className = 'phonics-block';
+    block.innerHTML = `<span class="phonics-letter">${item.letter}</span><span class="phonics-sound">${item.sound}</span>`;
+    block.onclick = () => {
+      speakWord(item.audio || item.sound);
+      block.style.background = '#EDE7F6';
+      block.style.borderColor = '#7C4DFF';
+      heard.add(item.sound);
+      if (heard.size >= ex.items.length) {
+        setTimeout(() => {
+          const cont = document.createElement('button');
+          cont.style.cssText = 'margin-top:16px; background:linear-gradient(135deg,#7C4DFF,#F06292); color:white; border:none; border-radius:50px; padding:14px 40px; font-family:Fredoka One,cursive; font-size:20px; cursor:pointer; box-shadow:0 5px 0 rgba(0,0,0,0.2); width:90%;';
+          cont.textContent = 'Continue! →';
+          cont.onclick = nextExercise;
+          body.appendChild(cont);
+        }, 300);
+      }
+    };
+    grid.appendChild(block);
+  });
+}
+
+function renderScene(ex, body) {
+  body.innerHTML = `
+    <div class="scene-box" style="margin-top:16px;">
+      <div class="scene-characters">${ex.emoji}</div>
+      <div class="scene-text">${ex.text}</div>
+      <div class="scene-english">${ex.english}</div>
+      <div class="scene-text" style="font-size:13px;color:#666;margin-top:6px;">${ex.context}</div>
+    </div>
+    <button class="btn-listen" onclick="speakWord('${ex.english.replace(/"/g,'')}', this)" style="margin-top:8px;">
+      🔊 Hear it!
+    </button>`;
+
+  const cont = document.createElement('button');
+  cont.style.cssText = 'margin-top:16px; background:linear-gradient(135deg,#7C4DFF,#F06292); color:white; border:none; border-radius:50px; padding:16px 48px; font-family:Fredoka One,cursive; font-size:22px; cursor:pointer; box-shadow:0 6px 0 rgba(0,0,0,0.2); width:100%; max-width:320px;';
+  cont.textContent = 'Continue! →';
+  cont.onclick = nextExercise;
+  body.appendChild(cont);
+}
+
+// ─── SPEECH ──────────────────────────────────────────────────
+function speakWord(text, btn) {
+  if (!synth) return;
+  synth.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = 0.82;
+  utter.pitch = 1.1;
+
+  const wave = document.getElementById('waveform');
+
+  utter.onstart = () => {
+    if (btn) btn.classList.add('playing');
+    if (wave) wave.classList.add('active');
+  };
+  utter.onend = () => {
+    if (btn) btn.classList.remove('playing');
+    if (wave) wave.classList.remove('active');
+  };
+  synth.speak(utter);
+}
+
+function startSpeaking(expected) {
+  const btn = document.getElementById('speak-btn');
+  const result = document.getElementById('speak-result');
+  const wave = document.getElementById('waveform');
+
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    result.textContent = '🎤 Voice not available — tap Continue!';
+    result.style.color = '#999';
+    showManualContinue();
+    return;
+  }
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 3;
+
+  recognition.onstart = () => {
+    btn.classList.add('recording');
+    btn.textContent = '🔴 Listening...';
+    if (wave) wave.classList.add('active');
+    result.textContent = 'Speak now...';
+    result.style.color = '#EC407A';
+  };
+
+  recognition.onresult = (e) => {
+    const said = Array.from(e.results[0]).map(r => r.transcript.toLowerCase()).join(' ');
+    const exp = expected.toLowerCase().replace(/[^a-z0-9 ]/g,'').trim();
+    const clean = said.replace(/[^a-z0-9 ]/g,'').trim();
+    const match = clean.includes(exp) || exp.includes(clean) ||
+      clean.split(' ').some(w => exp.split(' ').includes(w));
+
+    btn.classList.remove('recording');
+    btn.textContent = '🎤 Try Again!';
+    if (wave) wave.classList.remove('active');
+
+    if (match) {
+      result.textContent = '✅ Great job! "' + said + '"';
+      result.style.color = '#388E3C';
+      setTimeout(() => showFeedback(true), 800);
+    } else {
+      result.textContent = '🔄 You said: "' + said + '" — Try again!';
+      result.style.color = '#FF5722';
+    }
+  };
+
+  recognition.onerror = () => {
+    btn.classList.remove('recording');
+    btn.textContent = '🎤 Try Again!';
+    if (wave) wave.classList.remove('active');
+    result.textContent = 'Could not hear — try again or tap Skip!';
+    result.style.color = '#999';
+    showManualContinue();
+  };
+
+  recognition.start();
+}
+
+function showManualContinue() {
+  const body = document.getElementById('lesson-body');
+  if (!document.getElementById('manual-cont')) {
+    const btn = document.createElement('button');
+    btn.id = 'manual-cont';
+    btn.style.cssText = 'margin-top:12px; background:linear-gradient(135deg,#7C4DFF,#F06292); color:white; border:none; border-radius:50px; padding:14px 40px; font-family:Fredoka One,cursive; font-size:20px; cursor:pointer; box-shadow:0 5px 0 rgba(0,0,0,0.2); width:100%; max-width:300px;';
+    btn.textContent = 'I said it! Continue →';
+    btn.onclick = nextExercise;
+    body.appendChild(btn);
+  }
+}
+
+// ─── FEEDBACK ────────────────────────────────────────────────
+function showFeedback(correct, customMsg) {
+  const overlay = document.getElementById('feedback-overlay');
+  const big = document.getElementById('feedback-big');
+  const title = document.getElementById('feedback-title');
+  const msg = document.getElementById('feedback-message');
+  const btn = document.getElementById('btn-continue');
+
+  const correctEmojis = ['🎉','⭐','🌟','🏆','🎊','🦊','🎈'];
+  const wrongEmojis = ['😅','💪','🔄','🤔'];
+
+  if (correct) {
+    big.textContent = correctEmojis[Math.floor(Math.random() * correctEmojis.length)];
+    title.textContent = ['Amazing!','Fantastic!','Wonderful!','You did it!','Superstar!'][Math.floor(Math.random()*5)];
+    title.className = 'feedback-title correct-fb';
+    msg.textContent = customMsg || 'Keep going, you\'re doing great!';
+    btn.className = 'btn-continue correct-fb';
+    btn.textContent = 'Continue →';
+    overlay.className = 'feedback-overlay correct-fb show';
+    speakWord('Excellent!');
+  } else {
+    big.textContent = wrongEmojis[Math.floor(Math.random() * wrongEmojis.length)];
+    title.textContent = 'Let\'s try again!';
+    title.className = 'feedback-title wrong-fb';
+    msg.textContent = customMsg || 'You can do it! Practice makes perfect!';
+    btn.className = 'btn-continue wrong-fb';
+    btn.textContent = 'Try Again →';
+    overlay.className = 'feedback-overlay wrong-fb show';
+  }
+}
+
+function nextExercise() {
+  document.getElementById('feedback-overlay').classList.remove('show');
+  exerciseIndex++;
+  if (exerciseIndex >= currentExercises.length) {
+    completeLessonScreen();
+  } else {
+    setTimeout(renderExercise, 350);
+  }
+}
+
+// ─── LESSON COMPLETE ─────────────────────────────────────────
+function completeLessonScreen() {
+  document.getElementById('lesson-progress').style.width = '100%';
+  lessonProgress[currentLesson.id] = true;
+  totalXP += currentLesson.xp;
+
+  const stars = hearts === 3 ? '⭐⭐⭐' : hearts === 2 ? '⭐⭐' : '⭐';
+  document.getElementById('celebrate-emoji').textContent = '🎊';
+  document.getElementById('celebrate-title').textContent = currentLesson.title + ' Complete!';
+  document.getElementById('celebrate-stars').textContent = stars;
+  document.getElementById('celebrate-xp').textContent = '+' + currentLesson.xp + ' XP earned!';
+
+  document.getElementById('celebrate').classList.add('show');
+  spawnConfetti();
+  speakWord('Congratulations! You did it!');
+}
+
+function closeCelebrate() {
+  document.getElementById('celebrate').classList.remove('show');
+  document.querySelectorAll('.confetti-piece').forEach(c => c.remove());
+  showMap();
+}
+
+// ─── CONFETTI ────────────────────────────────────────────────
+function spawnConfetti() {
+  const colors = ['#FF7043','#FFD54F','#7C4DFF','#F06292','#66BB6A','#4FC3F7','#FF5252'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.cssText = `
+        left: ${Math.random()*100}vw;
+        background: ${colors[Math.floor(Math.random()*colors.length)]};
+        width: ${8 + Math.random()*10}px;
+        height: ${8 + Math.random()*10}px;
+        animation-duration: ${2 + Math.random()*2}s;
+        animation-delay: ${Math.random()*0.5}s;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '3px'};
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }, i * 30);
+  }
+}
+
+// ─── UTILS ───────────────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Init
+buildMap();
+</script>
+</body>
+</html>
