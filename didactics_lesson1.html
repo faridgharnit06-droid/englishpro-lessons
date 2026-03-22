@@ -1,0 +1,985 @@
+<!--============================================================
+     EnglishPro · Didactics Series · Lesson 1
+     What is Didactics? Approach, Method, Technique, Methodology & Procedure
+     PASTE DIRECTLY into Blogger post HTML mode (the <> button)
+     100% self-contained — no external JS dependencies
+     ============================================================-->
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── All styles scoped under #dp-l1 ── */
+#dp-l1{--ny:#0D2B4E;--ny2:#1A4070;--go:#C8933A;--go2:#E8B86D;--gop:#FDF6EC;--cr:#FAFAF7;--wh:#fff;--ink:#1A1A1A;--ink2:#3D3D3D;--mu:#7A7A7A;--bd:#E2DDD6;--bdl:#F0EDE8;--gr:#2E7D52;--grb:#EBF5EF;--rd:#C0392B;--rdb:#FDECEA;--bl:#1E5FA8;--blb:#EBF2FB;--pu:#7C3AED;--pub:#F3F0FF;--te:#0E7490;--teb:#ECFEFF;--sh1:0 2px 8px rgba(13,43,78,.07);--sh2:0 6px 20px rgba(13,43,78,.10);--r:12px;--rl:20px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--cr);line-height:1.7;-webkit-font-smoothing:antialiased;display:block;overflow:hidden;direction:ltr;text-align:left}
+#dp-l1 *,#dp-l1 *::before,#dp-l1 *::after{box-sizing:border-box;margin:0;padding:0}
+#dp-l1 button{cursor:pointer;font-family:'DM Sans',sans-serif;border:none;background:none}
+#dp-l1 textarea,#dp-l1 input{font-family:'DM Sans',sans-serif}
+
+/* HERO */
+#dp-l1 .lhero{background:linear-gradient(150deg,#0a1f38 0%,#0D2B4E 50%,#122e52 100%);padding:48px 24px 40px;position:relative;overflow:hidden;border-radius:var(--rl) var(--rl) 0 0}
+#dp-l1 .lhero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(200,147,58,.08) 0%,transparent 60%),radial-gradient(circle at 80% 20%,rgba(124,58,237,.06) 0%,transparent 50%);pointer-events:none}
+#dp-l1 .lhero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,147,58,.4),transparent)}
+#dp-l1 .lhero-in{max-width:720px;margin:0 auto;position:relative;z-index:1}
+#dp-l1 .lvlbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,147,58,.12);border:1px solid rgba(200,147,58,.28);color:var(--go2);font-size:.68rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:18px}
+#dp-l1 .ltitle{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;color:#F5F0E8;line-height:1.15;margin-bottom:10px;letter-spacing:-.02em}
+#dp-l1 .ltitle em{color:var(--go);font-style:italic}
+#dp-l1 .lsub{font-size:.9rem;color:rgba(245,240,232,.62);margin-bottom:22px;max-width:520px;line-height:1.6}
+#dp-l1 .spills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+#dp-l1 .spill{font-size:.67rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 11px;border-radius:100px}
+#dp-l1 .sp-th{background:rgba(124,58,237,.25);color:#C4B5FD}
+#dp-l1 .sp-ex{background:rgba(30,95,168,.25);color:#7DB8F0}
+#dp-l1 .sp-qu{background:rgba(200,147,58,.25);color:var(--go2)}
+#dp-l1 .sp-ic{background:rgba(46,125,82,.25);color:#6BCFA0}
+
+/* STEP DOTS */
+#dp-l1 .snav{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
+#dp-l1 .snavdot{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:.7rem;font-weight:700;border:2px solid rgba(255,255,255,.18);color:rgba(255,255,255,.32);cursor:pointer;transition:all .25s;flex-shrink:0}
+#dp-l1 .snavdot.done{border-color:var(--gr);background:var(--gr);color:#fff}
+#dp-l1 .snavdot.active{border-color:var(--go);background:var(--go);color:#fff}
+#dp-l1 .snavsep{width:16px;height:2px;background:rgba(255,255,255,.1);border-radius:1px;flex-shrink:0}
+#dp-l1 .snavlbl{font-size:.63rem;color:rgba(245,240,232,.38);margin-left:6px}
+
+/* BODY */
+#dp-l1 .lbody{max-width:720px;margin:0 auto;padding:32px 20px 64px;background:var(--cr)}
+
+/* SECTION BLOCKS */
+#dp-l1 .sblock{background:var(--wh);border:1px solid var(--bdl);border-radius:var(--rl);padding:28px;margin-bottom:24px;display:none;animation:dp1_up .35s ease both;box-shadow:var(--sh1)}
+#dp-l1 .sblock.vis{display:block}
+@keyframes dp1_up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#dp-l1 .slabel{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--go);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+#dp-l1 .slabel::after{content:'';flex:1;height:1px;background:var(--bdl)}
+#dp-l1 .sheading{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--ny);margin-bottom:16px;line-height:1.25}
+#dp-l1 .sheading em{color:var(--go);font-style:italic}
+#dp-l1 .stxt{font-size:.9rem;color:var(--ink2);margin-bottom:16px;line-height:1.65}
+
+/* CALLOUTS */
+#dp-l1 .co{display:flex;gap:10px;padding:13px 15px;border-radius:var(--r);margin:14px 0;font-size:.855rem;line-height:1.6}
+#dp-l1 .co-tip{background:var(--gop);border:1px solid rgba(200,147,58,.2);color:var(--ink2)}
+#dp-l1 .co-info{background:var(--blb);border:1px solid rgba(30,95,168,.15);color:var(--ink2)}
+#dp-l1 .co-pur{background:var(--pub);border:1px solid rgba(124,58,237,.15);color:var(--ink2)}
+#dp-l1 .co-teal{background:var(--teb);border:1px solid rgba(14,116,144,.15);color:var(--ink2)}
+#dp-l1 .co-ico{font-size:1rem;flex-shrink:0;margin-top:1px}
+
+/* SCENE */
+#dp-l1 .scene{background:linear-gradient(135deg,var(--ny),var(--ny2));border-radius:var(--r);padding:20px;margin-bottom:20px;position:relative;overflow:hidden}
+#dp-l1 .scene::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(200,147,58,.08),transparent 60%);pointer-events:none}
+#dp-l1 .s-ico{font-size:1.8rem;margin-bottom:8px;position:relative;z-index:1}
+#dp-l1 .s-t{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#F5F0E8;position:relative;z-index:1;margin-bottom:5px}
+#dp-l1 .s-d{font-size:.83rem;color:rgba(245,240,232,.65);position:relative;z-index:1;line-height:1.55}
+
+/* TERM CARDS */
+#dp-l1 .tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:20px 0}
+#dp-l1 .tcard{background:var(--cr);border:2px solid var(--bd);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+#dp-l1 .tcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transition:transform .2s;transform-origin:left}
+#dp-l1 .tcard:hover{border-color:var(--go);transform:translateY(-3px);box-shadow:var(--sh2)}
+#dp-l1 .tcard:hover::after,.tcard.fl::after{transform:scaleX(1)}
+#dp-l1 .tcard.fl{background:var(--gop);border-color:var(--go)}
+#dp-l1 .tc-ico{font-size:1.6rem;margin-bottom:8px;display:block}
+#dp-l1 .tc-term{font-size:.92rem;font-weight:700;color:var(--ny);margin-bottom:4px}
+#dp-l1 .tc-hint{font-size:.72rem;color:var(--mu);margin-bottom:8px}
+#dp-l1 .tc-def{font-size:.82rem;color:var(--ink2);line-height:1.5;display:none}
+#dp-l1 .tcard.fl .tc-def{display:block}
+#dp-l1 .tcard.fl .tc-hint{display:none}
+#dp-l1 .tc-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:100px;margin-top:8px;color:#fff}
+
+/* HIERARCHY VISUAL */
+#dp-l1 .hier{margin:24px 0;padding:20px;background:var(--cr);border:2px solid var(--bd);border-radius:var(--rl);overflow-x:auto}
+#dp-l1 .hier-row{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:4px;flex-wrap:nowrap}
+#dp-l1 .hier-box{border-radius:var(--r);padding:10px 16px;text-align:center;font-size:.82rem;font-weight:700;min-width:110px;flex-shrink:0}
+#dp-l1 .hier-arrow{font-size:1.1rem;color:var(--go);padding:0 6px;flex-shrink:0}
+#dp-l1 .hb-ap{background:#0D2B4E;color:#F5F0E8}
+#dp-l1 .hb-me{background:#1E5FA8;color:#fff}
+#dp-l1 .hb-pr{background:#2E7D52;color:#fff}
+#dp-l1 .hb-te{background:#C8933A;color:#fff}
+#dp-l1 .hb-mo{background:#7C3AED;color:#fff}
+
+/* TABLE */
+#dp-l1 .gtbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:.85rem}
+#dp-l1 .gtbl th{background:var(--ny);color:#F5F0E8;padding:9px 13px;text-align:left;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+#dp-l1 .gtbl th:first-child{border-radius:var(--r) 0 0 0}
+#dp-l1 .gtbl th:last-child{border-radius:0 var(--r) 0 0}
+#dp-l1 .gtbl td{padding:9px 13px;border-bottom:1px solid var(--bdl);color:var(--ink2);vertical-align:top}
+#dp-l1 .gtbl tr:nth-child(even) td{background:var(--cr)}
+#dp-l1 .tbl-b{color:var(--bl);font-weight:600;font-family:'DM Mono',monospace}
+#dp-l1 .tbl-g{color:var(--go);font-weight:600}
+#dp-l1 .tbl-gr{color:var(--gr);font-weight:600}
+#dp-l1 .tbl-pu{color:var(--pu);font-weight:600}
+
+/* GRAMMAR / INFO BOXES */
+#dp-l1 .gbox{border-radius:0 var(--r) var(--r) 0;padding:18px 20px;margin:18px 0}
+#dp-l1 .gbox-bl{background:var(--blb);border:1px solid rgba(30,95,168,.2);border-left:4px solid var(--bl)}
+#dp-l1 .gbox-go{background:var(--gop);border:1px solid rgba(200,147,58,.2);border-left:4px solid var(--go)}
+#dp-l1 .gbox-gr{background:var(--grb);border:1px solid rgba(46,125,82,.2);border-left:4px solid var(--gr)}
+#dp-l1 .gbox-pu{background:var(--pub);border:1px solid rgba(124,58,237,.15);border-left:4px solid var(--pu)}
+#dp-l1 .gbox-te{background:var(--teb);border:1px solid rgba(14,116,144,.15);border-left:4px solid var(--te)}
+#dp-l1 .gbox h4{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:11px}
+#dp-l1 .gbox-bl h4{color:var(--bl)}
+#dp-l1 .gbox-go h4{color:var(--go)}
+#dp-l1 .gbox-gr h4{color:var(--gr)}
+#dp-l1 .gbox-pu h4{color:var(--pu)}
+#dp-l1 .gbox-te h4{color:var(--te)}
+#dp-l1 .grule{font-family:'DM Mono',monospace;font-size:.86rem;color:var(--ny);background:rgba(255,255,255,.65);padding:9px 14px;border-radius:7px;margin-bottom:7px;line-height:1.6}
+#dp-l1 .grule span{color:var(--bl);font-weight:600}
+#dp-l1 .grule em{color:var(--go);font-style:normal;font-weight:600}
+#dp-l1 .grule strong{color:var(--gr);font-weight:700}
+
+/* SCENARIO MATCHING */
+#dp-l1 .smatch{margin:20px 0}
+#dp-l1 .sm-item{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;align-items:center}
+#dp-l1 .sm-scenario{background:var(--blb);border:1px solid rgba(30,95,168,.15);border-radius:var(--r);padding:12px 14px;font-size:.85rem;color:var(--ink2);line-height:1.5}
+#dp-l1 .sm-select{border:2px solid var(--bd);border-radius:var(--r);padding:9px 12px;font-size:.85rem;color:var(--ink2);background:var(--cr);width:100%;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;cursor:pointer}
+#dp-l1 .sm-select:focus{border-color:var(--go)}
+#dp-l1 .sm-select.ok{border-color:var(--gr);background:var(--grb);color:var(--gr)}
+#dp-l1 .sm-select.bad{border-color:var(--rd);background:var(--rdb);color:var(--rd)}
+#dp-l1 .smfb{font-size:.82rem;font-weight:600;padding:10px 14px;border-radius:var(--r);margin-top:4px;display:none}
+#dp-l1 .smfb.ok{background:var(--grb);color:var(--gr);display:block}
+#dp-l1 .smfb.bad{background:var(--rdb);color:var(--rd);display:block}
+
+/* FILL BLANKS */
+#dp-l1 .fex{margin:18px 0}
+#dp-l1 .fi{background:var(--cr);border:1.5px solid var(--bd);border-radius:var(--r);padding:16px 18px;margin-bottom:10px;transition:border-color .2s}
+#dp-l1 .fi.ok{border-color:var(--gr);background:var(--grb)}
+#dp-l1 .fi.bad{border-color:var(--rd);background:var(--rdb)}
+#dp-l1 .fsen{font-size:.92rem;color:var(--ink2);line-height:2;display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+#dp-l1 .finp{border:none;border-bottom:2px solid var(--go);background:transparent;font-size:.92rem;font-family:'DM Sans',sans-serif;color:var(--ny);font-weight:600;padding:2px 6px;min-width:120px;outline:none;transition:border-color .2s;text-align:center}
+#dp-l1 .finp:focus{border-color:var(--ny)}
+#dp-l1 .finp.ok{border-color:var(--gr);color:var(--gr)}
+#dp-l1 .finp.bad{border-color:var(--rd);color:var(--rd)}
+#dp-l1 .ffb{font-size:.78rem;font-weight:600;margin-top:7px;display:none}
+#dp-l1 .fi.ok .ffb{display:block;color:var(--gr)}
+#dp-l1 .fi.bad .ffb{display:block;color:var(--rd)}
+#dp-l1 .chkb{background:var(--ny);color:#fff;padding:11px 24px;border-radius:var(--r);font-size:.87rem;font-weight:600;transition:all .2s;cursor:pointer;border:none;margin-top:6px}
+#dp-l1 .chkb:hover{background:var(--go);transform:translateY(-1px)}
+
+/* SPEAKING */
+#dp-l1 .stask{border-radius:var(--r);padding:20px;margin:14px 0;border:1.5px solid}
+#dp-l1 .stask-gr{background:var(--grb);border-color:rgba(46,125,82,.22)}
+#dp-l1 .stask-bl{background:var(--blb);border-color:rgba(30,95,168,.18)}
+#dp-l1 .stask-pu{background:var(--pub);border-color:rgba(124,58,237,.18)}
+#dp-l1 .sth{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+#dp-l1 .stico{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;color:#fff}
+#dp-l1 .stitle{font-size:.9rem;font-weight:600}
+#dp-l1 .stitle-gr{color:var(--gr)}
+#dp-l1 .stitle-bl{color:var(--bl)}
+#dp-l1 .stitle-pu{color:var(--pu)}
+#dp-l1 .sinstr{font-size:.855rem;color:var(--ink2);line-height:1.6;margin-bottom:10px}
+#dp-l1 .smodel{background:var(--wh);border-radius:8px;padding:13px 15px;font-family:'DM Mono',monospace;font-size:.84rem;color:var(--ny);line-height:1.9}
+#dp-l1 .em-gr{color:var(--gr);font-weight:600;font-style:normal}
+#dp-l1 .em-bl{color:var(--bl);font-weight:600;font-style:normal}
+#dp-l1 .em-go{color:var(--go);font-weight:600;font-style:normal}
+#dp-l1 .em-pu{color:var(--pu);font-weight:600;font-style:normal}
+
+/* WRITING */
+#dp-l1 .wa{width:100%;min-height:130px;border:2px solid var(--bd);border-radius:var(--r);padding:14px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);background:var(--cr);resize:vertical;outline:none;transition:border-color .2s;line-height:1.7}
+#dp-l1 .wa:focus{border-color:var(--go)}
+#dp-l1 .wa::placeholder{color:var(--mu)}
+#dp-l1 .wcnt{font-size:.72rem;color:var(--mu);text-align:right;margin-top:5px}
+#dp-l1 .wsub{margin-top:11px;background:var(--ny);color:#fff;padding:11px 26px;border-radius:var(--r);font-size:.87rem;font-weight:600;transition:all .2s;cursor:pointer;border:none}
+#dp-l1 .wsub:hover{background:var(--go);transform:translateY(-1px)}
+#dp-l1 .wfb{display:none;margin-top:13px;background:var(--grb);border:1.5px solid rgba(46,125,82,.22);border-radius:var(--r);padding:15px;font-size:.855rem;color:var(--gr);line-height:1.65}
+#dp-l1 .wfb.show{display:block}
+
+/* QUIZ */
+#dp-l1 .qpr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+#dp-l1 .qpbar{flex:1;height:6px;background:var(--bd);border-radius:3px;overflow:hidden;margin:0 11px}
+#dp-l1 .qpfill{height:100%;background:linear-gradient(90deg,var(--go),var(--go2));border-radius:3px;transition:width .4s ease}
+#dp-l1 .qcnt{font-size:.77rem;font-weight:600;color:var(--mu)}
+#dp-l1 .qq{font-size:1rem;font-weight:600;color:var(--ny);margin-bottom:16px;line-height:1.5}
+#dp-l1 .qqn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--go);color:#fff;font-size:.75rem;font-weight:700;margin-right:7px;flex-shrink:0;vertical-align:middle}
+#dp-l1 .qopts{display:flex;flex-direction:column;gap:9px}
+#dp-l1 .qopt{background:var(--cr);border:2px solid var(--bd);border-radius:var(--r);padding:13px 16px;font-size:.9rem;color:var(--ink2);text-align:left;transition:all .2s;display:flex;align-items:center;gap:9px;cursor:pointer}
+#dp-l1 .qopt::before{content:'';width:17px;height:17px;border-radius:50%;border:2px solid var(--bd);flex-shrink:0;transition:all .2s}
+#dp-l1 .qopt:hover:not([disabled]){border-color:var(--go);background:var(--gop);transform:translateX(3px)}
+#dp-l1 .qopt:hover::before{border-color:var(--go)}
+#dp-l1 .qopt.qco{border-color:var(--gr)!important;background:var(--grb)!important;color:var(--gr)!important}
+#dp-l1 .qopt.qco::before{background:var(--gr);border-color:var(--gr)}
+#dp-l1 .qopt.qwr{border-color:var(--rd)!important;background:var(--rdb)!important;color:var(--rd)!important}
+#dp-l1 .qopt.qwr::before{background:var(--rd);border-color:var(--rd)}
+#dp-l1 .qfbm{display:none;margin-top:11px;padding:13px 16px;border-radius:var(--r);font-size:.86rem;font-weight:500;line-height:1.6}
+#dp-l1 .qfbm.show{display:block}
+#dp-l1 .qfbm.ok{background:var(--grb);color:var(--gr);border:1px solid rgba(46,125,82,.2)}
+#dp-l1 .qfbm.bad{background:var(--rdb);color:var(--rd);border:1px solid rgba(192,57,43,.2)}
+#dp-l1 .qnxt{margin-top:14px;background:var(--ny);color:#fff;padding:11px 26px;border-radius:var(--r);font-size:.87rem;font-weight:600;transition:all .2s;display:none;cursor:pointer;border:none}
+#dp-l1 .qnxt:hover{background:var(--go);transform:translateY(-1px)}
+#dp-l1 .qnxt.show{display:inline-block}
+
+/* SCORE */
+#dp-l1 .spl{text-align:center;padding:28px 20px;display:none;animation:dp1_up .4s ease both}
+#dp-l1 .spl.show{display:block}
+#dp-l1 .scir{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--ny),var(--ny2));display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 8px 24px rgba(13,43,78,.2)}
+#dp-l1 .snum{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--go);line-height:1}
+#dp-l1 .sden{font-size:.7rem;color:rgba(245,240,232,.5)}
+#dp-l1 .smsg{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ny);margin-bottom:7px}
+#dp-l1 .ssub{font-size:.84rem;color:var(--mu);margin-bottom:18px}
+#dp-l1 .srty{background:var(--ny);color:#fff;padding:11px 24px;border-radius:var(--r);font-size:.87rem;font-weight:600;transition:all .2s;margin-right:8px;cursor:pointer;border:none}
+#dp-l1 .srty:hover{background:var(--go)}
+
+/* NAV */
+#dp-l1 .navb{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:18px;border-top:1px solid var(--bdl);gap:10px}
+#dp-l1 .nb{display:flex;align-items:center;gap:7px;padding:11px 22px;border-radius:var(--r);font-size:.87rem;font-weight:600;transition:all .2s;border:2px solid var(--bd);color:var(--ink2);background:var(--wh);cursor:pointer}
+#dp-l1 .nb:hover{border-color:var(--go);color:var(--go)}
+#dp-l1 .nb.pri{background:var(--ny);color:#fff;border-color:transparent}
+#dp-l1 .nb.pri:hover{background:var(--go);border-color:transparent}
+#dp-l1 .nb:disabled{opacity:.38;cursor:default;pointer-events:none}
+
+/* FOOTER */
+#dp-l1 .lft{background:var(--ny);padding:24px;text-align:center;border-radius:0 0 var(--rl) var(--rl)}
+#dp-l1 .flo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#F5F0E8;margin-bottom:5px}
+#dp-l1 .flo em{color:var(--go);font-style:italic}
+#dp-l1 .ftx{font-size:.74rem;color:rgba(245,240,232,.42)}
+
+/* AUDIO PLAYER */
+#dp-l1 .aplayer{background:linear-gradient(135deg,var(--ny),var(--ny2));border-radius:var(--r);padding:18px;display:flex;align-items:center;gap:14px;margin:14px 0;flex-wrap:wrap}
+#dp-l1 .abig{width:48px;height:48px;border-radius:50%;background:var(--go);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;transition:all .2s;cursor:pointer;border:none;box-shadow:0 4px 14px rgba(200,147,58,.4)}
+#dp-l1 .abig:hover{background:var(--go2);transform:scale(1.06)}
+#dp-l1 .ainfo{flex:1;min-width:160px}
+#dp-l1 .at{font-size:.87rem;font-weight:600;color:#F5F0E8;margin-bottom:3px}
+#dp-l1 .as{font-size:.72rem;color:rgba(245,240,232,.55)}
+#dp-l1 .apbar{height:4px;background:rgba(255,255,255,.14);border-radius:2px;margin-top:9px;overflow:hidden}
+#dp-l1 .apfill{height:100%;background:var(--go);width:0%;border-radius:2px;transition:width .3s}
+#dp-l1 .scrtog{background:rgba(255,255,255,.1);color:rgba(245,240,232,.78);font-size:.72rem;font-weight:600;padding:5px 11px;border-radius:100px;border:1px solid rgba(255,255,255,.15);cursor:pointer;transition:all .2s;flex-shrink:0}
+#dp-l1 .scrtog:hover{background:rgba(255,255,255,.2)}
+#dp-l1 .scrbox{background:var(--cr);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin-top:10px;display:none}
+#dp-l1 .scrbox.show{display:block}
+#dp-l1 .scrbox p{font-size:.875rem;color:var(--ink2);margin-bottom:7px;line-height:1.7}
+
+/* RESPONSIVE */
+@media(max-width:560px){
+  #dp-l1 .lhero{padding:32px 16px 28px}
+  #dp-l1 .lbody{padding:20px 14px 48px}
+  #dp-l1 .sblock{padding:18px 14px}
+  #dp-l1 .tcards{grid-template-columns:1fr}
+  #dp-l1 .navb{flex-direction:column}
+  #dp-l1 .nb{width:100%;justify-content:center}
+  #dp-l1 .sm-item{grid-template-columns:1fr}
+  #dp-l1 .hier-row{flex-wrap:wrap;gap:6px}
+}
+</style>
+
+<!-- ═══ LESSON WRAPPER ═══ -->
+<div id="dp-l1">
+
+<!-- HERO -->
+<div class="lhero">
+  <div class="lhero-in">
+    <div class="lvlbadge">🎓 Didactics Series &nbsp;·&nbsp; Lesson 1 of 12</div>
+    <h2 class="ltitle">What is <em>Didactics?</em><br>The Language of Teaching</h2>
+    <p class="lsub">Master the foundational vocabulary every teacher needs: Approach, Method, Technique, Methodology, and Procedure — and understand exactly how they differ.</p>
+    <div class="spills">
+      <span class="spill sp-th">📖 Theory</span>
+      <span class="spill sp-ex">💡 Examples</span>
+      <span class="spill sp-ic">🎯 Interactive Tasks</span>
+      <span class="spill sp-qu">📝 Exam Quiz</span>
+    </div>
+    <div class="snav">
+      <div class="snavdot active" data-s="0" title="What is Didactics?">1</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="1" title="Key Terms">2</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="2" title="Theory vs Theory">3</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="3" title="The Hierarchy">4</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="4" title="Listening & Application">5</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="5" title="Scenario Task">6</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="6" title="Writing Task">7</div>
+      <div class="snavsep"></div>
+      <div class="snavdot" data-s="7" title="Exam Quiz">8</div>
+      <span class="snavlbl">8 sections</span>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="lbody">
+
+<!-- ─── SEC 0 · WHAT IS DIDACTICS? ─── -->
+<div class="sblock vis" id="dp1s0">
+  <div class="slabel">Section 1 · Foundations</div>
+  <h3 class="sheading">What is <em>Didactics?</em></h3>
+
+  <div class="scene">
+    <div class="s-ico">🏫</div>
+    <div class="s-t">The Teaching Exam Question You Must Get Right</div>
+    <div class="s-d">Every teaching exam in Morocco tests whether you understand what Didactics actually means. Many candidates confuse it with Pedagogy or Psychology. By the end of this lesson, you will never make that mistake again.</div>
+  </div>
+
+  <p class="stxt">The word <strong>Didactics</strong> comes from the Greek <em>didaktikos</em>, meaning "skilled at teaching." It is a branch of Educational Sciences that sits at the intersection of three elements: the <strong>teacher</strong>, the <strong>learner</strong>, and <strong>knowledge</strong>. It asks: how do these three interact most effectively?</p>
+
+  <div class="gbox gbox-go">
+    <h4>The Official Definition</h4>
+    <div class="grule">Didactics = <em>The science and art of teaching</em></div>
+    <div class="grule">It focuses on: <em>How teachers, students, and knowledge interact</em></div>
+    <div class="grule">It is the <em>theory and practice</em> of instruction — the WHY and HOW of teaching.</div>
+  </div>
+
+  <p class="stxt">Notice that Didactics is both a <strong>science</strong> (systematic, evidence-based) and an <strong>art</strong> (creative, adaptive). This dual nature is key to understanding why it draws from both psychology and education.</p>
+
+  <div class="co co-info"><span class="co-ico">🔎</span><span><strong>Didactics vs. Pedagogy:</strong> Pedagogy focuses on the general process of how education is delivered. Didactics zooms in on <em>specific subject teaching</em> — the content, the method, and the learner together. Both claim Didactics is part of them, making it a <em>bridge between theory and practice</em>.</span></div>
+
+  <div class="co co-pur"><span class="co-ico">🧠</span><span><strong>Why does it matter for your exam?</strong> The teaching exam tests whether you can be a <em>thinking teacher</em>, not just a doing one. Knowing Didactics means you can justify WHY you choose a certain method, adapt it to your learners, and reflect on the outcome.</span></div>
+
+  <div class="co co-teal"><span class="co-ico">🔑</span><span><strong>Key connections:</strong> Didactics draws from <em>Psychology</em> (how students learn), <em>Linguistics</em> (the nature of language), and <em>Pedagogy</em> (the art of teaching). It connects all of these into practical classroom decisions.</span></div>
+
+  <div class="navb">
+    <button class="nb" disabled>← Back</button>
+    <button class="nb pri" onclick="dp1Go(1)">Next: Key Terms →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 1 · KEY TERMS ─── -->
+<div class="sblock" id="dp1s1">
+  <div class="slabel">Section 2 · Core Vocabulary</div>
+  <h3 class="sheading">The 5 Key Terms — <em>Tap to Reveal</em></h3>
+  <p class="stxt">These five terms are the most tested concepts in any teaching exam. They are often confused. Tap each card to reveal the full definition and an example. Say the definition aloud before flipping!</p>
+
+  <div class="co co-tip"><span class="co-ico">💡</span><span><strong>Memory tip:</strong> Think of them as levels of a pyramid — from the broadest philosophy (Approach) down to the smallest classroom step (Procedure). Each level depends on the one above it.</span></div>
+
+  <div class="tcards">
+
+    <div class="tcard" id="tc0">
+      <span class="tc-ico">🌍</span>
+      <div class="tc-term">Approach</div>
+      <div class="tc-hint">Tap to reveal definition</div>
+      <div class="tc-def">A set of beliefs or theories about <em>how language is learned</em>. It is the broad philosophy or framework — the WHY behind teaching decisions.<br><br><strong>Example:</strong> Behaviourism → language is learned through repetition and reinforcement.<br><br><em>"I believe language is best learned through real communication" = Communicative Approach.</em></div>
+      <span class="tc-badge" style="background:#0D2B4E">Broadest Level</span>
+    </div>
+
+    <div class="tcard" id="tc1">
+      <span class="tc-ico">📋</span>
+      <div class="tc-term">Method</div>
+      <div class="tc-hint">Tap to reveal definition</div>
+      <div class="tc-def">The <em>practical application</em> of an approach. A set of specific techniques and procedures used to teach based on a chosen approach.<br><br><strong>Example:</strong> Audio-Lingual Method (based on Behaviourism) → uses drills, repetition, and habit formation.<br><br><em>"I will use drills and dialogues to build habits" = A Method decision.</em></div>
+      <span class="tc-badge" style="background:#1E5FA8">Applied Level</span>
+    </div>
+
+    <div class="tcard" id="tc2">
+      <span class="tc-ico">🎯</span>
+      <div class="tc-term">Technique</div>
+      <div class="tc-hint">Tap to reveal definition</div>
+      <div class="tc-def">A <em>specific classroom activity or task</em>. The most practical and visible part of teaching — what learners actually do.<br><br><strong>Examples:</strong><br>• PPP (Presentation, Practice, Production)<br>• Mind Maps<br>• Jigsaw Reading<br>• Brainstorming<br>• Role-play</div>
+      <span class="tc-badge" style="background:#C8933A">Activity Level</span>
+    </div>
+
+    <div class="tcard" id="tc3">
+      <span class="tc-ico">🧩</span>
+      <div class="tc-term">Methodology</div>
+      <div class="tc-hint">Tap to reveal definition</div>
+      <div class="tc-def">A teacher's <em>personal way of choosing and combining techniques</em>. It is flexible and depends on the classroom context, learners' needs, and the teacher's own style.<br><br><strong>Example:</strong> Using group work from CLT + drills from ALM + music from Suggestopedia.<br><br><em>Methodology = the teacher's unique teaching fingerprint.</em></div>
+      <span class="tc-badge" style="background:#7C3AED">Personal Level</span>
+    </div>
+
+    <div class="tcard" id="tc4">
+      <span class="tc-ico">📝</span>
+      <div class="tc-term">Procedure</div>
+      <div class="tc-hint">Tap to reveal definition</div>
+      <div class="tc-def">The <em>step-by-step instructions</em> for applying a method in a specific lesson. It includes sequence of activities, timing, and classroom management.<br><br><strong>Example:</strong><br>Step 1: Present the dialogue (3 min)<br>Step 2: Practice in pairs (5 min)<br>Step 3: Role-play freely (7 min)</div>
+      <span class="tc-badge" style="background:#2E7D52">Classroom Level</span>
+    </div>
+
+  </div>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(0)">← Foundations</button>
+    <button class="nb pri" onclick="dp1Go(2)">Next: Theory Distinction →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 2 · THEORY OF LANGUAGE vs THEORY OF LEARNING ─── -->
+<div class="sblock" id="dp1s2">
+  <div class="slabel">Section 3 · Critical Distinction</div>
+  <h3 class="sheading">Theory of Language <em>vs</em> Theory of Learning</h3>
+  <p class="stxt">This distinction is extremely common in teaching exams and often confuses candidates. These two theories form the foundation of every teaching method — and knowing the difference is essential.</p>
+
+  <div class="co co-tip"><span class="co-ico">💡</span><span><strong>The quick test:</strong> Ask yourself — "Is this about what language IS (linguistics), or about how people LEARN it (psychology)?" If it's about grammar, structure, and meaning → Theory of Language. If it's about memory, habits, or cognition → Theory of Learning.</span></div>
+
+  <div class="gbox gbox-bl">
+    <h4>Theory of Language (Linguistics)</h4>
+    <div class="grule">What language <em>IS</em>: its structure, grammar, vocabulary, pronunciation</div>
+    <div class="grule">How language <em>FUNCTIONS</em>: communication, interaction, social use</div>
+    <div class="grule"><strong>CLT Example:</strong> Language is a tool for <em>real-life communication</em> (not just grammar rules)</div>
+    <div class="grule"><strong>GTM Example:</strong> Language is a set of <em>structural rules</em> to be analyzed and translated</div>
+  </div>
+
+  <div class="gbox gbox-gr">
+    <h4>Theory of Learning (Psychology)</h4>
+    <div class="grule">How people <em>LEARN</em>: through behavior, thinking, memory, or social interaction</div>
+    <div class="grule">What processes help learners <em>ACQUIRE</em> language</div>
+    <div class="grule"><strong>Behaviourism Example:</strong> Learning occurs through <em>repetition and reinforcement</em></div>
+    <div class="grule"><strong>Cognitivism Example:</strong> Learning occurs through <em>mental processing and understanding</em></div>
+  </div>
+
+  <table class="gtbl">
+    <tr><th>Method</th><th>Theory of Language</th><th>Theory of Learning</th></tr>
+    <tr><td>Grammar Translation (GTM)</td><td class="tbl-b">Language = structure + literary text</td><td class="tbl-g">Memorization + mental discipline</td></tr>
+    <tr><td>Audio-Lingual Method (ALM)</td><td class="tbl-b">Language = patterns + habits</td><td class="tbl-g">Behaviourism — repetition + reinforcement</td></tr>
+    <tr><td>Communicative LT (CLT)</td><td class="tbl-b">Language = communication tool</td><td class="tbl-g">Social interaction + authentic use</td></tr>
+    <tr><td>Silent Way</td><td class="tbl-b">Language = rule system to discover</td><td class="tbl-g">Cognitivism — self-discovery + problem solving</td></tr>
+    <tr><td>Total Physical Response (TPR)</td><td class="tbl-b">Language = imperative commands</td><td class="tbl-g">Behaviourism + comprehension first</td></tr>
+  </table>
+
+  <div class="co co-pur"><span class="co-ico">🧠</span><span><strong>Exam insight:</strong> When an exam question asks "What are the theoretical foundations of the Audio-Lingual Method?", you should mention BOTH: (1) Structuralism as the theory of language, and (2) Behaviourism as the theory of learning.</span></div>
+
+  <!-- Fill in the blanks exercise -->
+  <h4 style="color:var(--ny);font-family:'Playfair Display',serif;font-size:1rem;margin:20px 0 12px">✏️ Quick Check — Fill in the Blanks</h4>
+  <div class="fex">
+    <div class="fi" id="dp1f0">
+      <div class="fsen">A Theory of Language explains what language <input class="finp" data-a="is" id="dp1f0i" maxlength="12"> and how it <input class="finp" data-a="functions" id="dp1f0b" maxlength="12">.</div>
+      <div class="ffb"></div>
+    </div>
+    <div class="fi" id="dp1f1">
+      <div class="fsen">A Theory of Learning explains how people <input class="finp" data-a="learn" id="dp1f1i" maxlength="12"> a language, focusing on <input class="finp" data-a="psychology" id="dp1f1b" maxlength="14">.</div>
+      <div class="ffb"></div>
+    </div>
+    <div class="fi" id="dp1f2">
+      <div class="fsen">Behaviourism is a Theory of <input class="finp" data-a="Learning" id="dp1f2i" maxlength="12">, while Structuralism is a Theory of <input class="finp" data-a="Language" id="dp1f2b" maxlength="12">.</div>
+      <div class="ffb"></div>
+    </div>
+  </div>
+  <button class="chkb" id="dp1chkf">Check Answers ✓</button>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(1)">← Key Terms</button>
+    <button class="nb pri" onclick="dp1Go(3)">Next: The Hierarchy →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 3 · THE HIERARCHY VISUAL ─── -->
+<div class="sblock" id="dp1s3">
+  <div class="slabel">Section 4 · Visual Map</div>
+  <h3 class="sheading">The Teaching Pyramid — <em>How the Terms Connect</em></h3>
+  <p class="stxt">The five key terms form a hierarchy — from the broadest, most abstract level (Approach) down to the most specific classroom step (Procedure). Each level determines the one below it.</p>
+
+  <div class="hier">
+    <div style="text-align:center;margin-bottom:16px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)">Broad → Specific</div>
+    <div class="hier-row">
+      <div class="hier-box hb-ap">🌍 APPROACH<br><span style="font-size:.7rem;font-weight:400;opacity:.8">Philosophy / Beliefs</span></div>
+    </div>
+    <div style="text-align:center;font-size:1.3rem;color:var(--go);margin:3px 0">↓</div>
+    <div class="hier-row">
+      <div class="hier-box hb-me">📋 METHOD<br><span style="font-size:.7rem;font-weight:400;opacity:.8">Practical System</span></div>
+    </div>
+    <div style="text-align:center;font-size:1.3rem;color:var(--go);margin:3px 0">↓</div>
+    <div class="hier-row">
+      <div class="hier-box hb-pr">📝 PROCEDURE<br><span style="font-size:.7rem;font-weight:400;opacity:.8">Step-by-step Plan</span></div>
+    </div>
+    <div style="text-align:center;font-size:1.3rem;color:var(--go);margin:3px 0">↓</div>
+    <div class="hier-row">
+      <div class="hier-box hb-te">🎯 TECHNIQUE<br><span style="font-size:.7rem;font-weight:400;opacity:.8">Classroom Activity</span></div>
+    </div>
+    <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px dashed var(--bd)">
+      <div class="hier-box hb-mo" style="display:inline-block">🧩 METHODOLOGY = Teacher's personal mix of all the above</div>
+    </div>
+  </div>
+
+  <div class="co co-tip"><span class="co-ico">💡</span><span><strong>A real example top to bottom:</strong><br>
+  <strong>Approach:</strong> I believe language is learned through natural communication (Communicative Approach).<br>
+  <strong>Method:</strong> I will use CLT — role-plays, information gaps, authentic tasks.<br>
+  <strong>Procedure:</strong> Step 1 (5 min): warm-up question. Step 2 (10 min): read authentic dialogue. Step 3 (15 min): role-play task.<br>
+  <strong>Technique:</strong> Information-gap activity where students exchange missing facts.<br>
+  <strong>Methodology:</strong> I sometimes add grammar correction from ALM when students repeat an error.</span></div>
+
+  <table class="gtbl">
+    <tr><th>Term</th><th>Question it answers</th><th>Example (Behaviourist)</th></tr>
+    <tr><td><span class="tbl-b">Approach</span></td><td>How do we BELIEVE language is learned?</td><td>Language is a habit formed by stimulus-response</td></tr>
+    <tr><td><span class="tbl-g">Method</span></td><td>How do we ORGANISE teaching?</td><td>Audio-Lingual Method — drills + dialogues</td></tr>
+    <tr><td><span class="tbl-gr">Procedure</span></td><td>What are the STEPS in this lesson?</td><td>Model → Choral drill → Substitution → Free practice</td></tr>
+    <tr><td><span class="tbl-pu">Technique</span></td><td>What ACTIVITY do we do?</td><td>Substitution drill: "I go / She goes / They go"</td></tr>
+    <tr><td><span style="color:var(--te);font-weight:600">Methodology</span></td><td>What is MY teaching STYLE?</td><td>Mix of ALM drills + CLT group work + TPR for beginners</td></tr>
+  </table>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(2)">← Theory Distinction</button>
+    <button class="nb pri" onclick="dp1Go(4)">Next: Listening Task →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 4 · LISTENING ─── -->
+<div class="sblock" id="dp1s4">
+  <div class="slabel">Section 5 · Listening Comprehension</div>
+  <h3 class="sheading">Listen — A Teacher Explains Her Choices</h3>
+  <p class="stxt">Press ▶ to listen to a teacher describing her lesson decisions. <strong>Listen first, then answer the questions below.</strong> Focus on which key terms she is using.</p>
+
+  <div class="aplayer">
+    <button class="abig" id="dp1playbtn">▶</button>
+    <div class="ainfo">
+      <div class="at">A Teacher Describes Her Approach</div>
+      <div class="as">~30 seconds · British English · browser audio</div>
+      <div class="apbar"><div class="apfill" id="dp1apf"></div></div>
+    </div>
+    <button class="scrtog" id="dp1scrtog">📄 Transcript</button>
+  </div>
+
+  <div class="scrbox" id="dp1scrbox">
+    <p><strong>Teacher:</strong> "I believe that language is best learned when students actually use it to communicate — that's my core belief, my philosophy. Based on that, I've chosen to teach using Communicative Language Teaching as my main system. In today's lesson, my plan is to start with a five-minute warm-up question, then have students read an authentic email, and finally do a role-play in pairs — those are my steps for the lesson. For the role-play itself, students are missing pieces of information that only their partner has — that's the specific activity I've designed. And sometimes I'll borrow a pronunciation drill from the Audio-Lingual Method when I hear a repeated error — that's my own personal way of mixing things up."</p>
+    <p style="color:var(--mu);font-size:.78rem;font-style:italic;margin-top:8px">Now identify which term each highlighted decision represents!</p>
+  </div>
+
+  <h4 style="color:var(--ny);font-family:'Playfair Display',serif;font-size:1rem;margin:20px 0 13px">What term is the teacher using? — Match each statement</h4>
+
+  <div class="smatch" id="dp1match">
+    <div class="sm-item">
+      <div class="sm-scenario">"I believe language is best learned through real communication." <em style="font-size:.75rem;color:var(--mu);display:block;margin-top:4px">What term is this?</em></div>
+      <select class="sm-select" data-a="Approach" id="dp1ms0">
+        <option value="">— Select —</option>
+        <option>Approach</option><option>Method</option><option>Technique</option><option>Procedure</option><option>Methodology</option>
+      </select>
+    </div>
+    <div class="smfb" id="dp1mf0"></div>
+
+    <div class="sm-item">
+      <div class="sm-scenario">"I've chosen Communicative Language Teaching as my main system." <em style="font-size:.75rem;color:var(--mu);display:block;margin-top:4px">What term is this?</em></div>
+      <select class="sm-select" data-a="Method" id="dp1ms1">
+        <option value="">— Select —</option>
+        <option>Approach</option><option>Method</option><option>Technique</option><option>Procedure</option><option>Methodology</option>
+      </select>
+    </div>
+    <div class="smfb" id="dp1mf1"></div>
+
+    <div class="sm-item">
+      <div class="sm-scenario">"My steps: 5-min warm-up → read authentic email → role-play in pairs." <em style="font-size:.75rem;color:var(--mu);display:block;margin-top:4px">What term is this?</em></div>
+      <select class="sm-select" data-a="Procedure" id="dp1ms2">
+        <option value="">— Select —</option>
+        <option>Approach</option><option>Method</option><option>Technique</option><option>Procedure</option><option>Methodology</option>
+      </select>
+    </div>
+    <div class="smfb" id="dp1mf2"></div>
+
+    <div class="sm-item">
+      <div class="sm-scenario">"Students have an information-gap role-play — one partner has missing facts." <em style="font-size:.75rem;color:var(--mu);display:block;margin-top:4px">What term is this?</em></div>
+      <select class="sm-select" data-a="Technique" id="dp1ms3">
+        <option value="">— Select —</option>
+        <option>Approach</option><option>Method</option><option>Technique</option><option>Procedure</option><option>Methodology</option>
+      </select>
+    </div>
+    <div class="smfb" id="dp1mf3"></div>
+
+    <div class="sm-item">
+      <div class="sm-scenario">"I sometimes borrow an ALM drill when I hear a repeated error." <em style="font-size:.75rem;color:var(--mu);display:block;margin-top:4px">What term is this?</em></div>
+      <select class="sm-select" data-a="Methodology" id="dp1ms4">
+        <option value="">— Select —</option>
+        <option>Approach</option><option>Method</option><option>Technique</option><option>Procedure</option><option>Methodology</option>
+      </select>
+    </div>
+    <div class="smfb" id="dp1mf4"></div>
+  </div>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(3)">← Hierarchy</button>
+    <button class="nb pri" onclick="dp1Go(5)">Next: Scenario Task →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 5 · SPEAKING / SCENARIO TASK ─── -->
+<div class="sblock" id="dp1s5">
+  <div class="slabel">Section 6 · Critical Thinking Task</div>
+  <h3 class="sheading">Apply What You Know — <em>Scenario Analysis</em></h3>
+  <p class="stxt">Each scenario below describes a teaching decision. <span style="color:var(--gr);font-weight:600">Identify the term being used</span> and explain your reasoning. Say your answer aloud before reading the model answer!</p>
+
+  <div class="stask stask-gr">
+    <div class="sth"><div class="stico" style="background:var(--gr)">🗣️</div><div class="stitle stitle-gr">Task 1 — Oral Analysis (2 minutes)</div></div>
+    <div class="sinstr">For each scenario, say: "This is a [term] because…" Explain WHY using the definitions you learned. Push yourself to justify your answer fully.</div>
+    <div class="smodel">
+      <strong>Scenario A:</strong> "I pair students together. Student A has a train timetable with gaps; Student B has the missing times. They must ask questions to complete their tables." <span class="em-go">→ What term?</span><br><br>
+      <strong>Scenario B:</strong> "I teach English using the idea that students learn best by discovering rules themselves — I rarely explain grammar directly." <span class="em-go">→ What term?</span><br><br>
+      <strong>Scenario C:</strong> "My lesson today: 8 min grammar presentation → 12 min controlled practice → 15 min free writing. Students finish with a creative paragraph." <span class="em-go">→ What term?</span><br><br>
+      <strong>Scenario D:</strong> "I use CLT in general, but I'll throw in a quick Skinner-style drill when students keep making the same pronunciation error, and I use background music occasionally from Suggestopedia." <span class="em-go">→ What term?</span>
+    </div>
+  </div>
+
+  <div class="co co-tip"><span class="co-ico">✅</span><span><strong>Model answers:</strong><br>
+  A → <strong>Technique</strong> (information-gap activity — a specific classroom task)<br>
+  B → <strong>Approach</strong> (the belief/philosophy that inductive discovery is best)<br>
+  C → <strong>Procedure</strong> (the sequenced steps and timing of a lesson)<br>
+  D → <strong>Methodology</strong> (personal combination of multiple methods and techniques)</span></div>
+
+  <div class="stask stask-bl">
+    <div class="sth"><div class="stico" style="background:var(--bl)">💬</div><div class="stitle stitle-bl">Task 2 — Discussion Question</div></div>
+    <div class="sinstr">Think about this question carefully. Discuss it with a study partner, or write your answer in the box below:</div>
+    <div class="smodel">
+      <span class="em-go">Can a teacher use multiple Approaches at the same time?</span><br><br>
+      Consider: A teacher believes in both communicative interaction (CLT) AND habit formation (Behaviourism). Is this possible? What would this be called? How would you justify this in your teaching philosophy statement?
+    </div>
+  </div>
+
+  <div class="co co-pur"><span class="co-ico">🧠</span><span><strong>Hint for the exam:</strong> Yes — a teacher can hold multiple belief systems. When a teacher <em>consciously combines beliefs and methods</em> based on context and learner needs, this is called the <strong>Eclectic Approach</strong> — the most commonly practiced approach in real classrooms. Your personal Methodology reflects this flexibility.</span></div>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(4)">← Listening Task</button>
+    <button class="nb pri" onclick="dp1Go(6)">Next: Writing Task →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 6 · WRITING TASK ─── -->
+<div class="sblock" id="dp1s6">
+  <div class="slabel">Section 7 · Written Production</div>
+  <h3 class="sheading">Write Your Teaching Philosophy</h3>
+  <p class="stxt">This type of task appears frequently in teaching exams. Write a short paragraph (60–80 words) describing your personal teaching approach — using at least <strong>4 of the 5 key terms</strong> correctly. Examiners look for: accurate use of terms, clear reasoning, and practical examples.</p>
+
+  <div class="co co-tip"><span class="co-ico">✍️</span><span><strong>Structure your paragraph:</strong><br>
+  1. State your core belief about language learning (→ Approach)<br>
+  2. Name the main method you use (→ Method)<br>
+  3. Describe your typical lesson steps (→ Procedure)<br>
+  4. Give a specific classroom activity (→ Technique)<br>
+  5. Mention how you adapt when needed (→ Methodology)</span></div>
+
+  <div style="margin-top:18px">
+    <div style="color:var(--mu);font-size:.75rem;font-weight:600;letter-spacing:.06em;margin-bottom:7px;text-transform:uppercase">Your Teaching Philosophy Paragraph:</div>
+    <textarea class="wa" id="dp1wtxt" placeholder="I believe that language is best learned through... Based on this approach, I mainly use... In a typical lesson, my procedure includes... A specific technique I often use is... However, my methodology allows me to..."></textarea>
+    <div class="wcnt" id="dp1wcnt">0 words (aim for 60–80)</div>
+    <button class="wsub" id="dp1wsub">Submit My Paragraph ✓</button>
+    <div class="wfb" id="dp1wfb">
+      <strong>✅ Well done!</strong> Writing a clear teaching philosophy is an important professional skill.<br><br>
+      Self-assessment checklist:<br>
+      • Did you use <em>Approach</em> to describe your beliefs about language learning? ✓<br>
+      • Did you name a specific <em>Method</em> (CLT, ALM, Silent Way, etc.)? ✓<br>
+      • Did you describe a <em>Procedure</em> with clear sequenced steps? ✓<br>
+      • Did you give a concrete <em>Technique</em> (role-play, drill, jigsaw, etc.)? ✓<br>
+      • Did you show flexibility → <em>Methodology</em>? ✓<br><br>
+      💡 <strong>Exam tip:</strong> Always use these exact terms in your exam answer. Examiners reward precise technical vocabulary.
+    </div>
+  </div>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(5)">← Scenario Task</button>
+    <button class="nb pri" onclick="dp1Go(7)">Next: Exam Quiz →</button>
+  </div>
+</div>
+
+<!-- ─── SEC 7 · QUIZ ─── -->
+<div class="sblock" id="dp1s7">
+  <div class="slabel">Section 8 · Exam Preparation Quiz</div>
+  <h3 class="sheading">Test Your Knowledge 🎯 — Exam-Style Questions</h3>
+  <p class="stxt">12 challenging questions modelled on real teaching exam formats. Every wrong answer includes a full explanation. Take your time — these are the exact types of questions you will face.</p>
+
+  <div>
+    <div class="qpr">
+      <span class="qcnt" id="dp1qcnt">1 / 12</span>
+      <div class="qpbar"><div class="qpfill" id="dp1qpf" style="width:8.3%"></div></div>
+      <span class="qcnt" id="dp1qsl">Score: 0</span>
+    </div>
+    <div id="dp1qarea"></div>
+    <div class="qfbm" id="dp1qfb"></div>
+    <button class="qnxt" id="dp1qnxt">Next Question →</button>
+    <div class="spl" id="dp1spl">
+      <div class="scir"><div class="snum" id="dp1sfin">0</div><div class="sden">/ 12</div></div>
+      <div class="smsg" id="dp1smsg">Well done!</div>
+      <div class="ssub" id="dp1ssub">Keep practising!</div>
+      <div style="margin-top:16px">
+        <button class="srty" id="dp1srty">🔄 Retry Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="navb">
+    <button class="nb" onclick="dp1Go(6)">← Writing Task</button>
+  </div>
+</div>
+
+</div><!-- /lbody -->
+
+<!-- FOOTER -->
+<div class="lft">
+  <div class="flo">English<em>Pro</em> · Didactics</div>
+  <div class="ftx">Lesson 1 — What is Didactics? · Approach · Method · Technique · Methodology · Procedure · Preparing Future Teachers for the Teaching Exam</div>
+</div>
+
+</div><!-- /dp-l1 -->
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── QUIZ DATA — 12 exam-style questions ── */
+var QD=[
+  {
+    q:'Which of the following BEST defines "Approach" in language teaching?',
+    opts:['A set of step-by-step instructions for delivering a lesson','A specific classroom activity such as role-play or brainstorming','A broad set of beliefs or theories about how language is learned','A teacher\'s personal combination of different teaching techniques'],
+    a:2,
+    ex:'✅ An Approach is the broadest, most philosophical level — it answers "How do we BELIEVE language learning happens?" Examples: Behaviourism (habits), Cognitivism (mental processing), Communicative (real interaction). A procedure is step-by-step; a technique is an activity; a personal mix is methodology.'
+  },
+  {
+    q:'A teacher says: "I use drills, dialogues, and repetition because I believe language is a set of habits to be formed." Which term best describes her overall teaching BELIEF?',
+    opts:['Method','Technique','Procedure','Approach'],
+    a:3,
+    ex:'✅ Her belief that "language is a set of habits" is her Approach — specifically Behaviourism. The drills she uses are Techniques. Her organized use of the Audio-Lingual Method is her Method. The Approach is always the philosophical foundation, not the specific action.'
+  },
+  {
+    q:'What is the KEY difference between a "Method" and an "Approach"?',
+    opts:['A Method is broader; an Approach is more specific','A Method is the practical classroom application of an Approach','An Approach includes techniques; a Method does not','They are synonyms used interchangeably in language teaching'],
+    a:1,
+    ex:'✅ The Approach is the philosophy (the "why"). The Method is how that philosophy is put into practice (the "how") — it includes specific procedures and techniques organized into a coherent system. GTM and ALM are both METHODS based on grammar/structuralist APPROACHES.'
+  },
+  {
+    q:'A teacher plans: "Step 1: 5-min warm-up. Step 2: Present dialogue (10 min). Step 3: Paired role-play (15 min). Step 4: Feedback (5 min)." This is an example of a:',
+    opts:['Technique','Methodology','Procedure','Method'],
+    a:2,
+    ex:'✅ A Procedure is the detailed, sequenced, timed plan for a specific lesson. It breaks down EXACTLY what happens, in what order, for how long. A Method is the broader system (e.g., CLT); a Technique is a single activity (e.g., role-play); Methodology is the teacher\'s personal mix.'
+  },
+  {
+    q:'Which statement BEST describes "Methodology"?',
+    opts:['A fixed system of teaching based on one psychological theory','The step-by-step plan for applying a method in a single lesson','A teacher\'s flexible, personal way of selecting and combining techniques','The collection of all known language teaching methods worldwide'],
+    a:2,
+    ex:'✅ Methodology is personalized and eclectic — it reflects a teacher\'s unique classroom fingerprint. A teacher might draw from CLT (for group tasks), ALM (for pronunciation drills), and Suggestopedia (for reducing anxiety), combining them based on context. It is flexible, not fixed.'
+  },
+  {
+    q:'In the context of Didactics, a "Theory of Language" differs from a "Theory of Learning" because:',
+    opts:['Theory of Language focuses on how students memorize; Theory of Learning focuses on grammar','Theory of Language is about the nature and structure of language; Theory of Learning is about how people acquire it','Theory of Language is used by students; Theory of Learning is used only by teachers','They are both branches of psychology dealing with language habits'],
+    a:1,
+    ex:'✅ Theory of Language (linguistics) asks: what IS language? (its structure, grammar, function). Theory of Learning (psychology) asks: how do people LEARN it? Every method has BOTH foundations. Example: ALM is based on Structuralism (Theory of Language) + Behaviourism (Theory of Learning).'
+  },
+  {
+    q:'A teacher consistently uses group discussions (CLT), adds grammar correction drills (ALM) when errors persist, and sometimes plays relaxing music (Suggestopedia). This best describes:',
+    opts:['A single Method applied consistently','The teacher\'s Methodology — an eclectic personal approach','A Technique called "blended learning"','A Procedure designed for mixed-ability classes'],
+    a:1,
+    ex:'✅ When a teacher consciously selects and combines elements from multiple methods based on context and student needs, this is called their Methodology (or the Eclectic Approach). It reflects professional flexibility and is widely considered best practice in modern language teaching.'
+  },
+  {
+    q:'An information-gap activity, where Student A has information Student B lacks and vice versa, is an example of a:',
+    opts:['Method','Procedure','Technique','Approach'],
+    a:2,
+    ex:'✅ A Technique is the most specific, visible classroom activity — what learners ACTUALLY DO in a lesson. An information-gap activity is a classic CLT technique designed to create genuine communicative need. Other techniques include role-plays, jigsaw reading, brainstorming, substitution drills, and mind maps.'
+  },
+  {
+    q:'The Audio-Lingual Method is correctly described as having which theoretical foundations?',
+    opts:['Humanism (Theory of Learning) + Functionalism (Theory of Language)','Cognitivism (Theory of Learning) + Transformational Grammar (Theory of Language)','Behaviourism (Theory of Learning) + Structuralism (Theory of Language)','Constructivism (Theory of Learning) + Communicative Competence (Theory of Language)'],
+    a:2,
+    ex:'✅ The ALM has two foundations: (1) Structuralism as its Theory of Language — language is a system of structures/patterns; (2) Behaviourism as its Theory of Learning — language is habit formed through S→R→Reinforcement. This is why ALM uses drills, repetition, and immediate error correction.'
+  },
+  {
+    q:'Which of the following is NOT a characteristic of "Didactics"?',
+    opts:['It focuses on how teachers, learners, and knowledge interact','It is both a science and an art of teaching','It deals exclusively with the psychology of individual learners, ignoring content','It bridges theory and practice in education'],
+    a:2,
+    ex:'✅ Didactics is NOT limited to individual psychology. It is a bridge between theory AND practice, dealing with the INTERACTION of the teacher, the learner, AND the knowledge/content. Psychology is just one of its sources. Didactics = the science and art of teaching — it encompasses the FULL instructional triangle.'
+  },
+  {
+    q:'A student teacher says: "My approach influences my method, which shapes my procedure, which determines my techniques." This statement is:',
+    opts:['Incorrect — techniques come before methods in the planning hierarchy','Correct — it reflects the top-down relationship between the five key terms','Incorrect — procedure and technique are the same concept','Correct only for behaviorist methods, not communicative ones'],
+    a:1,
+    ex:'✅ This is CORRECT and reflects the fundamental hierarchy: Approach (philosophy) → Method (organized system) → Procedure (sequenced lesson plan) → Technique (specific activity). The broad determines the specific. A communicative Approach leads to CLT as the Method, which produces a particular Procedure, using specific Techniques like role-plays.'
+  },
+  {
+    q:'On a teaching exam, you are asked: "What are the theoretical bases of the Silent Way?" The MOST complete answer would be:',
+    opts:['It is based on Behaviourism, using repetition and reinforcement to form habits','It is based on Cognitivism (Theory of Learning) — learners discover rules through mental processing — and a structuralist view that language is a rule system (Theory of Language)','It is based on Humanism, treating students as whole persons with emotional needs','It is based on Communicative competence, emphasizing real-world communication'],
+    a:1,
+    ex:'✅ The Silent Way is rooted in Cognitivism — learners use their own thinking (not imitation) to discover language rules. Gattegno rejected habit formation, arguing language is rule-formation. Its Theory of Language sees language as a structured rule system learners actively construct. Always mention BOTH theories when asked for "theoretical bases."'
+  }
+];
+
+var curSec=0,qCur=0,qScore=0,qAns=false;
+var audioPlaying=false,audioTimer=null;
+
+/* ── NAVIGATION ── */
+window.dp1Go=function(n){
+  document.querySelectorAll('#dp-l1 .sblock').forEach(function(b){b.classList.remove('vis')});
+  document.getElementById('dp1s'+n).classList.add('vis');
+  curSec=n;
+  updateDots();
+  var top=document.getElementById('dp-l1');
+  if(top)top.scrollIntoView({behavior:'smooth',block:'start'});
+};
+function updateDots(){
+  document.querySelectorAll('#dp-l1 .snavdot').forEach(function(d){
+    var i=parseInt(d.getAttribute('data-s'));
+    d.classList.remove('active','done');
+    if(i<curSec)d.classList.add('done');
+    if(i===curSec)d.classList.add('active');
+  });
+}
+document.querySelectorAll('#dp-l1 .snavdot').forEach(function(d){
+  d.addEventListener('click',function(){dp1Go(parseInt(d.getAttribute('data-s')))});
+});
+
+/* ── TERM CARDS ── */
+document.querySelectorAll('#dp-l1 .tcard').forEach(function(c){
+  c.addEventListener('click',function(){c.classList.toggle('fl')});
+});
+
+/* ── FILL BLANKS ── */
+function checkFill(pairs){
+  pairs.forEach(function(p){
+    var inp=document.getElementById(p.i);
+    var item=document.getElementById(p.d);
+    var fb=item.querySelector('.ffb');
+    if(!inp)return;
+    var ans=inp.getAttribute('data-a').toLowerCase().trim();
+    var given=inp.value.toLowerCase().trim();
+    var ok=given===ans;
+    item.classList.toggle('ok',ok);item.classList.toggle('bad',!ok);
+    inp.classList.toggle('ok',ok);inp.classList.toggle('bad',!ok);
+    fb.textContent=ok?'✅ Correct!':'❌ Answer: '+inp.getAttribute('data-a');
+  });
+}
+var chkf=document.getElementById('dp1chkf');
+if(chkf)chkf.addEventListener('click',function(){
+  checkFill([
+    {i:'dp1f0i',d:'dp1f0'},{i:'dp1f0b',d:'dp1f0'},
+    {i:'dp1f1i',d:'dp1f1'},{i:'dp1f1b',d:'dp1f1'},
+    {i:'dp1f2i',d:'dp1f2'},{i:'dp1f2b',d:'dp1f2'}
+  ]);
+});
+
+/* ── AUDIO PLAYER ── */
+var playbtn=document.getElementById('dp1playbtn');
+var apf=document.getElementById('dp1apf');
+if(playbtn){
+  playbtn.addEventListener('click',function(){
+    if(audioPlaying){
+      window.speechSynthesis&&window.speechSynthesis.cancel();
+      clearInterval(audioTimer);audioPlaying=false;playbtn.textContent='▶';
+      if(apf)apf.style.width='0%';return;
+    }
+    var txt="I believe that language is best learned when students actually use it to communicate — that's my core belief, my philosophy. Based on that, I've chosen to teach using Communicative Language Teaching as my main system. In today's lesson, my plan is to start with a five-minute warm-up question, then have students read an authentic email, and finally do a role-play in pairs — those are my steps for the lesson. For the role-play itself, students are missing pieces of information that only their partner has — that's the specific activity I've designed. And sometimes I'll borrow a pronunciation drill from the Audio-Lingual Method when I hear a repeated error — that's my own personal way of mixing things up.";
+    if(!window.speechSynthesis)return;
+    var u=new SpeechSynthesisUtterance(txt);
+    u.lang='en-GB';u.rate=0.86;
+    var vv=window.speechSynthesis.getVoices();
+    var v=vv.find(function(x){return x.lang==='en-GB';})||vv.find(function(x){return x.lang.startsWith('en');});
+    if(v)u.voice=v;
+    audioPlaying=true;playbtn.textContent='⏸';
+    var w=0;
+    audioTimer=setInterval(function(){w=Math.min(100,w+1.3);if(apf)apf.style.width=w+'%';if(w>=100)clearInterval(audioTimer);},260);
+    u.onend=function(){audioPlaying=false;playbtn.textContent='▶';clearInterval(audioTimer);};
+    window.speechSynthesis.speak(u);
+  });
+}
+var scrtog=document.getElementById('dp1scrtog');
+var scrbox=document.getElementById('dp1scrbox');
+if(scrtog)scrtog.addEventListener('click',function(){scrbox&&scrbox.classList.toggle('show')});
+
+/* ── MATCHING SELECTS ── */
+var mAnswers={dp1ms0:'Approach',dp1ms1:'Method',dp1ms2:'Procedure',dp1ms3:'Technique',dp1ms4:'Methodology'};
+var mExplain={
+  dp1ms0:'✅ Correct! A core belief about how language is learned = Approach (your philosophy).',
+  dp1ms1:'✅ Correct! Choosing CLT as the overall teaching system = Method (the practical application of the approach).',
+  dp1ms2:'✅ Correct! Sequenced, timed steps for a specific lesson = Procedure.',
+  dp1ms3:'✅ Correct! The information-gap role-play is a specific classroom activity = Technique.',
+  dp1ms4:'✅ Correct! Borrowing from ALM when needed = Methodology (personal, flexible mix).'
+};
+var mWrong={
+  dp1ms0:'❌ This is a core belief/philosophy — the broadest level. That\'s an Approach. A Method applies the belief; a Technique is a specific activity.',
+  dp1ms1:'❌ Choosing CLT as the overall system = Method. An Approach is the underlying belief; a Procedure lists lesson steps; a Technique is a specific activity.',
+  dp1ms2:'❌ Timed, sequenced lesson steps = Procedure. It\'s more specific than a Method but broader than a single Technique.',
+  dp1ms3:'❌ An information-gap role-play is a specific classroom activity = Technique. It\'s the most concrete level — what learners actually do.',
+  dp1ms4:'❌ Mixing ALM with CLT based on context = Methodology. It reflects a teacher\'s personal, flexible blend of different methods and techniques.'
+};
+Object.keys(mAnswers).forEach(function(id){
+  var sel=document.getElementById(id);
+  var fbIdx=id.replace('dp1ms','');
+  var fb=document.getElementById('dp1mf'+fbIdx);
+  if(!sel||!fb)return;
+  sel.addEventListener('change',function(){
+    if(!sel.value)return;
+    var ok=sel.value===mAnswers[id];
+    sel.className='sm-select '+(ok?'ok':'bad');
+    fb.textContent=ok?mExplain[id]:mWrong[id];
+    fb.className='smfb '+(ok?'ok':'bad');
+  });
+});
+
+/* ── WRITING ── */
+var wtxt=document.getElementById('dp1wtxt');
+var wcnt=document.getElementById('dp1wcnt');
+var wsub=document.getElementById('dp1wsub');
+var wfb=document.getElementById('dp1wfb');
+if(wtxt){
+  wtxt.addEventListener('input',function(){
+    var w=wtxt.value.trim()===''?0:wtxt.value.trim().split(/\s+/).length;
+    if(wcnt){wcnt.textContent=w+' words (aim for 60–80)';wcnt.style.color=w>=60?'#2E7D52':'#7A7A7A';}
+  });
+}
+if(wsub){
+  wsub.addEventListener('click',function(){
+    if(!wtxt||wtxt.value.trim().split(/\s+/).length<20){alert('Please write a bit more first — at least 20 words to get started! 😊');return;}
+    if(wfb)wfb.classList.add('show');
+    wsub.textContent='✅ Submitted!';wsub.style.background='#2E7D52';
+  });
+}
+
+/* ── QUIZ ── */
+function renderQ(){
+  var d=QD[qCur];
+  var area=document.getElementById('dp1qarea');
+  var fb=document.getElementById('dp1qfb');
+  var nxt=document.getElementById('dp1qnxt');
+  fb.className='qfbm';nxt.classList.remove('show');qAns=false;
+  var pf=document.getElementById('dp1qpf');
+  if(document.getElementById('dp1qcnt'))document.getElementById('dp1qcnt').textContent=(qCur+1)+' / '+QD.length;
+  if(pf)pf.style.width=((qCur+1)/QD.length*100)+'%';
+  var html='<div class="qq"><span class="qqn">'+(qCur+1)+'</span>'+d.q+'</div><div class="qopts">';
+  d.opts.forEach(function(o,i){html+='<button class="qopt" data-i="'+i+'">'+o+'</button>';});
+  html+='</div>';
+  area.innerHTML=html;
+  area.querySelectorAll('.qopt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(qAns)return;qAns=true;
+      var ch=parseInt(btn.getAttribute('data-i'));
+      area.querySelectorAll('.qopt').forEach(function(b){b.disabled=true;});
+      if(ch===d.a){
+        btn.classList.add('qco');qScore++;
+        if(document.getElementById('dp1qsl'))document.getElementById('dp1qsl').textContent='Score: '+qScore;
+        fb.textContent=d.ex;fb.className='qfbm show ok';
+      }else{
+        btn.classList.add('qwr');
+        area.querySelectorAll('.qopt')[d.a].classList.add('qco');
+        fb.innerHTML='❌ Incorrect. '+d.ex;fb.className='qfbm show bad';
+      }
+      nxt.classList.add('show');
+      nxt.textContent=qCur<QD.length-1?'Next Question →':'See My Results 🎯';
+    });
+  });
+}
+var qnxt=document.getElementById('dp1qnxt');
+if(qnxt)qnxt.addEventListener('click',function(){
+  qCur++;if(qCur>=QD.length)showScore();else renderQ();
+});
+function showScore(){
+  var area=document.getElementById('dp1qarea');
+  var fb=document.getElementById('dp1qfb');
+  var nxt=document.getElementById('dp1qnxt');
+  var pr=document.querySelector('#dp-l1 .qpr');
+  var pl=document.getElementById('dp1spl');
+  if(area)area.style.display='none';
+  if(fb)fb.style.display='none';
+  if(nxt)nxt.style.display='none';
+  if(pr)pr.style.display='none';
+  if(pl)pl.classList.add('show');
+  var fin=document.getElementById('dp1sfin');
+  if(fin)fin.textContent=qScore;
+  var pct=qScore/QD.length,msg,sub;
+  if(pct===1){msg='Perfect Score! 🏆';sub='Outstanding! You are fully ready on this topic.';}
+  else if(pct>=0.83){msg='Excellent! 🌟';sub='Very strong — review any errors and move on.';}
+  else if(pct>=0.67){msg='Good Work! 👍';sub='Revise the Hierarchy section and the Theory distinction, then retry.';}
+  else if(pct>=0.5){msg='Keep Practising! 💪';sub='Go back to the Key Terms and try again — you\'re building understanding!';}
+  else{msg='Review & Retry 🔄';sub='Work through each section carefully. Take notes on each term\'s definition.';}
+  if(document.getElementById('dp1smsg'))document.getElementById('dp1smsg').textContent=msg;
+  if(document.getElementById('dp1ssub'))document.getElementById('dp1ssub').textContent=sub;
+}
+var srty=document.getElementById('dp1srty');
+if(srty)srty.addEventListener('click',function(){
+  qScore=0;qCur=0;qAns=false;
+  var area=document.getElementById('dp1qarea');
+  var fb=document.getElementById('dp1qfb');
+  var nxt=document.getElementById('dp1qnxt');
+  var pr=document.querySelector('#dp-l1 .qpr');
+  var pl=document.getElementById('dp1spl');
+  if(area){area.style.display='block';area.innerHTML='';}
+  if(fb){fb.style.display='block';fb.className='qfbm';}
+  if(nxt)nxt.style.display='none';
+  if(pr)pr.style.display='flex';
+  if(pl)pl.classList.remove('show');
+  if(document.getElementById('dp1qsl'))document.getElementById('dp1qsl').textContent='Score: 0';
+  renderQ();
+});
+
+/* ── INIT ── */
+renderQ();
+if(window.speechSynthesis){
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};
+}
+
+})();
+</script>
