@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT Integration Models — SAMR & Raby</title>
+<style>
+/* ── CSS VARIABLES ─────────────────────────────────────────────── */
+:root {
+  --bg-primary:    #ffffff;
+  --bg-secondary:  #f7f8fa;
+  --bg-tertiary:   #eef0f4;
+  --text-primary:  #111111;
+  --text-secondary:#374151;
+  --text-muted:    #6b7280;
+  --accent-1:      #2ab5a0;
+  --accent-2:      #4a90d9;
+  --accent-3:      #f5a623;
+  --accent-4:      #e84393;
+  --accent-green:  #5cb85c;
+  --border-color:  #e2e4e8;
+  --card-shadow:   0 2px 12px rgba(0,0,0,0.07);
+  --radius-md:     12px;
+  --transition:    0.25s ease;
+}
+[data-theme="dark"] {
+  --bg-primary:    #0f1117;
+  --bg-secondary:  #1a1d27;
+  --bg-tertiary:   #252836;
+  --text-primary:  #f1f2f6;
+  --text-secondary:#b0b8c8;
+  --text-muted:    #6b7a94;
+  --accent-1:      #2fcfb8;
+  --accent-2:      #5aa8f0;
+  --accent-3:      #f7b731;
+  --accent-4:      #ff5fa0;
+  --accent-green:  #6ed86e;
+  --border-color:  #2e3347;
+  --card-shadow:   0 2px 16px rgba(0,0,0,0.35);
+}
+
+/* ── RESET & BASE ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background var(--transition), color var(--transition);
+  min-height: 100vh;
+}
+h1, h2, h3, h4 {
+  font-family: Palatino, Georgia, serif;
+  line-height: 1.25;
+}
+section { display: none; }
+section.active { display: block; }
+
+/* ── NAV ───────────────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.6rem 1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  overflow-x: auto; scrollbar-width: none;
+  transition: background var(--transition);
+}
+nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  flex-shrink: 0;
+  padding: 0.42rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.82rem; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.nav-btn:hover { border-color: var(--accent-1); color: var(--accent-1); }
+.nav-btn.active {
+  background: var(--accent-1);
+  border-color: var(--accent-1);
+  color: #fff;
+}
+.theme-btn {
+  margin-left: auto; flex-shrink: 0;
+  width: 2.2rem; height: 2.2rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.theme-btn:hover { border-color: var(--accent-1); }
+
+/* ── LAYOUT ────────────────────────────────────────────────────── */
+.page { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.2rem 4rem; }
+.section-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.section-hero h2 {
+  font-size: 2rem; color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+.section-hero p {
+  color: var(--text-muted); font-size: 1rem; max-width: 560px; margin: 0 auto;
+}
+.accent-line {
+  width: 60px; height: 4px;
+  background: var(--accent-1);
+  border-radius: 4px; margin: 0.7rem auto 1.2rem;
+}
+
+/* ── CARDS ─────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  padding: 1.4rem 1.6rem;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+
+/* ── ACCENT CARDS ──────────────────────────────────────────────── */
+.accent-card {
+  border-radius: var(--radius-md);
+  padding: 1.4rem;
+  border: 0.5px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+.accent-card .badge {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.25rem 0.7rem;
+  border-radius: 999px; margin-bottom: 0.7rem; color: #fff;
+}
+.accent-card h4 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.accent-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
+
+.ac-teal   { background: #e6f7f5; border-left: 4px solid var(--accent-1); }
+.ac-blue   { background: #e8f1fb; border-left: 4px solid var(--accent-2); }
+.ac-gold   { background: #fdf3e0; border-left: 4px solid var(--accent-3); }
+.ac-pink   { background: #fce8f2; border-left: 4px solid var(--accent-4); }
+.ac-green  { background: #e8f7e8; border-left: 4px solid var(--accent-green); }
+
+[data-theme="dark"] .ac-teal  { background: #0e2826; }
+[data-theme="dark"] .ac-blue  { background: #0d1e30; }
+[data-theme="dark"] .ac-gold  { background: #2a1f08; }
+[data-theme="dark"] .ac-pink  { background: #2a0c1c; }
+[data-theme="dark"] .ac-green { background: #0c2010; }
+
+.badge-teal  { background: var(--accent-1); }
+.badge-blue  { background: var(--accent-2); }
+.badge-gold  { background: var(--accent-3); }
+.badge-pink  { background: var(--accent-4); }
+.badge-green { background: var(--accent-green); }
+
+/* ── STAT CALLOUTS ─────────────────────────────────────────────── */
+.stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+.stat-card {
+  flex: 1; min-width: 140px;
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1rem;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+.stat-card .stat-num { font-size: 2.2rem; font-weight: 800; font-family: Palatino, Georgia, serif; }
+.stat-card .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+/* ── ACCORDION ─────────────────────────────────────────────────── */
+.accordion { margin-bottom: 0.7rem; border: 0.5px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; }
+.accordion-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.3rem;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  font-weight: 600; font-size: 0.95rem;
+  transition: background var(--transition);
+}
+.accordion-header:hover { background: var(--bg-tertiary); }
+.chevron { font-size: 1.1rem; transition: transform var(--transition); display: inline-block; }
+.accordion.open .chevron { transform: rotate(180deg); }
+.accordion-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.38s ease, padding var(--transition);
+  background: var(--bg-primary);
+  padding: 0 1.3rem;
+}
+.accordion.open .accordion-body { max-height: 600px; padding: 1.1rem 1.3rem; }
+.accordion-body p, .accordion-body li { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65; }
+.accordion-body ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+
+/* ── STEPPER ───────────────────────────────────────────────────── */
+.stepper { position: relative; padding-left: 3rem; }
+.step {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.step:last-child { margin-bottom: 0; }
+.step-num {
+  position: absolute; left: -3rem; top: 0;
+  width: 2rem; height: 2rem;
+  border-radius: 50%;
+  background: var(--accent-1);
+  color: #fff; font-weight: 800; font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.step::before {
+  content: '';
+  position: absolute; left: -2.05rem; top: 2rem;
+  width: 2px; height: calc(100% + 0.5rem);
+  background: var(--border-color);
+}
+.step:last-child::before { display: none; }
+.step h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+.step p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+.step .example-box {
+  margin-top: 0.6rem;
+  padding: 0.7rem 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-1);
+  font-size: 0.85rem; color: var(--text-secondary);
+}
+
+/* ── PILL TABS ─────────────────────────────────────────────────── */
+.pill-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.pill {
+  padding: 0.4rem 1.1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.83rem; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.pill:hover { border-color: var(--accent-1); color: var(--accent-1); }
+.pill.active { background: var(--accent-1); border-color: var(--accent-1); color: #fff; }
+.pill-content > div { display: none; }
+.pill-content > div.active { display: block; }
+
+/* ── FLIP CARDS ────────────────────────────────────────────────── */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+.flip-card { height: 180px; perspective: 800px; cursor: pointer; }
+.flip-inner {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s ease;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute; inset: 0;
+  border-radius: var(--radius-md);
+  border: 0.5px solid var(--border-color);
+  backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.2rem;
+  text-align: center;
+}
+.flip-front { background: var(--bg-secondary); }
+.flip-back { background: var(--accent-1); color: #fff; transform: rotateY(180deg); }
+.flip-front .flip-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.flip-front .flip-title { font-size: 0.95rem; font-weight: 700; }
+.flip-front .flip-hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.3rem; }
+.flip-back p { font-size: 0.85rem; line-height: 1.55; }
+
+/* ── INFO PANEL ────────────────────────────────────────────────── */
+.info-trigger-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.info-trigger {
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  cursor: pointer; font-size: 0.85rem; font-weight: 600;
+  transition: all var(--transition);
+}
+.info-trigger:hover, .info-trigger.active {
+  border-color: var(--accent-1);
+  background: var(--accent-1); color: #fff;
+}
+.info-panel {
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent-1);
+  padding: 1.2rem 1.5rem;
+  min-height: 90px;
+  transition: all var(--transition);
+}
+.info-panel h4 { margin-bottom: 0.5rem; font-size: 1rem; }
+.info-panel p  { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+/* ── COMPARISON TABLE ──────────────────────────────────────────── */
+.comp-table-wrap { overflow-x: auto; border-radius: var(--radius-md); border: 0.5px solid var(--border-color); }
+.comp-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.comp-table thead tr { background: var(--text-primary); color: var(--bg-primary); }
+.comp-table th { padding: 0.85rem 1rem; text-align: left; font-weight: 700; }
+.comp-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); }
+.comp-table tbody tr:hover td { background: var(--bg-tertiary); }
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.badge-s { color: var(--accent-2); font-weight: 700; }
+.badge-a { color: var(--accent-1); font-weight: 700; }
+.badge-m { color: var(--accent-3); font-weight: 700; }
+.badge-r { color: var(--accent-4); font-weight: 700; }
+
+/* ── CHALLENGE CARDS ───────────────────────────────────────────── */
+.challenge-card {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 0.8rem;
+}
+.challenge-icon { font-size: 1.8rem; flex-shrink: 0; }
+.challenge-card h4 { font-size: 0.95rem; margin-bottom: 0.25rem; }
+.challenge-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55; }
+
+/* ── QUIZ ──────────────────────────────────────────────────────── */
+.quiz-wrap {
+  max-width: 680px; margin: 0 auto;
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+}
+.quiz-progress-bar-wrap {
+  background: var(--bg-tertiary);
+  border-radius: 999px; height: 8px; margin-bottom: 1.5rem; overflow: hidden;
+}
+.quiz-progress-bar {
+  height: 100%; background: var(--accent-1);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.quiz-q-num { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; letter-spacing: 0.05em; }
+.quiz-question { font-size: 1.12rem; font-family: Palatino, Georgia, serif; font-weight: 700; margin-bottom: 1.3rem; line-height: 1.45; }
+.quiz-options { display: flex; flex-direction: column; gap: 0.65rem; }
+.quiz-opt {
+  padding: 0.85rem 1.1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-primary);
+  cursor: pointer; font-size: 0.92rem;
+  transition: all var(--transition);
+  text-align: left;
+}
+.quiz-opt:hover:not(:disabled) { border-color: var(--accent-1); background: var(--bg-tertiary); }
+.quiz-opt.correct { border-color: var(--accent-green) !important; background: #eafbea !important; color: #1a5c1a; font-weight: 600; }
+.quiz-opt.wrong   { border-color: #e05252 !important; background: #fef0f0 !important; color: #7a1a1a; }
+[data-theme="dark"] .quiz-opt.correct { background: #0a2210 !important; color: var(--accent-green); }
+[data-theme="dark"] .quiz-opt.wrong   { background: #2a0c0c !important; color: #f87272; }
+.quiz-feedback {
+  margin-top: 0.9rem; padding: 0.75rem 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 8px; border-left: 3px solid var(--accent-1);
+  font-size: 0.88rem; color: var(--text-secondary);
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.5rem;
+}
+.quiz-dots { display: flex; gap: 0.4rem; }
+.quiz-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border-color);
+  transition: background var(--transition);
+}
+.quiz-dot.answered { background: var(--accent-1); }
+.quiz-dot.current  { background: var(--accent-3); }
+.quiz-nav-btn {
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  border: none; cursor: pointer;
+  font-size: 0.85rem; font-weight: 700;
+  transition: all var(--transition);
+}
+.quiz-nav-btn.prev { background: var(--bg-tertiary); color: var(--text-secondary); }
+.quiz-nav-btn.next { background: var(--accent-1); color: #fff; }
+.quiz-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* Score screen */
+.score-screen { text-align: center; padding: 1rem; }
+.score-ring-wrap { display: inline-block; margin: 1.5rem auto; }
+.score-ring {
+  width: 140px; height: 140px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; font-weight: 800; font-family: Palatino, Georgia, serif;
+  transition: background 0.8s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.score-title { font-size: 1.4rem; font-family: Palatino, Georgia, serif; font-weight: 700; margin-bottom: 0.4rem; }
+.score-sub { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+.restart-btn {
+  padding: 0.7rem 2rem;
+  background: var(--accent-1); color: #fff;
+  border: none; border-radius: 999px;
+  font-size: 0.95rem; font-weight: 700; cursor: pointer;
+  transition: opacity var(--transition);
+}
+.restart-btn:hover { opacity: 0.85; }
+
+/* ── MISC ──────────────────────────────────────────────────────── */
+.spacer { margin-top: 2rem; }
+.section-subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.highlight { color: var(--accent-1); font-weight: 700; }
+.tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  padding: 0.2rem 0.6rem; border-radius: 999px; color: #fff;
+  margin-right: 0.3rem;
+}
+.tag-s { background: var(--accent-2); }
+.tag-a { background: var(--accent-1); }
+.tag-m { background: var(--accent-3); }
+.tag-r { background: var(--accent-4); }
+
+.quote-box {
+  border-left: 4px solid var(--accent-1);
+  padding: 0.9rem 1.3rem;
+  background: var(--bg-secondary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 1.2rem 0;
+}
+
+.samr-ladder { margin: 1.5rem 0; }
+.ladder-rung {
+  display: flex; align-items: stretch;
+  margin-bottom: 0.5rem; border-radius: var(--radius-md);
+  overflow: hidden; box-shadow: var(--card-shadow);
+  cursor: default;
+}
+.rung-letter {
+  width: 3rem; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 900; color: #fff;
+  font-family: Palatino, Georgia, serif;
+}
+.rung-body { flex: 1; padding: 0.9rem 1.2rem; background: var(--bg-secondary); }
+.rung-body h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+.rung-body p  { font-size: 0.85rem; color: var(--text-secondary); }
+.rung-zone {
+  width: 5rem; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: #fff; text-align: center;
+  padding: 0.4rem;
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────────── -->
+<nav id="main-nav">
+  <button class="nav-btn active" data-section="intro">🏠 Intro</button>
+  <button class="nav-btn" data-section="samr-overview">📊 SAMR Overview</button>
+  <button class="nav-btn" data-section="samr-deep">🔍 SAMR Deep Dive</button>
+  <button class="nav-btn" data-section="samr-examples">📋 SAMR Examples</button>
+  <button class="nav-btn" data-section="raby-overview">🗺 Raby Model</button>
+  <button class="nav-btn" data-section="raby-apex">⭐ Apex Stage</button>
+  <button class="nav-btn" data-section="comparison">⚖️ Compare</button>
+  <button class="nav-btn" data-section="challenges">⚡ Challenges</button>
+  <button class="nav-btn" data-section="quiz">🧠 Quiz</button>
+  <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 1 — INTRO                                            -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="intro" class="active">
+<div class="page">
+  <div class="section-hero">
+    <h2>ICT Integration Models</h2>
+    <div class="accent-line"></div>
+    <p>Master <strong>SAMR</strong> & <strong>Raby</strong> — the two frameworks every digital educator needs to know.</p>
+  </div>
+
+  <div class="quote-box">
+    "Digital technology is not inherently innovative — it is <strong>pedagogical use</strong> that creates value."
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent-1)">2</div><div class="stat-label">Models to master</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent-2)">4</div><div class="stat-label">SAMR stages</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent-3)">3</div><div class="stat-label">Raby contexts</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--accent-4)">1</div><div class="stat-label">Shared goal</div></div>
+  </div>
+
+  <p class="section-subtitle">Why do we need these models?</p>
+
+  <div class="grid-3" style="margin-bottom:1.5rem">
+    <div class="accent-card ac-gold">
+      <div class="badge badge-gold">The Trap ⚠</div>
+      <h4>The Old with the New</h4>
+      <p>Most teachers use technology just to replace what they already do — like writing on a screen instead of a board. That's not transformation, that's decoration.</p>
+    </div>
+    <div class="accent-card ac-blue">
+      <div class="badge badge-blue">The Purpose 🔍</div>
+      <h4>A Mirror for Teachers</h4>
+      <p>These models are <em>self-evaluation tools</em> — they help you look at your own teaching and ask: is what I'm doing with technology actually improving learning?</p>
+    </div>
+    <div class="accent-card ac-teal">
+      <div class="badge badge-teal">The Goal 🎯</div>
+      <h4>Student as Creator</h4>
+      <p>Technology is never the point. The goal is always the same: the student actively <em>creating</em> knowledge — not passively consuming it.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem">
+    <h4 style="margin-bottom:0.8rem">🗺 How to use this lesson</h4>
+    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.65">
+      Use the <strong>navigation bar</strong> above to move between sections. Start with <em>SAMR Overview</em>, then go deep with <em>SAMR Deep Dive</em>, followed by <em>SAMR Examples</em>. Then move on to <em>Raby</em>. Finally, compare both models and test yourself in the <strong>Quiz</strong>.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 2 — SAMR OVERVIEW                                    -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="samr-overview">
+<div class="page">
+  <div class="section-hero">
+    <h2>The SAMR Model</h2>
+    <div class="accent-line"></div>
+    <p>A 4-stage ladder that shows <em>how deeply</em> technology is transforming a classroom task.</p>
+  </div>
+
+  <p style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:1.5rem; line-height:1.7">
+    Think of SAMR like <strong>renovating a house</strong>. You can repaint the walls (Substitution), add new fixtures (Augmentation), knock down walls to redesign rooms (Modification), or tear down the whole thing and build something entirely new (Redefinition). Same house, totally different results.
+  </p>
+
+  <div class="samr-ladder">
+    <div class="ladder-rung">
+      <div class="rung-letter" style="background:var(--accent-4)">R</div>
+      <div class="rung-body">
+        <h4>Redefinition <span class="tag tag-r">Transformation</span></h4>
+        <p>Technology enables entirely new tasks — things that were <em>impossible</em> before. Students publish to global audiences, collaborate in real time across continents.</p>
+      </div>
+      <div class="rung-zone" style="background:var(--accent-4)">TRANS<br>FORM</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="rung-letter" style="background:var(--accent-3)">M</div>
+      <div class="rung-body">
+        <h4>Modification <span class="tag tag-m">Transformation</span></h4>
+        <p>Technology significantly redesigns the task. A quiz becomes a live adaptive system that changes the lesson based on student answers.</p>
+      </div>
+      <div class="rung-zone" style="background:var(--accent-3)">TRANS<br>FORM</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="rung-letter" style="background:var(--accent-1)">A</div>
+      <div class="rung-body">
+        <h4>Augmentation <span class="tag tag-a">Enhancement</span></h4>
+        <p>Technology replaces the old tool AND adds useful features. A word processor with spellcheck, hyperlinks, and auto-formatting.</p>
+      </div>
+      <div class="rung-zone" style="background:var(--accent-1)">ENHANCE</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="rung-letter" style="background:var(--accent-2)">S</div>
+      <div class="rung-body">
+        <h4>Substitution <span class="tag tag-s">Enhancement</span></h4>
+        <p>Technology replaces a non-digital tool with <em>zero functional change</em>. Typing an essay instead of handwriting it — same task, new medium.</p>
+      </div>
+      <div class="rung-zone" style="background:var(--accent-2)">ENHANCE</div>
+    </div>
+  </div>
+
+  <div class="quote-box" style="margin-top:1.5rem">
+    💡 <strong>Simple rule:</strong> S & A = Enhancement (doing the same thing better). M & R = Transformation (doing something that wasn't possible before).
+  </div>
+
+  <div class="spacer"></div>
+  <p class="section-subtitle">Who created it?</p>
+  <div class="card">
+    <div style="display:flex; gap:1.2rem; align-items:flex-start; flex-wrap:wrap">
+      <div style="font-size:3rem">🎓</div>
+      <div>
+        <h4 style="margin-bottom:0.4rem">Dr. Ruben Puentedura — Harvard University</h4>
+        <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.65">
+          Puentedura created SAMR to give teachers a practical framework for <strong>reflecting on their use of technology</strong>. He was influenced by research on how transformative technologies change learning environments. The key insight: <em>technology alone changes nothing — how it's used is everything.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 3 — SAMR DEEP DIVE                                   -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="samr-deep">
+<div class="page">
+  <div class="section-hero">
+    <h2>SAMR Deep Dive</h2>
+    <div class="accent-line"></div>
+    <p>Understand each stage fully — with real analogies and examples.</p>
+  </div>
+
+  <div class="pill-tabs" id="samr-pills"></div>
+  <div class="pill-content" id="samr-pill-content">
+
+    <div id="pill-s">
+      <div class="accent-card ac-blue" style="margin-bottom:1rem">
+        <div class="badge badge-blue">S — Substitution</div>
+        <h4>Direct replacement, no functional change</h4>
+        <p>You swap the old tool for a digital one. The task stays <em>exactly</em> the same. Nothing new is learned, nothing new is possible — you're just using a different medium.</p>
+      </div>
+      <div class="stepper">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>What changes?</h4>
+          <p>Only the <strong>medium</strong> — from physical to digital. The activity, the learning objectives, and the student experience remain identical.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Everyday analogy</h4>
+          <p>Imagine you always wrote grocery lists on paper. One day you type the list in your phone's Notes app. Same list, same task — just on a screen.</p>
+          <div class="example-box">📱 Grocery list on paper → grocery list in a Notes app. You saved no time, learned nothing new, gained nothing extra.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Classroom example</h4>
+          <p>Students write an essay in a notebook. The teacher asks them to type it in Microsoft Word instead. Same essay, same structure, same thinking required.</p>
+          <div class="example-box">✍️ Handwritten essay → typed essay in Word. This is SAMR Substitution — no functional improvement, just a digital swap.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Is it bad?</h4>
+          <p>Not necessarily! It's a <em>starting point</em>. Every teacher begins here. The question SAMR asks is: <strong>can we climb higher?</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="pill-a">
+      <div class="accent-card ac-teal" style="margin-bottom:1rem">
+        <div class="badge badge-teal">A — Augmentation</div>
+        <h4>Substitute + meaningful functional improvement</h4>
+        <p>You still replace the old tool, but now the digital version does things the old one <em>couldn't</em>. It's the same task fundamentally — but the tools add genuine value.</p>
+      </div>
+      <div class="stepper">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>What changes?</h4>
+          <p>The <strong>tool gains new abilities</strong> — spellcheck, instant formatting, hyperlinks, search, auto-save. These aren't possible with pen and paper.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Everyday analogy</h4>
+          <p>You used to drive to the library to look up information. Now you Google it. You're still "looking things up" — but the digital method is dramatically more efficient.</p>
+          <div class="example-box">🔍 Library trip → Google search. Same goal, but the tool added speed, breadth, and convenience. That's Augmentation.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Classroom example</h4>
+          <p>Students write the same essay, but now in Google Docs. They benefit from spellcheck, grammar suggestions, the ability to embed hyperlinks, and easy sharing with the teacher.</p>
+          <div class="example-box">📄 Essay in Google Docs with spellcheck + embedded sources + instant teacher feedback via comments. Functionally better!</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Key distinction from S</h4>
+          <p>In Substitution, removing the technology changes <em>nothing</em>. In Augmentation, removing it would make the task noticeably harder or worse.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="pill-m">
+      <div class="accent-card ac-gold" style="margin-bottom:1rem">
+        <div class="badge badge-gold">M — Modification</div>
+        <h4>Technology allows significant task redesign</h4>
+        <p>This is where we cross into <strong>Transformation</strong>. The task itself is redesigned — not just the tools. The way learning happens fundamentally changes.</p>
+      </div>
+      <div class="stepper">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>What changes?</h4>
+          <p>The <strong>task itself is reconfigured</strong>. Technology doesn't just support the old task — it enables a fundamentally different kind of activity.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Everyday analogy</h4>
+          <p>Old way: you fill in a paper feedback form and hand it to a manager. New way: an online form instantly shows aggregated results, highlights patterns, and auto-generates a report.</p>
+          <div class="example-box">📊 The task changed. The manager now <em>adapts decisions based on live data</em> — something impossible with paper forms.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Classroom example (Socrative)</h4>
+          <p>Instead of a paper quiz, students answer via Socrative on their phones. The teacher <strong>sees results in real time</strong>, identifies which concept 60% of students got wrong, and immediately adjusts the lesson.</p>
+          <div class="example-box">📱 The quiz is no longer just assessment — it becomes a <em>teaching tool that reshapes the lesson as it happens</em>. That's Modification.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Why it matters</h4>
+          <p>The teacher's role changes too. Instead of waiting until the end of term to see results, they respond to student understanding <em>minute by minute</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="pill-r">
+      <div class="accent-card ac-pink" style="margin-bottom:1rem">
+        <div class="badge badge-pink">R — Redefinition</div>
+        <h4>Technology creates entirely new, previously impossible tasks</h4>
+        <p>The highest level. Students do things that were <em>literally inconceivable</em> without technology. New kinds of learning, new kinds of outputs, new kinds of audiences.</p>
+      </div>
+      <div class="stepper">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>What changes?</h4>
+          <p><strong>Everything</strong>. The task didn't exist before technology. You can't even describe it in terms of the old way — there was no "old way."</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Everyday analogy</h4>
+          <p>Before smartphones, you couldn't share a live video with 10,000 people simultaneously from your bedroom. That task literally did not exist. Live streaming is a Redefinition-level activity.</p>
+          <div class="example-box">📡 Live streaming to thousands of viewers is not an "improved" version of anything — it's a brand new kind of communication.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Classroom example</h4>
+          <p>Students collaborate <em>live</em> with a class in another country, co-writing a document, video-debating perspectives, and publishing a joint analysis to a public audience who comments in real time.</p>
+          <div class="example-box">🌐 No classroom assignment ever worked like this before. The audience is real, the collaboration is global, the product is public. Pure Redefinition.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>The student's role</h4>
+          <p>At this level, the student is not just completing an assignment — they are a <strong>knowledge creator and global participant</strong>. The teacher becomes a facilitator and coach.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end pill-content -->
+
+  <!-- Flip cards summary -->
+  <div class="spacer"></div>
+  <p class="section-subtitle">Quick recall — click each card to flip</p>
+  <div class="flip-grid" id="samr-flip-grid"></div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 4 — SAMR EXAMPLES TABLE                              -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="samr-examples">
+<div class="page">
+  <div class="section-hero">
+    <h2>SAMR in the Classroom</h2>
+    <div class="accent-line"></div>
+    <p>Real examples across different subjects — see exactly what each level looks like in practice.</p>
+  </div>
+
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Subject</th>
+          <th>Traditional Task</th>
+          <th>With Technology</th>
+          <th>What Changed?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge-s">S — Substitution</span></td>
+          <td>Writing</td>
+          <td>Handwrite an essay</td>
+          <td>Type the same essay in Microsoft Word</td>
+          <td>Only the medium. The essay is identical.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-a">A — Augmentation</span></td>
+          <td>Science</td>
+          <td>Handwritten lab notes</td>
+          <td>Google Docs with embedded links, spellcheck, and shared teacher comments</td>
+          <td>Tool gains new features — collaboration and feedback become instant.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-m">M — Modification</span></td>
+          <td>Maths</td>
+          <td>Paper quiz after the lesson</td>
+          <td>Socrative live quiz — teacher sees results in real time and adapts the lesson immediately</td>
+          <td>The task becomes a teaching instrument, not just assessment.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-r">R — Redefinition</span></td>
+          <td>History</td>
+          <td>Classroom debate between classmates</td>
+          <td>Live video debate with a school in another country — published online for public commentary</td>
+          <td>An entirely new kind of task that did not exist before technology.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-s">S — Substitution</span></td>
+          <td>Language</td>
+          <td>Paper vocabulary flashcards</td>
+          <td>The same flashcards in a digital app (no spacing repetition, no AI)</td>
+          <td>Nothing — same cards, digital format.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-a">A — Augmentation</span></td>
+          <td>Language</td>
+          <td>Vocabulary flashcards</td>
+          <td>Quizlet — AI selects harder words automatically based on your mistakes</td>
+          <td>The tool now adapts to the learner. Pen-and-paper can't do this.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-r">R — Redefinition</span></td>
+          <td>Art</td>
+          <td>Paint a picture for the class</td>
+          <td>Students create a digital art installation displayed in a virtual museum visited by global audiences who leave reviews</td>
+          <td>The audience, the scale, and the feedback loop are completely new.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="spacer"></div>
+  <p class="section-subtitle">Interactive — click a zone to explore</p>
+  <div class="info-trigger-row" id="zone-triggers">
+    <button class="info-trigger" data-zone="s">📘 Substitution</button>
+    <button class="info-trigger" data-zone="a">🟢 Augmentation</button>
+    <button class="info-trigger" data-zone="m">🟠 Modification</button>
+    <button class="info-trigger" data-zone="r">🔴 Redefinition</button>
+  </div>
+  <div class="info-panel" id="zone-panel">
+    <h4>Select a stage above to see details.</h4>
+    <p>Click any button to learn more about that SAMR stage.</p>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 5 — RABY MODEL                                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="raby-overview">
+<div class="page">
+  <div class="section-hero">
+    <h2>The Raby Model</h2>
+    <div class="accent-line" style="background:var(--accent-3)"></div>
+    <p>Carol Raby (2004) — Maps the <em>teacher's personal journey</em> toward fully integrating ICT into their teaching.</p>
+  </div>
+
+  <div class="quote-box">
+    🔑 <strong>Key difference from SAMR:</strong> SAMR asks <em>"what is technology doing to the task?"</em> Raby asks <em>"where is the <u>teacher</u> in their journey?"</em>
+  </div>
+
+  <p style="color:var(--text-secondary); font-size:0.95rem; margin: 1.2rem 0; line-height:1.7">
+    Raby noticed that teachers don't just wake up one day and brilliantly use technology in their teaching. They go through a <strong>personal journey</strong> — first using it at home, then at work, and finally in the classroom. Her model maps that journey in 3 main contexts, each with sub-stages.
+  </p>
+
+  <p class="section-subtitle">The 3 Contexts — A Stepping Stone Journey</p>
+
+  <div class="stepper">
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-1)">①</div>
+      <h4>Personal Use <em style="color:var(--text-muted); font-size:0.8rem">(Utilisation Personnelle)</em></h4>
+      <p>The teacher first encounters technology in their <strong>private life</strong> — at home, with family, out of curiosity. This is where the journey begins.</p>
+      <div class="example-box">🏠 A teacher starts using Google Maps instead of paper maps, or WhatsApp instead of phone calls. No teaching involved yet — just personal comfort with technology.</div>
+      <div class="grid-3" style="margin-top:0.8rem">
+        <div class="card" style="padding:0.9rem">
+          <strong style="font-size:0.85rem">🌱 Sensibilisation</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">Indirect contact. The teacher hears about technology, sees others use it — but hasn't tried it themselves yet.</p>
+        </div>
+        <div class="card" style="padding:0.9rem">
+          <strong style="font-size:0.85rem">🤔 Familiarisation</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">First attempts. Overcoming fear, mastering basic skills. "I'm learning how this works."</p>
+        </div>
+        <div class="card" style="padding:0.9rem">
+          <strong style="font-size:0.85rem">✅ Exploration-Appropriation</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">Comfortable personal use. Creating documents, searching information, communicating with friends/family.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-2)">②</div>
+      <h4>Professional Use <em style="color:var(--text-muted); font-size:0.8rem">(Utilisation Professionnelle)</em></h4>
+      <p>ICT migrates into the teacher's <strong>professional non-teaching life</strong>. They use it for administrative work, colleague communication, research — but not yet in the classroom.</p>
+      <div class="example-box">🏢 The teacher emails colleagues, creates lesson plans in Word, looks up curriculum documents online, joins a professional WhatsApp group. Still not in the classroom — but getting closer.</div>
+      <div class="grid-3" style="margin-top:0.8rem">
+        <div class="card" style="padding:0.9rem">
+          <strong style="font-size:0.85rem">📧 Communication</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">Emailing colleagues, using staff platforms, joining professional groups.</p>
+        </div>
+        <div class="card" style="padding:0.9rem">
+          <strong style="font-size:0.85rem">📁 Administration</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">Creating lesson plans, timetables, and reports digitally.</p>
+        </div>
+        <div class="card" style="padding:0.9rem">
+          <strong style="font-size:0.85rem">🔎 Research</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">Using the internet to find teaching resources, new methods, curriculum updates.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-3)">③</div>
+      <h4>Pedagogical Use <em style="color:var(--text-muted); font-size:0.8rem">(Utilisation Pédagogique)</em></h4>
+      <p>ICT finally enters the <strong>classroom</strong>. This is the main destination of Raby's model — and it has 3 sub-stages of its own.</p>
+      <div class="example-box">🎓 The teacher now uses technology <em>with students</em>, designing activities around digital tools to support and transform learning.</div>
+      <div class="grid-3" style="margin-top:0.8rem">
+        <div class="card" style="padding:0.9rem; border-left:3px solid var(--accent-1)">
+          <strong style="font-size:0.85rem">🔭 Exploration</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">ICT as a lecture aid — the teacher uses a projector, shows videos, supplements traditional teaching.</p>
+        </div>
+        <div class="card" style="padding:0.9rem; border-left:3px solid var(--accent-2)">
+          <strong style="font-size:0.85rem">🌊 Infusion</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">ICT woven into regular teaching. Students use it to access information, collaborate, and demonstrate understanding.</p>
+        </div>
+        <div class="card" style="padding:0.9rem; border-left:3px solid var(--accent-3)">
+          <strong style="font-size:0.85rem">⭐ Appropriation Pédagogique</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem">The apex. ICT is fully integrated into <em>meaningful, transformative learning experiences</em>. See the next section!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="accord-group">
+    <div class="accordion" id="raby-acc-1">
+      <div class="accordion-header">
+        💡 Why does the journey start at home, not at school? <span class="chevron">⌄</span>
+      </div>
+      <div class="accordion-body">
+        <p>Raby found that teachers are <strong>people first, educators second</strong>. They build confidence with technology in low-stakes environments — their homes — before bringing it into the high-stakes environment of the classroom. You don't learn to swim in the deep end. You start in the shallow water.</p>
+      </div>
+    </div>
+    <div class="accordion" id="raby-acc-2">
+      <div class="accordion-header">
+        ⚡ What's the biggest insight from Raby? <span class="chevron">⌄</span>
+      </div>
+      <div class="accordion-body">
+        <p><strong>Technical fluency ≠ Pedagogical fluency.</strong> A teacher who is great at using Instagram has not automatically become great at using technology to teach. These are <em>separately developed competencies</em>. You can be a tech wizard personally and a total beginner pedagogically. The journey through all 3 contexts is necessary.</p>
+        <ul>
+          <li>Knowing <em>how</em> to use a tool ≠ Knowing <em>how to teach with</em> that tool</li>
+          <li>The same psychological barriers (fear, insecurity, time) resurface at every new stage</li>
+          <li>This means teacher training must go beyond "here's how the software works"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion" id="raby-acc-3">
+      <div class="accordion-header">
+        🔄 Is the journey linear? Can you go backwards? <span class="chevron">⌄</span>
+      </div>
+      <div class="accordion-body">
+        <p>No — Raby's model is <strong>non-linear</strong>. A teacher might be at Appropriation Pédagogique in one area (e.g., using Socrative for assessment) but back at Familiarisation with a brand-new tool (e.g., VR headsets). Every new technology resets the journey to some degree. This is why teachers never fully "arrive" — they are always in motion.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 6 — APPROPRIATION PÉDAGOGIQUE                        -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="raby-apex">
+<div class="page">
+  <div class="section-hero">
+    <h2>Appropriation Pédagogique ⭐</h2>
+    <div class="accent-line" style="background:var(--accent-3)"></div>
+    <p>The highest stage in Raby's model — where ICT is fully and meaningfully integrated into transformative teaching.</p>
+  </div>
+
+  <div class="quote-box">
+    <em>"Regular, meaningful ICT activities designed for both knowledge transmission AND knowledge construction."</em>
+  </div>
+
+  <p style="color:var(--text-secondary); margin: 1rem 0 1.5rem; line-height:1.7; font-size:0.95rem">
+    Think of Appropriation Pédagogique as the moment a driver stops thinking about <em>how to drive</em> and just <em>drives to where they want to go</em>. The teacher is no longer thinking "how do I use this tool?" — they think "how do I design the best learning experience for my students?" The tool is invisible. The learning is everything.
+  </p>
+
+  <div class="grid-2">
+    <div class="accent-card ac-teal">
+      <div class="badge badge-teal">🔄 Feature 1</div>
+      <h4>Transmission AND Construction</h4>
+      <p>The teacher doesn't just transmit knowledge — they design activities where students also <em>construct</em> knowledge. Learning flows in both directions.</p>
+    </div>
+    <div class="accent-card ac-gold">
+      <div class="badge badge-gold">🎓 Feature 2</div>
+      <h4>Dual Competency Development</h4>
+      <p>Students develop <strong>subject knowledge</strong> (e.g., history content) AND <strong>transversal skills</strong> (e.g., critical thinking, collaboration, digital literacy) — in the same activity.</p>
+    </div>
+    <div class="accent-card ac-blue">
+      <div class="badge badge-blue">🌱 Feature 3</div>
+      <h4>Active & Significant Learning</h4>
+      <p>Learning is <em>actif</em> — students are doing things, making decisions, creating outputs. It's <em>significatif</em> — it connects to real purposes and real audiences.</p>
+    </div>
+    <div class="accent-card ac-pink">
+      <div class="badge badge-pink">🛠 Feature 4</div>
+      <h4>Teacher as Catalyst</h4>
+      <p>The teacher's role shifts completely: from being a <strong>transmitter</strong> → to being a <strong>facilitator, idea-trigger, and catalyst</strong>. They design the experience; students live it.</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <p class="section-subtitle">A concrete example</p>
+  <div class="card">
+    <h4 style="margin-bottom:0.8rem">🌍 Appropriation Pédagogique in action</h4>
+    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.7; margin-bottom:0.8rem">
+      A history teacher designs a project where students collaborate with a partner class in Germany to build a shared digital archive of World War II personal testimonies.
+    </p>
+    <ul style="padding-left:1.3rem; color:var(--text-secondary); font-size:0.92rem; line-height:1.9">
+      <li>Students research, write, translate, and interview (knowledge construction)</li>
+      <li>They learn about history content AND collaboration, empathy, and digital research skills (dual competencies)</li>
+      <li>The archive is published and used by other schools (authentic, significant purpose)</li>
+      <li>The teacher designed the structure but the students drive the content (teacher as catalyst)</li>
+    </ul>
+    <div class="example-box" style="margin-top:1rem">
+      ✅ This is <strong>Appropriation Pédagogique</strong>. Technology is the vehicle. Deep learning is the destination.
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 7 — COMPARISON                                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="comparison">
+<div class="page">
+  <div class="section-hero">
+    <h2>SAMR vs. Raby</h2>
+    <div class="accent-line"></div>
+    <p>Two lenses. One goal. See how they complement each other.</p>
+  </div>
+
+  <div class="comp-table-wrap" style="margin-bottom:2rem">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>SAMR</th>
+          <th>Raby</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Primary focus</strong></td><td>The <strong>task</strong> — what is technology doing to the learning activity?</td><td>The <strong>teacher</strong> — where are they in their appropriation journey?</td></tr>
+        <tr><td><strong>Structure</strong></td><td>Vertical ladder — 4 hierarchical stages</td><td>Developmental pathway — 3 contexts, each with sub-stages</td></tr>
+        <tr><td><strong>Entry point</strong></td><td>Any classroom moment</td><td>Pre-classroom — starts in the teacher's personal life</td></tr>
+        <tr><td><strong>Key question</strong></td><td>"How deeply is technology integrated into this task?"</td><td>"Where is this teacher in their journey toward pedagogical mastery?"</td></tr>
+        <tr><td><strong>Progression</strong></td><td>Broadly positive — climbing is always better</td><td>Non-linear — obstacles recur, stages can reset with new tools</td></tr>
+        <tr><td><strong>Risk acknowledged?</strong></td><td>Limited — SAMR is optimistic</td><td>Yes — fear, insecurity, and time barriers recur at every stage</td></tr>
+        <tr><td><strong>Ultimate goal</strong></td><td>Task Redefinition — new tasks, new audiences</td><td>Appropriation Pédagogique — full pedagogical integration</td></tr>
+        <tr><td><strong>Best used for</strong></td><td>Evaluating a specific lesson or activity</td><td>Evaluating a teacher's overall ICT journey</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="quote-box">
+    🔑 <strong>The Power Combo:</strong> Use SAMR to diagnose your task depth. Use Raby to diagnose your own readiness. Together they give you a complete picture.
+  </div>
+
+  <div class="spacer"></div>
+  <p class="section-subtitle">Click to explore — how they work together</p>
+  <div class="info-trigger-row" id="combo-triggers">
+    <button class="info-trigger" data-combo="scenario1">Scenario 1: New teacher 🆕</button>
+    <button class="info-trigger" data-combo="scenario2">Scenario 2: Experienced but stuck 😤</button>
+    <button class="info-trigger" data-combo="scenario3">Scenario 3: Transformative teacher 🚀</button>
+    <button class="info-trigger" data-combo="scenario4">Scenario 4: New tool panic 😰</button>
+  </div>
+  <div class="info-panel" id="combo-panel">
+    <h4>Select a scenario above</h4>
+    <p>See how SAMR and Raby work together in real teacher situations.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="card">
+    <h4 style="margin-bottom:0.7rem">💬 A simple way to remember the difference</h4>
+    <div class="grid-2">
+      <div class="accent-card ac-blue">
+        <div class="badge badge-blue">SAMR is a ruler 📏</div>
+        <h4>Measures the task</h4>
+        <p>Hold it up to any lesson and ask: how high does this reach on the S-A-M-R scale?</p>
+      </div>
+      <div class="accent-card ac-gold">
+        <div class="badge badge-gold">Raby is a map 🗺</div>
+        <h4>Shows the journey</h4>
+        <p>Shows you where the teacher currently is and where they need to travel to reach full pedagogical mastery.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 8 — CHALLENGES                                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="challenges">
+<div class="page">
+  <div class="section-hero">
+    <h2>ICT Integration Challenges</h2>
+    <div class="accent-line"></div>
+    <p>Why don't all teachers reach Redefinition or Appropriation Pédagogique? Here's what gets in the way.</p>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-icon">📉</div>
+    <div>
+      <h4 style="color:var(--accent-1)">1. Motivation & Engagement</h4>
+      <p>Teachers struggle to maintain student motivation when technology is used without clear pedagogical purpose. If the tech feels like a gimmick, students disengage faster than in a traditional lesson.</p>
+      <div class="example-box" style="margin-top:0.6rem">Example: A teacher uses Kahoot every single lesson because "students love it" — but the questions never go beyond basic recall. Fun, but no transformation happening.</div>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-icon">🔧</div>
+    <div>
+      <h4 style="color:var(--accent-2)">2. Technical Barriers</h4>
+      <p>Unreliable internet, insufficient devices, no tech support, and outdated software make it impossible for teachers to plan confidently around technology. If the WiFi drops during a Socrative quiz, the lesson collapses.</p>
+      <div class="example-box" style="margin-top:0.6rem">Raby's model explains this: a teacher at the Familiarisation stage gets knocked back to Sensibilisation every time the technology fails unexpectedly.</div>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-icon">🎯</div>
+    <div>
+      <h4 style="color:var(--accent-3)">3. Pedagogical Misalignment</h4>
+      <p>Using technology for its own sake — "using tech because it's cool" rather than because it serves a specific learning objective. This is the classic SAMR trap: staying permanently at Substitution because it feels "innovative" without actually being so.</p>
+      <div class="example-box" style="margin-top:0.6rem">SAMR diagnosis: the task is S-level but the teacher thinks it's R-level because a device was involved.</div>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-icon">🧑‍🏫</div>
+    <div>
+      <h4 style="color:var(--accent-4)">4. Teacher Training Gap</h4>
+      <p>Most teacher training focuses on <em>how to use the software</em> — not <em>how to teach with it pedagogically</em>. This is the core insight of Raby: technical fluency ≠ pedagogical fluency. You can be an expert at using an iPad and still use it only at Substitution level in the classroom.</p>
+      <div class="example-box" style="margin-top:0.6rem">Solution: Training must shift from "here's how the tool works" to "here's how to design transformative learning experiences with this tool."</div>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-icon">📊</div>
+    <div>
+      <h4 style="color:var(--accent-green)">5. Measuring ICT Impact</h4>
+      <p>It's genuinely hard to prove that using a specific digital tool improved learning outcomes. Without evidence, school leaders don't invest, and teachers don't feel validated for the extra effort integration requires.</p>
+      <div class="example-box" style="margin-top:0.6rem">SAMR helps here — if you're at Modification or Redefinition, the impact is structural and observable in the kinds of tasks students produce.</div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 9 — QUIZ                                             -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="quiz">
+<div class="page">
+  <div class="section-hero">
+    <h2>Test Your Knowledge 🧠</h2>
+    <div class="accent-line"></div>
+    <p>15 questions covering everything — SAMR, Raby, comparisons, and real examples.</p>
+  </div>
+
+  <div class="quiz-wrap" id="quiz-wrap">
+    <div id="quiz-main">
+      <div class="quiz-progress-bar-wrap">
+        <div class="quiz-progress-bar" id="quiz-bar" style="width:0%"></div>
+      </div>
+      <div class="quiz-q-num" id="quiz-q-num">Question 1 of 15</div>
+      <div class="quiz-question" id="quiz-question"></div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div class="quiz-nav">
+        <button class="quiz-nav-btn prev" id="quiz-prev">← Prev</button>
+        <div class="quiz-dots" id="quiz-dots"></div>
+        <button class="quiz-nav-btn next" id="quiz-next" disabled>Next →</button>
+      </div>
+    </div>
+    <div id="quiz-score-screen" style="display:none" class="score-screen">
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem">Your result</p>
+      <div class="score-ring-wrap">
+        <div class="score-ring" id="score-ring"></div>
+      </div>
+      <div class="score-title" id="score-title"></div>
+      <div class="score-sub" id="score-sub"></div>
+      <button class="restart-btn" id="restart-btn">🔄 Try Again</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── SCRIPT ───────────────────────────────────────────────────── -->
+<script>
+// ── NAV ──────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-btn[data-section]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.section).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ── THEME ─────────────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-toggle');
+themeBtn.addEventListener('click', () => {
+  const dark = document.body.dataset.theme === 'dark';
+  document.body.dataset.theme = dark ? '' : 'dark';
+  themeBtn.textContent = dark ? '🌙' : '☀️';
+});
+
+// ── ACCORDIONS ───────────────────────────────────────────────────
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const acc = header.closest('.accordion');
+    acc.classList.toggle('open');
+  });
+});
+
+// ── PILL TABS (SAMR Deep Dive) ────────────────────────────────────
+const samrPillData = [
+  { id: 's', label: '📘 S — Substitution' },
+  { id: 'a', label: '🟢 A — Augmentation' },
+  { id: 'm', label: '🟠 M — Modification' },
+  { id: 'r', label: '🔴 R — Redefinition' },
+];
+const pillContainer = document.getElementById('samr-pills');
+const pillContent   = document.getElementById('samr-pill-content');
+
+samrPillData.forEach((p, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'pill' + (i === 0 ? ' active' : '');
+  btn.textContent = p.label;
+  btn.dataset.pill = p.id;
+  pillContainer.appendChild(btn);
+});
+// show first
+document.getElementById('pill-s').classList.add('active');
+
+pillContainer.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    pillContainer.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pillContent.querySelectorAll('div[id^="pill-"]').forEach(d => d.classList.remove('active'));
+    pill.classList.add('active');
+    document.getElementById('pill-' + pill.dataset.pill).classList.add('active');
+  });
+});
+
+// ── FLIP CARDS ───────────────────────────────────────────────────
+const flipData = [
+  { icon:'📘', title:'Substitution', hint:'Click to flip', back:'Direct replacement of a non-digital tool. Zero functional change. Example: typing an essay instead of handwriting it.' },
+  { icon:'🟢', title:'Augmentation', hint:'Click to flip', back:'Same replacement, but with added functionality. Example: Google Docs with spellcheck, comments, and sharing.' },
+  { icon:'🟠', title:'Modification', hint:'Click to flip', back:'Technology significantly redesigns the task. Example: Socrative quiz that adapts the lesson in real time based on results.' },
+  { icon:'🔴', title:'Redefinition', hint:'Click to flip', back:'Entirely new tasks, previously inconceivable. Example: live global co-authoring with students in another country.' },
+  { icon:'🪜', title:'SAMR = Task Lens', hint:'Click to flip', back:'SAMR asks: what is technology doing to THIS TASK? It measures task depth, not teacher readiness.' },
+  { icon:'🗺', title:'Raby = Teacher Lens', hint:'Click to flip', back:'Raby asks: where is the TEACHER in their journey? Personal → Professional → Pedagogical use.' },
+  { icon:'⭐', title:'Appropriation Pédagogique', hint:'Click to flip', back:'Raby\'s apex: meaningful, active, significant learning — teacher as catalyst, student as knowledge creator.' },
+  { icon:'⚡', title:'Key Insight', hint:'Click to flip', back:'Technical fluency ≠ Pedagogical fluency. Knowing how to USE a tool is not the same as knowing how to TEACH with it.' },
+];
+const flipGrid = document.getElementById('samr-flip-grid');
+flipData.forEach(fd => {
+  const card = document.createElement('div');
+  card.className = 'flip-card';
+  card.innerHTML = `
+    <div class="flip-inner">
+      <div class="flip-front">
+        <div class="flip-icon">${fd.icon}</div>
+        <div class="flip-title">${fd.title}</div>
+        <div class="flip-hint">${fd.hint}</div>
+      </div>
+      <div class="flip-back"><p>${fd.back}</p></div>
+    </div>`;
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+  flipGrid.appendChild(card);
+});
+
+// ── ZONE INFO PANEL (SAMR Examples) ──────────────────────────────
+const zoneData = {
+  s: {
+    title: '📘 Substitution — The Starting Point',
+    text: 'Technology replaces a non-digital tool with NO functional change. The task is identical. Example: typing an essay instead of handwriting it. This is NOT bad — it\'s a natural starting point. But SAMR asks: can you go higher? The test: if you removed the technology, would anything change about what students learn? At Substitution — No.'
+  },
+  a: {
+    title: '🟢 Augmentation — Small But Real Gains',
+    text: 'Technology replaces the old tool AND adds genuine functional benefits unavailable before. Example: Google Docs gives you spellcheck, instant sharing, and embedded hyperlinks. The task is still recognizable from before — but functionally better. The test: if you removed the technology, something useful would be lost.'
+  },
+  m: {
+    title: '🟠 Modification — Crossing the Line',
+    text: 'We\'re now in the TRANSFORMATION zone. The task itself has been significantly redesigned. Example: a Socrative quiz doesn\'t just assess — it shows the teacher in real time which concept 60% of students got wrong, so they can re-teach it immediately. The task architecture changed. This couldn\'t have been designed the same way without technology.'
+  },
+  r: {
+    title: '🔴 Redefinition — The Summit',
+    text: 'Entirely new tasks that were previously inconceivable. Students debate live with students in another country. They co-author public documents. They create digital exhibitions viewed by global audiences. These aren\'t "better versions" of old tasks — they are BRAND NEW kinds of learning activities. Technology didn\'t improve the old task. It created something new.'
+  }
+};
+const zoneTriggers = document.querySelectorAll('#zone-triggers .info-trigger');
+const zonePanel = document.getElementById('zone-panel');
+zoneTriggers.forEach(t => {
+  t.addEventListener('click', () => {
+    zoneTriggers.forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const d = zoneData[t.dataset.zone];
+    zonePanel.innerHTML = `<h4>${d.title}</h4><p>${d.text}</p>`;
+  });
+});
+
+// ── COMBO PANEL (Comparison) ──────────────────────────────────────
+const comboData = {
+  scenario1: {
+    title: '🆕 Scenario 1: New Teacher',
+    text: 'SAMR says: this teacher\'s lessons are at S-level — they\'re using Word instead of paper, but nothing has changed pedagogically. Raby says: this teacher is at Familiarisation in the Pedagogical context — they\'re nervous about technology in the classroom and haven\'t built confidence yet. TOGETHER: Don\'t push this teacher to Redefinition yet. Support them through Infusion first. Build confidence before complexity.'
+  },
+  scenario2: {
+    title: '😤 Scenario 2: Experienced But Stuck',
+    text: 'SAMR says: 5-year teacher whose lessons are consistently at A-level — functional improvements, but no real redesign happening. Raby says: this teacher is deep in Professional use — they\'re efficient with tech in admin but haven\'t explored pedagogical transformation. TOGETHER: The barrier isn\'t skill — it\'s imagination. This teacher needs exposure to Modification-level examples to see what\'s possible.'
+  },
+  scenario3: {
+    title: '🚀 Scenario 3: Transformative Teacher',
+    text: 'SAMR says: this teacher designs M and R-level activities. Students create real outputs for real audiences. Raby says: this teacher is at Appropriation Pédagogique — technology is invisible in their teaching; learning design is everything. TOGETHER: This is the model. SAMR and Raby confirm each other — high task depth + full teacher appropriation = transformative teaching.'
+  },
+  scenario4: {
+    title: '😰 Scenario 4: New Tool Panic',
+    text: 'A teacher who is at Appropriation Pédagogique in their current tools is given a new VR classroom kit. SAMR says: their VR lessons start at S-level — they\'re using VR to show the same things they showed before. Raby says: this teacher just reset to Sensibilisation for VR. They need to go through the full journey again — Personal, then Professional, then Pedagogical — with this specific new tool. The insight: mastery with one tool doesn\'t transfer automatically.'
+  }
+};
+const comboTriggers = document.querySelectorAll('#combo-triggers .info-trigger');
+const comboPanel = document.getElementById('combo-panel');
+comboTriggers.forEach(t => {
+  t.addEventListener('click', () => {
+    comboTriggers.forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    const d = comboData[t.dataset.combo];
+    comboPanel.innerHTML = `<h4>${d.title}</h4><p>${d.text}</p>`;
+  });
+});
+
+// ── QUIZ ──────────────────────────────────────────────────────────
+const questions = [
+  { q: "What does the 'S' in SAMR stand for?",
+    opts: ["Substitution","Simulation","Synchronization","Specification"],
+    correct: 0,
+    feedback: "Substitution is the first stage — technology replaces a non-digital tool with zero functional change." },
+  { q: "A teacher asks students to type their essay in Microsoft Word instead of writing by hand. Which SAMR level is this?",
+    opts: ["Augmentation","Substitution","Modification","Redefinition"],
+    correct: 1,
+    feedback: "This is Substitution — same task, different medium. No functional improvement has been added." },
+  { q: "Which two SAMR stages belong to the ENHANCEMENT zone?",
+    opts: ["Modification & Redefinition","Substitution & Augmentation","Augmentation & Modification","Substitution & Redefinition"],
+    correct: 1,
+    feedback: "Substitution (S) and Augmentation (A) form the Enhancement zone. Modification (M) and Redefinition (R) form the Transformation zone." },
+  { q: "A teacher uses Socrative to quiz students live. Results appear instantly and the teacher adapts the lesson on the spot. What SAMR level is this?",
+    opts: ["Substitution","Augmentation","Modification","Redefinition"],
+    correct: 2,
+    feedback: "This is Modification — the task has been significantly redesigned. The quiz now shapes the lesson in real time, which is impossible on paper." },
+  { q: "Students collaborate live with a class in another country on a shared document and publish their findings publicly. Which SAMR level is this?",
+    opts: ["Augmentation","Modification","Substitution","Redefinition"],
+    correct: 3,
+    feedback: "This is Redefinition — an entirely new kind of task that was previously inconceivable. No classroom could do this before digital technology." },
+  { q: "Who created the SAMR model?",
+    opts: ["Carol Raby","Mishra & Koehler","Dr. Ruben Puentedura","Jean Piaget"],
+    correct: 2,
+    feedback: "Dr. Ruben Puentedura from Harvard University developed the SAMR model as a practical framework for teachers to reflect on technology use." },
+  { q: "What is the central question of the SAMR model?",
+    opts: ["Where is the teacher in their journey?","What is technology doing to the task?","How many students can use the tool?","Is the technology affordable?"],
+    correct: 1,
+    feedback: "SAMR asks: what is technology doing to the learning activity? It diagnoses task depth, not teacher readiness." },
+  { q: "The Raby model was created by:",
+    opts: ["Ruben Puentedura","Carol Raby","UNESCO","Moersch"],
+    correct: 1,
+    feedback: "Carol Raby created her model in 2004 as a synthesis of previous work by Moersch, Sandholtz et al., and Morais." },
+  { q: "What are the 3 main contexts in the Raby model?",
+    opts: ["Substitution, Augmentation, Modification","Personal, Professional, Pedagogical","Technical, Social, Cultural","Exploration, Infusion, Transformation"],
+    correct: 1,
+    feedback: "Raby's 3 contexts are Personal Use → Professional Use → Pedagogical Use. Each has its own sub-stages." },
+  { q: "A teacher uses Google Drive for school paperwork and emails colleagues online. Which Raby context is this?",
+    opts: ["Personal Use","Pedagogical Use","Professional Use","Familiarisation"],
+    correct: 2,
+    feedback: "This is Professional Use — the teacher is using ICT in their work life, but not yet in the classroom with students." },
+  { q: "What is 'Appropriation Pédagogique' in Raby's model?",
+    opts: ["The first stage of personal use","The middle stage of professional use","The apex of pedagogical use — full transformative integration","The technical mastery phase"],
+    correct: 2,
+    feedback: "Appropriation Pédagogique is the highest stage — where ICT is fully integrated into meaningful, transformative learning experiences. The teacher is a catalyst; the student is a creator." },
+  { q: "What is the KEY insight that distinguishes the Raby model from SAMR?",
+    opts: ["Technical fluency equals pedagogical fluency","Raby focuses on the TEACHER's journey, not the task","SAMR is for secondary schools only","Raby requires hardware upgrades first"],
+    correct: 1,
+    feedback: "Raby's key insight: the model maps WHERE THE TEACHER IS in their journey — not what the task looks like. SAMR measures the task; Raby maps the person." },
+  { q: "According to Raby, can a teacher go backwards in their journey?",
+    opts: ["No — progress is always forward","Yes — the journey is non-linear and new tools can reset stages","Only if they change schools","Only at the Personal Use stage"],
+    correct: 1,
+    feedback: "Raby's model is non-linear. A teacher at Appropriation Pédagogique with one tool may restart at Sensibilisation when introduced to a brand-new technology." },
+  { q: "Technical fluency and pedagogical fluency are:",
+    opts: ["The same thing","Completely unrelated","Distinctly and separately developed competencies","Always developed together"],
+    correct: 2,
+    feedback: "This is one of Raby's core insights: knowing how to USE a tool is completely different from knowing how to TEACH with it. They are distinct competencies developed separately." },
+  { q: "If SAMR is a 'ruler' measuring task depth, what is Raby?",
+    opts: ["A ladder","A map showing the teacher's journey","A test for students","A grading rubric"],
+    correct: 1,
+    feedback: "Raby is like a map — it shows where the teacher currently is in their journey and the path they need to travel to reach full pedagogical mastery." },
+];
+
+let currentQ = 0;
+let answered = new Array(questions.length).fill(false);
+let userAnswers = new Array(questions.length).fill(null);
+
+function renderQuiz() {
+  const q = questions[currentQ];
+  document.getElementById('quiz-q-num').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-bar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+
+  const opts = document.getElementById('quiz-options');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    if (answered[currentQ]) {
+      btn.disabled = true;
+      if (i === q.correct) btn.classList.add('correct');
+      else if (i === userAnswers[currentQ]) btn.classList.add('wrong');
+    } else {
+      btn.addEventListener('click', () => handleAnswer(i));
+    }
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('quiz-feedback');
+  if (answered[currentQ]) {
+    fb.textContent = q.feedback;
+    fb.classList.add('show');
+  } else {
+    fb.textContent = '';
+    fb.classList.remove('show');
+  }
+
+  document.getElementById('quiz-prev').disabled = currentQ === 0;
+  document.getElementById('quiz-next').disabled = !answered[currentQ];
+
+  renderDots();
+}
+
+function handleAnswer(idx) {
+  if (answered[currentQ]) return;
+  answered[currentQ] = true;
+  userAnswers[currentQ] = idx;
+  renderQuiz();
+}
+
+function renderDots() {
+  const dots = document.getElementById('quiz-dots');
+  dots.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'quiz-dot';
+    if (answered[i]) d.classList.add('answered');
+    if (i === currentQ) d.classList.add('current');
+    dots.appendChild(d);
+  });
+}
+
+document.getElementById('quiz-prev').addEventListener('click', () => {
+  if (currentQ > 0) { currentQ--; renderQuiz(); }
+});
+document.getElementById('quiz-next').addEventListener('click', () => {
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuiz();
+  } else {
+    showScore();
+  }
+});
+
+function showScore() {
+  const correct = userAnswers.filter((a, i) => a === questions[i].correct).length;
+  const pct = Math.round((correct / questions.length) * 100);
+  document.getElementById('quiz-main').style.display = 'none';
+  document.getElementById('quiz-score-screen').style.display = 'block';
+
+  const ring = document.getElementById('score-ring');
+  ring.style.background = `conic-gradient(${pct >= 70 ? '#2ab5a0' : pct >= 50 ? '#f5a623' : '#e84393'} ${pct * 3.6}deg, #e2e4e8 0deg)`;
+  ring.textContent = `${pct}%`;
+
+  const titles = pct >= 90 ? ['🎉 Expert!','You have mastered SAMR & Raby!'] :
+                 pct >= 70 ? ['👍 Well Done!','Solid understanding — review a few gaps.'] :
+                 pct >= 50 ? ['📚 Getting There','Read through the sections again and retry.'] :
+                             ['🔄 Keep Learning','Go back to the content and try again!'];
+  document.getElementById('score-title').textContent = titles[0];
+  document.getElementById('score-sub').textContent = `${correct} / ${questions.length} correct  ·  ${titles[1]}`;
+}
+
+document.getElementById('restart-btn').addEventListener('click', () => {
+  currentQ = 0;
+  answered = new Array(questions.length).fill(false);
+  userAnswers = new Array(questions.length).fill(null);
+  document.getElementById('quiz-main').style.display = 'block';
+  document.getElementById('quiz-score-screen').style.display = 'none';
+  renderQuiz();
+});
+
+// init quiz
+renderQuiz();
+</script>
+</body>
+</html>
